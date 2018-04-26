@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    /// <summary>
+    /// Storage handling system. Stores storable items that implements the 
+    /// IStorable interface.
+    /// </summary>
+    /// <typeparam name="T">Class that implements IStoreable</typeparam>
     public class Storage<T> where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;

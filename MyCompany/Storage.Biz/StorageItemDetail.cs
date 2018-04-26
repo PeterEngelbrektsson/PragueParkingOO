@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    /// <summary>
+    /// Details about an item in storage.
+    /// </summary>
     public struct StorageItemDetail
     {
 

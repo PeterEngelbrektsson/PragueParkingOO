@@ -7,6 +7,9 @@ using MyCompany.Storage.Biz;
 
 namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 {
+    /// <summary>
+    /// A Vehcle that can be stored.
+    /// </summary>
     public class Vehicle : IStoreable
     {
         public int Size { get;}           // Size of vehicle
