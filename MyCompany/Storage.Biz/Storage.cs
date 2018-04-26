@@ -218,7 +218,18 @@ namespace MyCompany.Storage.Biz
         /// <param name="newPlace"></param>
         public void Move(string registrationNumber, int newPlace)
         {
-            throw new NotImplementedException();
+            if(newPlace<0 || newPlace > _storageSlots.Length)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            int slot = FindDistinctSlotNumber(registrationNumber);
+            if (slot < 0)
+            {
+                throw new StoreableNotFoundException();
+            }
+            T storeable = Peek(registrationNumber);
+            _storageSlots[slot].Remove(registrationNumber);
+            _storageSlots[newPlace].Add(storeable);
         }
 
         /// <summary>
