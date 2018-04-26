@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    
     /// <summary>
     /// Storage handling system. Stores storable items that implements the 
     /// IStorable interface.
@@ -13,7 +14,7 @@ namespace MyCompany.Storage.Biz
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
     public class Storage<T> where T : IStoreable
     {
-        private StorageSlot<T>[] _storageSlots;
+        private List<StorageSlot<T>> _storageSlots = new List<StorageSlot<T>>();
 
         /// <summary>
         /// Instanciates the storage with a number of slots of default size
@@ -31,6 +32,9 @@ namespace MyCompany.Storage.Biz
         /// <returns>Slot number the storeable has been parked in</returns>
         public int Add(T item)
         {
+            // find a slot with free place.
+            // set timestamp if not already set
+            // store item in slot
             throw new NotImplementedException();
         }
         /// <summary>

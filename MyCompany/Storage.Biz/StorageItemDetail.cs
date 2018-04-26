@@ -9,13 +9,13 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Details about an item in storage.
     /// </summary>
-    public struct StorageItemDetail
+    public struct StorageItemDetail<T>
     {
 
         public string RegistrationNumber;
         public int Size;
         public DateTime TimeStamp;
         public string Description;
-        public IStoreable Storeable;
+        public T Storeable;
     }
 }
