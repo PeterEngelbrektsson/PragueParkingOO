@@ -37,6 +37,14 @@ namespace MyOtherCompany.PragueParkingOO
         {
             WriteMessage(text, ConsoleColor.Green);
         }
+        /// <summary>
+        /// Write error message.
+        /// </summary>
+        /// <param name="text"></param>
+        public static void WriteErrorMessage(string[] text)
+        {
+            WriteMessage(string.Join("\n", text), ConsoleColor.Red);
+        }
     }
 
 }

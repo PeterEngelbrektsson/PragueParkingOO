@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MyOtherCompany.PragueParkingOO.Biz;
 using MyOtherCompany.PragueParkingOO.Biz.Vehicles;
 using MyCompany.Storage.Biz;
+using MyOtherCompany.Common;
 
 namespace MyOtherCompany.PragueParkingOO.UI
 {
@@ -367,6 +368,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         {
             bool loop = true;
             string registrationNumber = null;
+            string[] errorMessages;
             do
             {
                 Console.WriteLine("Please enter the registration number of the vehicle or 0 to bort: ");
@@ -377,13 +379,9 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     registrationNumber = null;
                     loop = false;
                 }
-                else if (registrationNumber.Length > Parking.MaxLengthOfRegistrationNumber)
+                else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
                 {
-                    Messenger.WriteErrorMessage("The registration number is too long.");
-                }
-                else if (!Parking.ValidRegistrationNumber(registrationNumber))
-                {
-                    Messenger.WriteErrorMessage("The registration number is not valid. Use A-Z 0-9");
+                    Messenger.WriteErrorMessage(errorMessages);
                 }
                 else
                 {
