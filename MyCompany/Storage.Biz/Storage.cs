@@ -74,6 +74,14 @@ namespace MyCompany.Storage.Biz
             throw new NotImplementedException();
         }
         /// <summary>
+        /// Returns the content of all partially or fully free storage slot
+        /// </summary>
+        /// <returns></returns>
+        public StorageSlotDetail FindFreeSlots()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
         /// Returns the content of the storage place with registration number that matches the searchstring
         /// </summary>
         /// <returns></returns>
