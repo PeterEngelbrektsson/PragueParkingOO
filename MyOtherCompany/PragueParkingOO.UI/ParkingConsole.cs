@@ -391,7 +391,58 @@ namespace MyOtherCompany.PragueParkingOO.UI
             } while (loop);
             return registrationNumber;
         }
+        public static VehicleType PromptForVehicelType()
+        {
+            bool loop = true;
+            VehicleType type= VehicleType.Unspecified;
+            do
+            {
+                Console.WriteLine("Please select type of vehicle or 0 to exit ");
+                
+                Console.WriteLine("1. Bike");
+                Console.WriteLine("2. MotorBike");
+                Console.WriteLine("3. Trike");
+                Console.WriteLine("4. Car");
 
+                string input = Console.ReadLine().ToUpper();
+                int typeNumber;
+                if (!int.TryParse(input, out typeNumber))
+                {
+                    Messenger.WriteErrorMessage("Enter a valid number.");
+                }
+                else if (typeNumber == 0)
+                {
+                    loop = false;
+                    type = VehicleType.Unspecified;
+                }
+                else if (typeNumber < 0 || typeNumber > 4)
+                {
+                    Messenger.WriteErrorMessage("Enter a number from the list.");
+                }
+                else
+                {
+                    switch (typeNumber)
+                    {
+                        case 1:
+                            type = VehicleType.Bike;
+                            break;
+                        case 2:
+                            type = VehicleType.Motorbike;
+                            break;
+                        case 3:
+                            type = VehicleType.Trike;
+                            break;
+                        case 4:
+                            type = VehicleType.Car;
+                            break;
+                    }
+                    loop = false;
+                }
+
+            } while (loop);
+
+            return type;
+        }
         /// <summary>
         /// Park Vehicle
         /// </summary>

@@ -9,6 +9,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 {
     public enum VehicleType
     {
+        Unspecified,
         Bike,
         Motorbike,
         Trike,
