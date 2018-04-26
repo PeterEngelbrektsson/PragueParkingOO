@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace MyCompany.Storage.Biz
     /// IStorable interface.
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
-    public class Storage<T> where T : IStoreable
+    public class Storage<T>:IEnumerable<T>,IEnumerable<StorageSlotDetail<T>> where T : IStoreable
     {
         private List<StorageSlot<T>> _storageSlots = new List<StorageSlot<T>>();
 
@@ -82,7 +83,7 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of all partially or fully free storage slot
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail FindFreeSlots()
+        public StorageSlotDetail<T> FindFreeSlots()
         {
             throw new NotImplementedException();
         }
@@ -137,6 +138,31 @@ namespace MyCompany.Storage.Biz
         public void Move(string registrationNumber, int newPlace)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach(StorageSlot<T> slot in _storageSlots)
+            {
+                foreach(T item in slot)
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator<Biz.StorageSlotDetail<T>> IEnumerable<Biz.StorageSlotDetail<T>>.GetEnumerator()
+        {
+            foreach(StorageSlot<T> slot in _storageSlots)
+            {
+                StorageSlotDetail<T> item = slot.GetSlotDetails();
+                yield return item;
+            }
         }
     }
 }

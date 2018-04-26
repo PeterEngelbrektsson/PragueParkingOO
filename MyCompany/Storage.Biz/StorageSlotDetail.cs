@@ -15,6 +15,6 @@ namespace MyCompany.Storage.Biz
         public int FreeSpace;
         public int OccupiedSpace;
         public int Size;
-        public List<StorageItemDetail<T>> StorageSlotDetails;
+        public List<StorageItemDetail<T>> StorageItemDetails;
     }
 }

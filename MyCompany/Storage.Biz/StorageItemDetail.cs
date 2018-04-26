@@ -16,6 +16,6 @@ namespace MyCompany.Storage.Biz
         public int Size;
         public DateTime TimeStamp;
         public string Description;
-        public T Storeable;
+
     }
 }

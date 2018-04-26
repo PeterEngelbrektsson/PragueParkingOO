@@ -11,9 +11,16 @@ namespace MyCompany.Storage.Biz
     /// An storage slot that can contain several items.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class StorageSlot<T>:IEnumerable<StorageItemDetail<T>>,IEnumerable<T> where T:IStoreable
+    public class StorageSlot<T> : IEnumerable<StorageItemDetail<T>>, IEnumerable<T> where T : IStoreable
     {
         private List<T> _storables = new List<T>();
+        public int Size = 4;
+        public int SlotNumber { get; private set; }
+
+        public StorageSlot(int slotNumber)
+        {
+            SlotNumber = slotNumber;
+        }
         /// <summary>
         /// Adds a storeable to the storage slot.
         /// Throws exeption if registrationnumber already exists
@@ -41,6 +48,14 @@ namespace MyCompany.Storage.Biz
             throw new NotImplementedException();
         }
         /// <summary>
+        /// Counts the number of free spaces 
+        /// </summary>
+        /// <returns></returns>
+        public int FreeSpaces()
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
         /// Retrieves an item from storage without removing it
         /// </summary>
         /// <param name="registrationNumber"></param>
@@ -49,21 +64,45 @@ namespace MyCompany.Storage.Biz
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
-        /// Checks if the storage slot is partially or fully occupied
+        /// Returns the amount of occupied space in the slot
         /// </summary>
         /// <returns></returns>
-        public bool OccupiedSlots()
+        public int Occupied()
         {
             throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Generates a storables details report for the slot;
+        /// </summary>
+        public List<StorageItemDetail<T>> GetStorageItemDetailsReport()
+        {
+            List<StorageItemDetail<T>> details = new List<StorageItemDetail<T>>();
+            
+            foreach(T item in _storables)
+            {
+                StorageItemDetail<T> detail = new StorageItemDetail<T>();
+                detail.Size = item.Size;
+                detail.TimeStamp = item.TimeStamp;
+                detail.RegistrationNumber = item.RegistrationNumber;
+                detail.Description = item.Description;
+                details.Add(detail);
+            }
+            return details;
         }
         /// <summary>
         /// Returns the content of the parking place
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail<T> Occupied()
+        public StorageSlotDetail<T> GetSlotDetails()
         {
-            throw new NotImplementedException();
+            StorageSlotDetail<T> item = new StorageSlotDetail<T>();
+            item.FreeSpace = FreeSpaces();
+            item.OccupiedSpace = Occupied();
+            item.SlotNumber = SlotNumber;
+            item.StorageItemDetails = GetStorageItemDetailsReport();
+            return item;
         }
         /// <summary>
         /// Finds a stored storeables  slot number
@@ -76,28 +115,40 @@ namespace MyCompany.Storage.Biz
         }
 
     
-
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return ((IEnumerable<T>)_storables).GetEnumerator();
         }
 
+        /// <summary>
+        /// Enumerates storageItemDetailsReports for all T's in slot
+        /// </summary>
+        /// <returns></returns>
         IEnumerator<StorageItemDetail<T>> IEnumerable<StorageItemDetail<T>>.GetEnumerator()
         {
-            foreach(T item in _storables)
+            foreach(StorageItemDetail<T> item in GetStorageItemDetailsReport())
             {
-                StorageItemDetail<T> itemDetail = new StorageItemDetail<T>();
-                itemDetail.Size = item.Size;
-                itemDetail.TimeStamp = item.TimeStamp;
-                itemDetail.RegistrationNumber = item.RegistrationNumber;
-                itemDetail.Storeable = item;
-                yield return itemDetail;
+                yield return item;
             }
         }
-
+        /// <summary>
+        ///  Enumerates all T in slot
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
             return ((IEnumerable<T>)_storables).GetEnumerator();
+        }
+        public T this[int index]
+        {
+            get
+            {
+                if(index<0 || index > _storables.Count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                return _storables[index];
+            }
         }
     }
 }
