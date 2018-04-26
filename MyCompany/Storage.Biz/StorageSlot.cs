@@ -13,7 +13,7 @@ namespace MyCompany.Storage.Biz
         /// Throws exeption if registrationnumber already exists
         /// </summary>
         /// <param name="item">Item to store</param>
-        public void Add(IStoreable item)
+        public void Add(T item)
         {
             throw new NotImplementedException();
         }
@@ -39,7 +39,7 @@ namespace MyCompany.Storage.Biz
         /// </summary>
         /// <param name="registrationNumber"></param>
         /// <returns></returns>
-        public IStoreable Peek(string registrationNumber)
+        public T Peek(string registrationNumber)
         {
             throw new NotImplementedException();
         }
@@ -55,7 +55,7 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of the parking place
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail Occupied()
+        public StorageSlotDetail<T> Occupied()
         {
             throw new NotImplementedException();
         }

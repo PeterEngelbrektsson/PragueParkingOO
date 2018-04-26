@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
-    public struct StorageSlotDetail
+    public struct StorageSlotDetail<T>
     {
         public int SlotNumber;
         public int FreeSpace;
         public int OccupiedSpace;
         public int Size;
-        public List<StorageSlotDetail> StorageSlotDetails;
+        public List<StorageItemDetail<T>> StorageItemDetails;
     }
 }

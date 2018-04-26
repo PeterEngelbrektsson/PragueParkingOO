@@ -23,7 +23,7 @@ namespace MyCompany.Storage.Biz
         /// Throws exeption if registrationnumber already exists
         /// </summary>
         /// <param name="item">Item to be stored</param>
-        public void Add(IStoreable item)
+        public void Add(T item)
         {
             throw new NotImplementedException();
         }
@@ -36,11 +36,11 @@ namespace MyCompany.Storage.Biz
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Counts the number of free spaces for a specifik storeable type
+        /// Counts the number of free spaces for a specifik storeable size
         /// </summary>
-        /// <param name="storageType"></param>
+        /// <param name="size">The size of the storeable item</param>
         /// <returns></returns>
-        public int FreeSpacesCount(Type storeableType)
+        public int FreeSpacesCount(int size)
         {
             throw new NotImplementedException();
         }
@@ -56,7 +56,7 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of the storage place
         /// </summary>
         /// <returns></returns>
-        public List<StorageSlotDetail> Occupied()
+        public List<StorageSlotDetail<T>> Occupied()
         {
             throw new NotImplementedException();
         }
@@ -64,7 +64,7 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of a storage slot
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail Occupied(int SlotNumber)
+        public StorageSlotDetail<T> Occupied(int SlotNumber)
         {
             throw new NotImplementedException();
         }
@@ -72,7 +72,7 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of the storage place with registration number that matches the searchstring
         /// </summary>
         /// <returns></returns>
-        public List<StorageItemDetail> Find(string SearchString)
+        public List<StorageItemDetail<T>> Find(string SearchString)
         {
             throw new NotImplementedException();
         }
@@ -80,7 +80,7 @@ namespace MyCompany.Storage.Biz
         /// Returns all storables stored in the storage place 
         /// </summary>
         /// <returns></returns>
-        public List<StorageItemDetail> FindAll( )
+        public List<StorageItemDetail<T>> FindAll( )
         {
             throw new NotImplementedException();
         }
@@ -98,7 +98,7 @@ namespace MyCompany.Storage.Biz
         /// </summary>
         /// <param name="registrationNumber"></param>
         /// <returns></returns>
-        public IStoreable Peek(string registrationNumber)
+        public T Peek(string registrationNumber)
         {
             throw new NotImplementedException();
         }
