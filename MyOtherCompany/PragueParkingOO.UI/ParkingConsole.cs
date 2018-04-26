@@ -400,18 +400,41 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         /// <param name="registrationNumber"></param>
         /// <param name="vehicleType"></param>
-        public static void ParkVehicle(string[] parkingPlace, string registrationNumber, VehicleType vehicleType)
+        public static void ParkVehicle(Storage<Vehicle> parkingPlace, string registrationNumber, VehicleType vehicleType)
         {
+            Vehicle newVehicle=null;
+            switch (vehicleType)
+            {
+                case VehicleType.Bike:
+                    Bike newBike = new Bike();
+                    newBike.RegistrationNumber = registrationNumber;
+                    newVehicle = newBike;
+                    // Should per specification use the specialized properties of the class Bike
+                    // Ask the user for input and set properties
+                    throw new NotImplementedException();
+                    break;
+                case VehicleType.Motorbike:
+                    MotorBike newMotorBike = new MotorBike();
+                    newMotorBike.RegistrationNumber = registrationNumber;
+                    newVehicle = newMotorBike;
+                    // Should per specification use the specialized properties of the class MotorBike
+                    // Ask the user for input and set properties
+                    throw new NotImplementedException();
+                    break;
+
+                    // more classes of vehicles
+                    throw new NotImplementedException();
+            }
             try
             {
-                int position = Parking.Add(parkingPlace, registrationNumber, vehicleType); // Park at suitable position (if any)
+                int position = parkingPlace.Add(newVehicle); // Park at suitable position (if any)
                 Messenger.WriteInformationMessage(String.Format("Your vehicle has been parked at place number {0}.", position + 1));
             }
-            catch (RegistrationNumberAlreadyExistException)
+            catch (RegistrationNumberAlreadyExistsException)
             {
                 Messenger.WriteErrorMessage("Registration number already exist. Cannot have two vehicles with same.");
             }
-            catch (ParkingPlaceFullException)
+            catch (StorageToFullForStoreableException)
             {
                 Messenger.WriteErrorMessage("The parking place has no room for the vehicel.");
             }

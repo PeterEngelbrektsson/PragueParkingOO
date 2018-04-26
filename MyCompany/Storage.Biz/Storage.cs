@@ -28,7 +28,8 @@ namespace MyCompany.Storage.Biz
         /// Throws exeption if registrationnumber already exists
         /// </summary>
         /// <param name="item">Item to be stored</param>
-        public void Add(T item)
+        /// <returns>Slot number the storeable has been parked in</returns>
+        public int Add(T item)
         {
             throw new NotImplementedException();
         }
