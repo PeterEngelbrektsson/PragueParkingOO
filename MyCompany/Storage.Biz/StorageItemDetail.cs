@@ -9,6 +9,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Details about an item in storage.
     /// </summary>
+    [Serializable]
     public struct StorageItemDetail<T>
     {
 
@@ -16,6 +17,7 @@ namespace MyCompany.Storage.Biz
         public int Size;
         public DateTime TimeStamp;
         public string Description;
+        public int StorageSlotNumber;
 
     }
 }

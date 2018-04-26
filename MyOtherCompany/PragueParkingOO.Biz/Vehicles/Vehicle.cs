@@ -10,6 +10,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     /// <summary>
     /// A Vehcle that can be stored.
     /// </summary>
+    [Serializable]
     public class Vehicle : IStoreable
     {
         public int Size { get;}           // Size of vehicle

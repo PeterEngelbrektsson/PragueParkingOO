@@ -9,6 +9,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Details about a storage slot
     /// </summary>
+    [Serializable]
     public struct StorageSlotDetail<T>
     {
         public int SlotNumber;

@@ -11,6 +11,7 @@ namespace MyCompany.Storage.Biz
     /// An storage slot that can contain several items.
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Serializable]
     public class StorageSlot<T> : IEnumerable<StorageItemDetail<T>>,IEnumerable<T> where T : IStoreable
     {
         private List<T> _storables = new List<T>();
@@ -127,6 +128,7 @@ namespace MyCompany.Storage.Biz
                 detail.TimeStamp = item.TimeStamp;
                 detail.RegistrationNumber = item.RegistrationNumber;
                 detail.Description = item.Description;
+                detail.StorageSlotNumber = this.SlotNumber;
                 details.Add(detail);
             }
             return details;

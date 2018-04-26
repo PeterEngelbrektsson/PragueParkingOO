@@ -13,18 +13,19 @@ namespace MyOtherCompany.PragueParkingOO.UI
     public static class ParkingConsole
     {
         public const int NumberOfParkinPlaces = 100;
-        public const string ParkingPlaceFileName = "ParkinPlace1_1.bin";
+        public const string ParkingPlaceFileName = "ParkinPlace2_0.bin";
 
         /// <summary>
         /// Writes the main menu 
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void WriteMenu(string[] parkingPlace)
+        public static void WriteMenu(Storage<Vehicle> parkingPlace)
         {
             Console.WriteLine();
             Console.WriteLine("  Prague Parking v1.0");
             Console.WriteLine("-----------------------");
             Console.WriteLine("1. Add a vehicle");
+            Console.WriteLine("2. Display overview");
             Console.WriteLine("3. Move a vehicle");
             Console.WriteLine("4. Find a vehicle");
             Console.WriteLine("5. Remove a vehicle");
@@ -45,30 +46,36 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Display a message if the park can be optimized.
         /// </summary>
         /// <param name="parkingPlace">The parking place</param>
-        public static void DisplayIfCanBeOptimized(string[] parkingPlace)
+        public static void DisplayIfCanBeOptimized(Storage<Vehicle> parkingPlace)
         {
+            /*
             int singleMcs = Parking.NumberOfSingleParkedMcs(parkingPlace);
             if (singleMcs > 1)
             {
                 Console.WriteLine();
                 Messenger.WriteInformationMessage(String.Format("The parkingspace can be optimized. There are {0} single parked motorcycles.", singleMcs));
             }
+            */
+            throw new NotImplementedException();
         }
+        
         /// <summary>
         /// Displays statistics about the parking place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayStatistics(string[] parkingPlace)
+        public static void DisplayStatistics(Storage<Vehicle> parkingPlace)
         {
-            int singleMcs = Parking.NumberOfSingleParkedMcs(parkingPlace);
-            int fullParkingPlaces = Parking.NumberOfFullParkingPlaces(parkingPlace);
-            int freeParkingPlacesCar = Parking.NumberOfFreeParkingPlaces(parkingPlace, VehicleType.Car);
-            int freeParkingPlacesMc = Parking.NumberOfFreeParkingPlaces(parkingPlace, VehicleType.Mc);
+            int freeParkingPlacesCar = parkingPlace.FreeSpacesCount(new Car().Size);
+            int freeParkingPlacesBike = parkingPlace.FreeSpacesCount(new Bike().Size);
+            int freeParkingPlacesMotorBike = parkingPlace.FreeSpacesCount(new MotorBike().Size);
+            int freeParkingPlacesTrike = parkingPlace.FreeSpacesCount(new Trike().Size);
+            int OccupiedParkingPlaces = parkingPlace.OccupiedCount();
             Console.WriteLine();
             Messenger.WriteInformationMessage(String.Format("The number of free parking places for cars {0}.", freeParkingPlacesCar));
-            Messenger.WriteInformationMessage(String.Format("The number of free parking places for motorcycles {0}.", freeParkingPlacesMc));
-            Messenger.WriteInformationMessage(String.Format("The number of full parking places {0}.", fullParkingPlaces));
-            Messenger.WriteInformationMessage(String.Format("The number of single parked motorcycles {0}.", singleMcs));
+            Messenger.WriteInformationMessage(String.Format("The number of free parking places for motorcycles {0}.", freeParkingPlacesMotorBike));
+            Messenger.WriteInformationMessage(String.Format("The number of free parking places for trikes {0}.", freeParkingPlacesTrike));
+            Messenger.WriteInformationMessage(String.Format("The number of free parking places for bikes{0}.", freeParkingPlacesBike));
+            Messenger.WriteInformationMessage(String.Format("The number of occupied parking places {0}.", OccupiedParkingPlaces));
         }
         /// <summary>
         /// Display the menu bar.
@@ -103,6 +110,9 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         case 1: // Add a Vehicle
                             ParkVehicle(parkingPlace);
                             break;
+                        case 2: // Display overview
+                            DisplayOverview(parkingPlace);
+                            break;
 
                         case 3: // Move a vehicle
                             MoveVehicle(parkingPlace);
@@ -119,17 +129,18 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         case 6: // Find free parking spot
                             FindFreeSpot(parkingPlace);
                             break;
-
+                            /*
                         case 7: // Optimize parking spot
                             Optimize(parkingPlace); // Optimize the parking place
                             break;
-
+                            */
                         case 8: // List all vehicles in parking lot
                             DisplayParkedVehicels(parkingPlace);
                             break;
                         case 9: //Display statistics
                             DisplayStatistics(parkingPlace);
                             break;
+                            /*
                         case 10: //Save
                             Parking.SaveToFile(parkingPlace, ParkingPlaceFileName);
                             Messenger.WriteInformationMessage("Database saved to file.");
@@ -138,6 +149,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                             parkingPlace = Parking.LoadFromFile(ParkingPlaceFileName);
                             Messenger.WriteInformationMessage("Database loaded from file.");
                             break;
+                            */
                         default: // None of the above
 
                             Console.WriteLine();
@@ -152,15 +164,15 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Displays a list of all parked vehicles in the parking place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayParkedVehicels(string[] parkingPlace)
+        public static void DisplayParkedVehicels(Storage<Vehicle> parkingPlace)
         {
-            Dictionary<int, string> parkedVehicles;
-            parkedVehicles = Parking.ListParkedVehicels(parkingPlace);
+
+            var parkedVehicles = parkingPlace.FindAll();
             if (parkedVehicles != null && parkedVehicles.Count > 0)
             {
-                foreach (KeyValuePair<int, string> slot in parkedVehicles)
+                foreach (var vehicle in parkedVehicles)
                 {
-                    Console.WriteLine("{0} {1} ", slot.Key + 1, slot.Value); // Display should be 1 based
+                    Console.WriteLine("{0} {1} ", vehicle.RegistrationNumber, vehicle.TimeStamp); 
                 }
             }
             else
@@ -168,25 +180,68 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Messenger.WriteInformationMessage("The parkingplace is empty.");
             }
         }
+
+        
+        /// <summary>
+        /// Displays overview of all parked vehicles in the parking place.
+        /// </summary>
+        /// <param name="parkingPlace"></param>
+        public static void DisplayOverview(Storage<Vehicle> parkingPlace)
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Slot Used Vehicles");
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+
+            foreach (StorageSlotDetail<Vehicle> report in parkingPlace)
+            {
+                if (report.FreeSpace == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if (report.FreeSpace> 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                Console.Write(" {0,3} {1,1}/{2,1}", report.SlotNumber, report.OccupiedSpace, report.Size);
+                Console.ForegroundColor = ConsoleColor.White;
+                foreach (var itemDetail in report.StorageItemDetails)
+                {
+                    Console.Write(" {0,10} ", itemDetail.RegistrationNumber);
+                }
+                Console.WriteLine();
+            }
+                        
+        }
+
         /// <summary>
         /// Optimizes the parking place. Moves single parked motorcycles together in the same slots.
         /// Displays a list of movements to be performed by the employees.
         /// </summary>
         /// <param name="parkingPlace"></param>
+
         public static void Optimize(string[] parkingPlace)
         {
-            string[] messages;
-            messages = Parking.Optimize(parkingPlace);
+            /*
+                        string[] messages;
+                        messages = Parking.Optimize(parkingPlace);
 
-            foreach (string message in messages)
-            {
-                Messenger.WriteInformationMessage(message);
-            }
-            if (messages.Length < 1)
-            {
-                Messenger.WriteInformationMessage("The parkingplace is alreadey optimized.");
-            }
+                        foreach (string message in messages)
+                        {
+                            Messenger.WriteInformationMessage(message);
+                        }
+                        if (messages.Length < 1)
+                        {
+                            Messenger.WriteInformationMessage("The parkingplace is alreadey optimized.");
+                        }
+
+                        */
+            throw new NotImplementedException();
         }
+
         /// <summary>
         /// Removes a vehicle from the parking place.
         /// </summary>
@@ -223,32 +278,40 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Finding free parking place. 
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void FindFreeSpot(string[] parkingPlace)
+        public static void FindFreeSpot(Storage<Vehicle> parkingPlace)
         {
-            Console.WriteLine("Please specify if your vehicle is a car or an mc : ");
-            string isCarOrMc;
-            VehicleType vehicleType;
-            int position;
-
-            isCarOrMc = Console.ReadLine(); // get user input
-
-            if (isCarOrMc == "mc")
+            
+            
+            VehicleType vehicleType = PromptForVehicelType();
+            if (vehicleType == VehicleType.Unspecified)
             {
-                vehicleType = VehicleType.Mc; // It's a motorcycle
-            }
-
-            else if (isCarOrMc == "car")
-            {
-                vehicleType = VehicleType.Car; // It's a car
-            }
-
-            else
-            {
-                Messenger.WriteErrorMessage("Choose either car or mc. Other vehicles not allowed in the parking lot."); // Neither car nor mc, throw exception !
+                // user aborted registration
                 return;
             }
+            int position;
+            int size=0;
+            switch (vehicleType)
+            {
+                case VehicleType.Bike:
+                    size = new Bike().Size;
+                    break;
+                case VehicleType.MotorBike:
+                    size = new MotorBike().Size;
+                    break;
+                case VehicleType.Trike:
+                    size = new Trike().Size;
+                    break;
+                case VehicleType.Car:
+                    size = new Car().Size;
+                    break;
+            }
 
-            position = Parking.FindFreePlace(parkingPlace, vehicleType); // Find a free position for car or mc, depending on user choice
+
+            position = parkingPlace.FindFreePlace(size); // Find a free position for car or mc, depending on user choice
+            if (position < 0)
+            {
+                Messenger.WriteErrorMessage("The parking place is full.");
+            }
             Messenger.WriteInformationMessage(String.Format("There is a free place for your vehicle at {0}.", position + 1));
 
         }
@@ -256,12 +319,12 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Finding Vehicle
         /// </summary>
         /// <param name="parkingPlace"></param>
-        static void FindVehicle(string[] parkingPlace)
+        static void FindVehicle(Storage<Vehicle> parkingPlace)
         {
             Console.WriteLine("Please enter the registration number of the vehicle : ");
             string registrationNumber = Console.ReadLine().ToUpper();
 
-            int position = Parking.FindDistinct(parkingPlace, registrationNumber); // Position where vehicle is located (if any)
+            int position = parkingPlace.FindDistinctSlotNumber(registrationNumber); // Position where vehicle is located (if any)
 
             if (position != -1)
             {
@@ -271,12 +334,12 @@ namespace MyOtherCompany.PragueParkingOO.UI
             else
             {
                 // No exact match found
-                Dictionary<int, string> searchResult = Parking.FindSearchString(parkingPlace, registrationNumber);
+                var searchResult = parkingPlace.Find(registrationNumber);
                 if (searchResult.Count > 0)
                 {
-                    foreach (KeyValuePair<int, string> vehicle in searchResult)
+                    foreach (var detail in searchResult)
                     {
-                        Console.WriteLine("{0} {1}", vehicle.Key + 1, vehicle.Value);
+                        Console.WriteLine("{0,3} {1,10}", detail.StorageSlotNumber+ 1, detail.RegistrationNumber);
                     }
                 }
                 else

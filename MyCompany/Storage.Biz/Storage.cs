@@ -13,6 +13,7 @@ namespace MyCompany.Storage.Biz
     /// IStorable interface.
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
+    [Serializable]
     public class Storage<T>:IEnumerable<StorageSlotDetail<T>> where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;

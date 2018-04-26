@@ -10,6 +10,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     /// <summary>
     /// A Car that can be stored.
     /// </summary>
+    [Serializable]
     public class Car:Vehicle
     {
         public string Colour;
