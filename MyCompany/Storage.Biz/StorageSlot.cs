@@ -28,7 +28,20 @@ namespace MyCompany.Storage.Biz
         /// <param name="item">Item to store</param>
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            if (Contains(item.RegistrationNumber))
+            {
+                throw new RegistrationNumberAlreadyExistsException();
+            }
+            if (item.Size > FreeSpace())
+            {
+                throw new StorageSlotToFullForStoreableException();
+            }
+            if (item.TimeStamp == null)
+            {
+                item.TimeStamp = DateTime.Now; // Set timestamp if null. 
+                //If not null it has already been checked in and is only moved around inside the storage
+            }
+            _storables.Add(item);
         }
         /// <summary>
         /// Removes a storeable from the storage slot
@@ -36,7 +49,14 @@ namespace MyCompany.Storage.Biz
         /// <param name="registrationNumber"></param>
         public void Remove(string registrationNumber)
         {
-            throw new NotImplementedException();
+            if (!Contains(registrationNumber))
+            {
+                throw new RegistrationNumberAlreadyExistsException();
+            }
+
+            T item = Peek(registrationNumber);
+            _storables.Remove(item);
+
         }
         /// <summary>
         /// Counts the number of free spaces for a specifik storable size
@@ -45,15 +65,20 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public int FreeSpaces(int size)
         {
-            throw new NotImplementedException();
+            if (size < 0)
+            {
+                throw new ArgumentException();
+            }
+            int freeSpaces = FreeSpace() / size;    // The number of storabels of a specific size that fits in the slot
+            return freeSpaces;
         }
         /// <summary>
         /// Counts the number of free spaces 
         /// </summary>
         /// <returns></returns>
-        public int FreeSpaces()
+        public int FreeSpace()
         {
-            throw new NotImplementedException();
+            return Size - Occupied();
         }
         /// <summary>
         /// Retrieves an item from storage without removing it
@@ -62,7 +87,16 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public T Peek(string registrationNumber)
         {
-            throw new NotImplementedException();
+            T result= default(T);
+            foreach(T item in _storables)
+            {
+                if (item.RegistrationNumber.Equals(registrationNumber))
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -71,7 +105,12 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public int Occupied()
         {
-            throw new NotImplementedException();
+            int OccupiedSpace = 0;
+            foreach (T t in this)
+            {
+                OccupiedSpace += t.Size;
+            }
+            return OccupiedSpace;
         }
         /// <summary>
         /// Generates a storables details report for the slot;
@@ -98,7 +137,7 @@ namespace MyCompany.Storage.Biz
         public StorageSlotDetail<T> GetSlotDetails()
         {
             StorageSlotDetail<T> item = new StorageSlotDetail<T>();
-            item.FreeSpace = FreeSpaces();
+            item.FreeSpace = FreeSpace();
             item.OccupiedSpace = Occupied();
             item.SlotNumber = SlotNumber;
             item.StorageItemDetails = GetStorageItemDetailsReport();
@@ -111,7 +150,16 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public bool Contains(string registrationNumber)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            foreach(T t in this)
+            {
+                if (t.RegistrationNumber.Equals(registrationNumber))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
         }
 
     

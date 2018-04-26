@@ -110,7 +110,16 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public int FindDistinctSlotNumber(string registrationNumber)
         {
-            throw new NotImplementedException();
+            int found = -1;
+            for(int i=0; i<_storageSlots.Count;i++)
+            {
+                if (_storageSlots[i].Contains(registrationNumber))
+                {
+                    found = i;
+                    break;
+                }
+            }
+            return found;
         }
         /// <summary>
         /// Retrieves an item from storage without removing it
