@@ -164,5 +164,19 @@ namespace MyCompany.Storage.Biz
                 yield return item;
             }
         }
+        public StorageItemDetail<T> this[int index]
+        {
+
+            get
+            {
+                List<StorageItemDetail<T>> storableReports = FindAll();
+                if(index<0 || index > storableReports.Count)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                return storableReports[index];
+            }
+            // Should only be get able. No set functionality.
+        }
     }
 }
