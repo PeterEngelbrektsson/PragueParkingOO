@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    /// <summary>
+    /// A storable item that can be stored in the storage.
+    /// </summary>
     public interface IStoreable
     {
         int Size { get; }                           // Size of stored thing

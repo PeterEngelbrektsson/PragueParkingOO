@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    /// <summary>
+    /// Storage handling system. Stores storable items that implements the 
+    /// IStorable interface.
+    /// </summary>
+    /// <typeparam name="T">Class that implements IStoreable</typeparam>
     public class Storage<T> where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;
@@ -65,6 +70,14 @@ namespace MyCompany.Storage.Biz
         /// </summary>
         /// <returns></returns>
         public StorageSlotDetail<T> Occupied(int SlotNumber)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Returns the content of all partially or fully free storage slot
+        /// </summary>
+        /// <returns></returns>
+        public StorageSlotDetail FindFreeSlots()
         {
             throw new NotImplementedException();
         }

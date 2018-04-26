@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
-    public struct StorageItemDetail<T>
+    /// <summary>
+    /// Details about an item in storage.
+    /// </summary>
+    public struct StorageItemDetail
     {
 
         public string RegistrationNumber;
         public int Size;
         public DateTime TimeStamp;
         public string Description;
-        public T Storeable;
+        public IStoreable Storeable;
     }
 }

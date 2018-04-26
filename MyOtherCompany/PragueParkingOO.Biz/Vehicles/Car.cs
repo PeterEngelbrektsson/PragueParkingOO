@@ -7,6 +7,9 @@ using MyCompany.Storage.Biz;
 
 namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 {
+    /// <summary>
+    /// A Car that can be stored.
+    /// </summary>
     public class Car:Vehicle
     {
         public string Colour;

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
+    /// <summary>
+    /// An storage slot that can contain several items.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class StorageSlot<T>
     {
         /// <summary>
