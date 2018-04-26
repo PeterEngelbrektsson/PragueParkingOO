@@ -444,6 +444,30 @@ namespace MyOtherCompany.PragueParkingOO.UI
             return type;
         }
         /// <summary>
+        /// Prompts the user for a motorbike mark
+        /// </summary>
+        /// <returns></returns>
+        public static string PromptForMark()
+        {
+            bool loop = true;
+            string mark = null;
+            do
+            {
+                Console.WriteLine("Please enter the mark of the motorbike: ");
+                mark = Console.ReadLine().ToUpper();
+                if (string.IsNullOrEmpty(mark))
+                {
+                    // Contiune looping
+                }
+                else
+                {
+                    // a string has been entered
+                    loop = false;
+                }
+            } while (loop);
+            return mark;
+        }
+        /// <summary>
         /// Park Vehicle
         /// </summary>
         /// <param name="parkingPlace"></param>
@@ -468,9 +492,18 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     newVehicle = newMotorBike;
                     // Should per specification use the specialized properties of the class MotorBike
                     // Ask the user for input and set properties
-                    throw new NotImplementedException();
+                    string mark=PromptForMark();
+                    newMotorBike.Mark = mark;
                     break;
 
+                case VehicleType.Trike:
+                    MotorBike newTrike = new MotorBike();
+                    newTrike.RegistrationNumber = registrationNumber;
+                    newVehicle = newTrike;
+                    // Should per specification use the specialized properties of the class MotorBike
+                    // Ask the user for input and set properties
+                    throw new NotImplementedException();
+                    break;
                     // more classes of vehicles
                     throw new NotImplementedException();
             }
@@ -488,31 +521,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Messenger.WriteErrorMessage("The parking place has no room for the vehicel.");
             }
         }
-        /// <summary>
-        /// Add motocycle
-        /// </summary>
-        /// <param name="parkingPlace"></param>
-        public static void AddMc(string[] parkingPlace)
-        {
-            string registrationNumber = PromptForRegistrationNumber();
-            if (registrationNumber != null)
-            {
-                ParkVehicle(parkingPlace, registrationNumber, VehicleType.Mc);
-            }
-        }
-
-        /// <summary>
-        /// Add Car
-        /// </summary>
-        /// <param name="parkingPlace"></param>
-        static void AddCar(string[] parkingPlace)
-        {
-            string registrationNumber = PromptForRegistrationNumber();
-            if (registrationNumber != null)
-            {
-                ParkVehicle(parkingPlace, registrationNumber, VehicleType.Car);
-            }
-        }
+     
         /// <summary>
         /// Revome Vehicle
         /// </summary>
