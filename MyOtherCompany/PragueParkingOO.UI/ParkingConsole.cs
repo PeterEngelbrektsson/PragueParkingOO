@@ -295,69 +295,76 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Moving Vehicle one place to another place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void MoveVehicle(string[] parkingPlace)
+        public static void MoveVehicle(Storage<Vehicle> parkingPlace)
         {
             Console.Write("Enter the registration number: ");
             string registrationNumber = Console.ReadLine().ToUpper();
-            int oldPosition = Parking.FindDistinct(parkingPlace, registrationNumber);
+            int oldPosition = parkingPlace.FindDistinctSlotNumber(registrationNumber);
             if (oldPosition < 0)
             {
                 Messenger.WriteErrorMessage("The vehicle could not be found.");
                 return;
             }
-            VehicleType vehicleType = Parking.GetVehicleTypeOfParkedVehicle(parkingPlace, oldPosition, registrationNumber);
-
-            int newPosition = Parking.FindFreePlace(parkingPlace, vehicleType); // Original position of the vehicle
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Suggest parking position for your vehicle will be {0}", newPosition + 1); // zero to one based index
-            Console.Write("Do you accept this ? Please choose YES or NO. : ");
-            Console.ForegroundColor = ConsoleColor.White;
-
-            string yesOrNo = Console.ReadLine().ToUpper();
-
-            if (yesOrNo == "YES")
+            Vehicle v = parkingPlace.Peek(registrationNumber);
+            try
             {
-                // Move vehicle to new position
-                try
+                int newPosition = parkingPlace.FindFreePlace(v.Size);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Suggest parking position for your vehicle will be {0}", newPosition + 1); // zero to one based index
+                Console.Write("Do you accept this ? Please choose YES or NO. : ");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                string yesOrNo = Console.ReadLine().ToUpper();
+
+                if (yesOrNo == "YES")
                 {
-                    Parking.Move(parkingPlace, registrationNumber.ToUpper(), newPosition);// convert form one based to zerop based index
-                    Messenger.WriteInformationMessage("The vehicle has been moved.");
-                }
-                catch (VehicleNotFoundException)
-                {
-                    Messenger.WriteInformationMessage("The vehicle could not be found.");
+                    // Move vehicle to new position
+                    try
+                    {
+                        parkingPlace.Move(registrationNumber.ToUpper(), newPosition);// convert form one based to zerop based index
+                        Messenger.WriteInformationMessage("The vehicle has been moved.");
+                    }
+                    catch (StoreableNotFoundException)
+                    {
+                        Messenger.WriteInformationMessage("The vehicle could not be found.");
+                    }
+
                 }
 
+                else if (yesOrNo == "NO")
+                {
+                    Console.WriteLine("OK, lets try finding another parking place that is suitable for you");
+                    Console.Write("Please choose a parking place and we shall see if it is available : ");
+                    int userPosition = int.Parse(Console.ReadLine());
+                    try
+                    {
+                        parkingPlace.Move(registrationNumber.ToUpper(), userPosition - 1);// convert form one based to zerop based index
+                        Messenger.WriteInformationMessage("The vehicle has been moved.");
+                    }
+                    catch (StoreableNotFoundException)
+                    {
+                        Messenger.WriteErrorMessage("The vehicle could not be found.");
+                    }
+                    catch (StorageSlotToFullForStoreableException ex)
+                    {
+                        Messenger.WriteErrorMessage("The selected new position is already full.");
+                        Messenger.WriteErrorMessage(ex.Message);
+                    }
+                    catch (StoreableAlreadyAtThePosition)
+                    {
+                        Messenger.WriteErrorMessage("The vehicle is already parked at that position.");
+                    }
+                }
+                else
+                {
+                    Messenger.WriteErrorMessage("You have to make a proper choice.");
+                }
+            }
+            catch (StorageToFullForStoreableException)
+            {
+                Messenger.WriteErrorMessage("The parking place is to full for the vehicle to be moved.");
             }
 
-            else if (yesOrNo == "NO")
-            {
-                Console.WriteLine("OK, lets try finding another parking place that is suitable for you");
-                Console.Write("Please choose a parking place and we shall see if it is available : ");
-                int userPosition = int.Parse(Console.ReadLine());
-                try
-                {
-                    Parking.Move(parkingPlace, registrationNumber.ToUpper(), userPosition - 1);// convert form one based to zerop based index
-                    Messenger.WriteInformationMessage("The vehicle has been moved.");
-                }
-                catch (VehicleNotFoundException)
-                {
-                    Messenger.WriteErrorMessage("The vehicle could not be found.");
-                }
-                catch (ParkingPlaceOccupiedException ex)
-                {
-                    Messenger.WriteErrorMessage("The selected new position is already full.");
-                    Messenger.WriteErrorMessage(ex.Message);
-                }
-                catch (VehicleAlreadyAtThatPlaceException)
-                {
-                    Messenger.WriteErrorMessage("The vehicle is already parked at that position.");
-                }
-            }
-            else
-            {
-                Messenger.WriteErrorMessage("You have to make a proper choice.");
-            }
 
         }
         /// <summary>

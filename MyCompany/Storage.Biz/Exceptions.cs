@@ -35,7 +35,7 @@ namespace MyCompany.Storage.Biz
     public class StorageSlotToFullForStoreableException : Exception
     {
 
-        const string message = "The stotage has not room for the item";
+        const string message = "The storage has not room for the item";
         public StorageSlotToFullForStoreableException() : base(message) { }
         public StorageSlotToFullForStoreableException(string msg) : base(msg) { }
 
@@ -47,9 +47,9 @@ namespace MyCompany.Storage.Biz
     public class StorageToFullForStoreableException : Exception
     {
 
-        const string message = "The parkingplace has not room for the vehicle";
-        public StorageToFullForParkableException() : base(message) { }
-        public StorageToFullForParkableException(string msg) : base(msg) { }
+        const string message = "The storage has not room for the item";
+        public StorageToFullForStoreableException() : base(message) { }
+        public StorageToFullForStoreableException(string msg) : base(msg) { }
 
     }
     public class RegistrationNumberInvalid : Exception
@@ -58,6 +58,14 @@ namespace MyCompany.Storage.Biz
         const string message = "The registration number is not valid.";
         public RegistrationNumberInvalid() : base(message) { }
         public RegistrationNumberInvalid(string msg) : base(msg) { }
+
+    }
+    public class StoreableAlreadyAtThePosition : Exception
+    {
+
+        const string message = "The storable is already at that position";
+        public StoreableAlreadyAtThePosition() : base(message) { }
+        public StoreableAlreadyAtThePosition(string msg) : base(msg) { }
 
     }
 }
