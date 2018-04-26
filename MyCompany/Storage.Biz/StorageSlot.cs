@@ -11,11 +11,12 @@ namespace MyCompany.Storage.Biz
     /// An storage slot that can contain several items.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class StorageSlot<T> : IEnumerable<StorageItemDetail<T>>, IEnumerable<T> where T : IStoreable
+    public class StorageSlot<T> : IEnumerable<StorageItemDetail<T>>,IEnumerable<T> where T : IStoreable
     {
         private List<T> _storables = new List<T>();
         public int Size = 4;
         public int SlotNumber { get; private set; }
+
 
         public StorageSlot(int slotNumber)
         {
@@ -187,6 +188,8 @@ namespace MyCompany.Storage.Biz
         {
             return ((IEnumerable<T>)_storables).GetEnumerator();
         }
+
+
         public T this[int index]
         {
             get

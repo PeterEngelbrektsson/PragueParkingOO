@@ -13,9 +13,9 @@ namespace MyCompany.Storage.Biz
     /// IStorable interface.
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
-    public class Storage<T>:IEnumerable<T>,IEnumerable<StorageSlotDetail<T>> where T : IStoreable
+    public class Storage<T>:IEnumerable<StorageSlotDetail<T>> where T : IStoreable
     {
-        private List<StorageSlot<T>> _storageSlots = new List<StorageSlot<T>>();
+        private StorageSlot<T>[] _storageSlots;
 
         /// <summary>
         /// Instanciates the storage with a number of slots of default size
@@ -23,7 +23,7 @@ namespace MyCompany.Storage.Biz
         /// <param name="Size"></param>
         public Storage(int Size)
         {
-            throw new NotImplementedException();
+            _storageSlots = new StorageSlot<T>[Size];
         }
         /// <summary>
         /// Adds a storeable to the storage place.
@@ -34,9 +34,30 @@ namespace MyCompany.Storage.Biz
         public int Add(T item)
         {
             // find a slot with free place.
+            // first find all free slots.
+            var freeSpaces = FindFreeSlots(item.Size);
+            // Prioritize smallest available with lowest slot number.
+            var availableSlots =
+                from freePlace in freeSpaces
+                where (freePlace.Size >= item.Size)
+                orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
+                select new { freePlace};
+            if (availableSlots.Count() < 1)
+            {
+                throw new StorageSlotToFullForStoreableException();
+            }
+            int availableSlotNumber = availableSlots.First().freePlace.SlotNumber;
+
             // set timestamp if not already set
+            if (item.TimeStamp == null)
+            {
+                item.TimeStamp = DateTime.Now;
+            }
+
             // store item in slot
-            throw new NotImplementedException();
+            _storageSlots[availableSlotNumber].Add(item);
+
+            return availableSlotNumber;
         }
         /// <summary>
         /// Removes a storeable from the storeage place
@@ -44,7 +65,12 @@ namespace MyCompany.Storage.Biz
         /// <param name="registrationNumber"></param>
         public void Remove(string registrationNumber)
         {
-            throw new NotImplementedException();
+            int slotNumber = FindDistinctSlotNumber(registrationNumber);
+            if (slotNumber < 0)
+            {
+                throw new StoreableNotFoundException();
+            }
+            _storageSlots[slotNumber].Remove(registrationNumber);
         }
         /// <summary>
         /// Counts the number of free spaces for a specifik storeable size
@@ -53,7 +79,8 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public int FreeSpacesCount(int size)
         {
-            throw new NotImplementedException();
+            var slots = FindFreeSlots(size);
+            return slots.Count();
         }
         /// <summary>
         /// Counts the number of partially or fully occupied storeable slots
@@ -61,7 +88,8 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public int OccupiedCount()
         {
-            throw new NotImplementedException();
+            var slots = Occupied();
+            return slots.Count();
         }
         /// <summary>
         /// Returns the content of the storage place
@@ -69,23 +97,52 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public List<StorageSlotDetail<T>> Occupied()
         {
-            throw new NotImplementedException();
+            List<StorageSlotDetail<T>> slots = new List<StorageSlotDetail<T>>();
+            foreach (StorageSlotDetail<T> item in (List<StorageSlotDetail<T>>)this.GetEnumerator())
+            {
+                if (item.OccupiedSpace > 0)
+                {
+                    slots.Add(item); // only include occupied slots
+                }
+            }
+            return slots;
+
         }
         /// <summary>
         /// Returns the content of a storage slot
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail<T> Occupied(int SlotNumber)
+        public StorageSlotDetail<T> Occupied(int slotNumber)
         {
-            throw new NotImplementedException();
+            if(slotNumber<0 || slotNumber > _storageSlots.Length)
+            {
+                throw new ArgumentException();
+            }
+            return _storageSlots[slotNumber].GetSlotDetails();
+        }
+        /// <summary>
+        /// Returns the content of all partially or fully free storage slot there a sspecific size fits
+        /// </summary>
+        /// <returns></returns>
+        public List<StorageSlotDetail<T>> FindFreeSlots(int size)
+        {
+            List<StorageSlotDetail<T>> freeSlots = new List<StorageSlotDetail<T>>();
+            foreach (StorageSlotDetail<T> item in (List<StorageSlotDetail<T>>)this.GetEnumerator())
+            {
+                if (item.FreeSpace > size)
+                {
+                    freeSlots.Add(item); /// only include free slots
+                }
+            }
+            return freeSlots;
         }
         /// <summary>
         /// Returns the content of all partially or fully free storage slot
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail<T> FindFreeSlots()
+        public List<StorageSlotDetail<T>> FindFreeSlots()
         {
-            throw new NotImplementedException();
+            return FindFreeSlots(1);
         }
         /// <summary>
         /// Returns the content of the storage place with registration number that matches the searchstring
@@ -93,7 +150,17 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public List<StorageItemDetail<T>> Find(string SearchString)
         {
-            throw new NotImplementedException();
+            List<StorageItemDetail<T>> items = this.FindAll();
+            List<StorageItemDetail<T>> matches = new List<StorageItemDetail<T>>(); ;
+
+            foreach (StorageItemDetail<T> item in items)
+            {
+                if (item.RegistrationNumber.IndexOf(SearchString) > -1)
+                {
+                    matches.Add(item);
+                }
+            }
+            return matches;
         }
         /// <summary>
         /// Returns all storables stored in the storage place 
@@ -101,7 +168,12 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public List<StorageItemDetail<T>> FindAll( )
         {
-            throw new NotImplementedException();
+            List<StorageItemDetail<T>> matches = new List<StorageItemDetail<T>>(); ;
+            foreach (StorageItemDetail<T> item in (List<StorageItemDetail<T>>)this.GetEnumerator())
+            {
+                matches.Add(item); // return all
+            }
+            return matches;
         }
         /// <summary>
         /// Finds a stored storeable and returns the slot number
@@ -111,7 +183,7 @@ namespace MyCompany.Storage.Biz
         public int FindDistinctSlotNumber(string registrationNumber)
         {
             int found = -1;
-            for(int i=0; i<_storageSlots.Count;i++)
+            for(int i=0; i<_storageSlots.Length;i++)
             {
                 if (_storageSlots[i].Contains(registrationNumber))
                 {
@@ -149,7 +221,11 @@ namespace MyCompany.Storage.Biz
             throw new NotImplementedException();
         }
 
-        public IEnumerator<T> GetEnumerator()
+        /// <summary>
+        /// Private enumerator for T
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator<T> GetEnumerator()
         {
             foreach(StorageSlot<T> slot in _storageSlots)
             {
@@ -162,10 +238,10 @@ namespace MyCompany.Storage.Biz
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator<StorageSlotDetail< T >>) GetEnumerator();
         }
 
-        IEnumerator<Biz.StorageSlotDetail<T>> IEnumerable<Biz.StorageSlotDetail<T>>.GetEnumerator()
+        IEnumerator<StorageSlotDetail<T>> IEnumerable<StorageSlotDetail<T>>.GetEnumerator()
         {
             foreach(StorageSlot<T> slot in _storageSlots)
             {
