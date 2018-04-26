@@ -24,8 +24,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             Console.WriteLine();
             Console.WriteLine("  Prague Parking v1.0");
             Console.WriteLine("-----------------------");
-            Console.WriteLine("1. Add a car");
-            Console.WriteLine("2. Add a motorcycle");
+            Console.WriteLine("1. Add a vehicle");
             Console.WriteLine("3. Move a vehicle");
             Console.WriteLine("4. Find a vehicle");
             Console.WriteLine("5. Remove a vehicle");
@@ -101,12 +100,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
                             keepLoop = false;
                             break;
 
-                        case 1: // Add a car
-                            AddCar(parkingPlace);
-                            break;
-
-                        case 2: // Add a motorcycle
-                            AddMc(parkingPlace);
+                        case 1: // Add a Vehicle
+                            ParkVehicle(parkingPlace);
                             break;
 
                         case 3: // Move a vehicle
@@ -480,9 +475,21 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         /// <param name="registrationNumber"></param>
         /// <param name="vehicleType"></param>
-        public static void ParkVehicle(Storage<Vehicle> parkingPlace, string registrationNumber, VehicleType vehicleType)
+        public static void ParkVehicle(Storage<Vehicle> parkingPlace)
         {
-            Vehicle newVehicle=null;
+            VehicleType vehicleType = PromptForVehicelType();
+            if (vehicleType == VehicleType.Unspecified)
+            {
+                // User has aborted registration
+                return;
+            }
+            string registrationNumber = PromptForRegistrationNumber();
+            if (registrationNumber == null)
+            {
+                //The user has aborted registration
+                return;
+            }
+            Vehicle newVehicle = null;
             switch (vehicleType)
             {
                 case VehicleType.Bike:
