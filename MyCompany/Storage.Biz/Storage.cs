@@ -222,12 +222,17 @@ namespace MyCompany.Storage.Biz
             {
                 throw new ArgumentOutOfRangeException();
             }
+            
             int slot = FindDistinctSlotNumber(registrationNumber);
             if (slot < 0)
             {
                 throw new StoreableNotFoundException();
             }
             T storeable = Peek(registrationNumber);
+            if (_storageSlots[newPlace].FreeSpaces(storeable.Size) < 1)
+            {
+                throw new StorageSlotToFullForStoreableException();
+            }
             _storageSlots[slot].Remove(registrationNumber);
             _storageSlots[newPlace].Add(storeable);
         }
