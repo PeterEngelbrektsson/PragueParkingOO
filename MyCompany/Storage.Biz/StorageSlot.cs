@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace MyCompany.Storage.Biz
     /// An storage slot that can contain several items.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class StorageSlot<T>
+    public class StorageSlot<T>:IEnumerable<StorageItemDetail<T>>,IEnumerable<T> where T:IStoreable
     {
+        private List<T> _storables = new List<T>();
         /// <summary>
         /// Adds a storeable to the storage slot.
         /// Throws exeption if registrationnumber already exists
@@ -71,6 +73,31 @@ namespace MyCompany.Storage.Biz
         public bool Contains(string registrationNumber)
         {
             throw new NotImplementedException();
+        }
+
+    
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator<StorageItemDetail<T>> IEnumerable<StorageItemDetail<T>>.GetEnumerator()
+        {
+            foreach(T item in _storables)
+            {
+                StorageItemDetail<T> itemDetail = new StorageItemDetail<T>();
+                itemDetail.Size = item.Size;
+                itemDetail.TimeStamp = item.TimeStamp;
+                itemDetail.RegistrationNumber = item.RegistrationNumber;
+                itemDetail.Storeable = item;
+                yield return itemDetail;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return ((IEnumerable<T>)_storables).GetEnumerator();
         }
     }
 }
