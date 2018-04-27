@@ -33,7 +33,7 @@ namespace MyOtherCompany.PragueParkingOO
         {
             //Main file
 
-            // String array with elements of parking 
+            //with elements of parking 
             Storage<Vehicle> parkingPlace = new Storage<Vehicle>(100);
 
             // Setup demo with testdata.  FIXME remove this in production code.

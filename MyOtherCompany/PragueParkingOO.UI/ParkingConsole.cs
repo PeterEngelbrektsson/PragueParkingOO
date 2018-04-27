@@ -334,9 +334,13 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         static void FindVehicle(Storage<Vehicle> parkingPlace)
         {
-            Console.WriteLine("Please enter the registration number of the vehicle : ");
-            string registrationNumber = Console.ReadLine().ToUpper();
-
+            // Console.WriteLine("Please enter the registration number of the vehicle : ");
+            string registrationNumber = PromptForRegistrationNumber();
+            if (registrationNumber == null)
+            {
+                // User aborted
+                return;
+            }
             int position = parkingPlace.FindDistinctSlotNumber(registrationNumber); // Position where vehicle is located (if any)
 
             if (position != -1)
@@ -449,22 +453,25 @@ namespace MyOtherCompany.PragueParkingOO.UI
             string[] errorMessages;
             do
             {
-                Console.WriteLine("Please enter the registration number of the vehicle or 0 to bort: ");
+                Console.WriteLine("Please enter the registration number of the vehicle or 0 to abort: ");
                 registrationNumber = Console.ReadLine().ToUpper();
                 int inputNumber = 0;
-                if (int.TryParse(registrationNumber, out inputNumber) && inputNumber == 0)
+                if (int.TryParse(registrationNumber, out inputNumber))
                 {
-                    registrationNumber = null;
-                    loop = false;
-                }
-                else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
-                {
-                    Messenger.WriteErrorMessage(errorMessages);
-                }
-                else
-                {
-                    //valid registration number
-                    loop = false;
+                    if (inputNumber == 0)
+                    {
+                        registrationNumber = null;
+                        loop = false;
+                    }
+                    else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
+                    {
+                        Messenger.WriteErrorMessage(errorMessages);
+                    }
+                    else
+                    {
+                        //valid registration number
+                        loop = false;
+                    }
                 }
             } while (loop);
             return registrationNumber;
@@ -566,6 +573,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 return;
             }
             Vehicle newVehicle = null;
+
+            // Switches on different vehicle types selected by the user
             switch (vehicleType)
             {
                 case VehicleType.Bike:
@@ -587,10 +596,10 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     break;
 
                 case VehicleType.Trike:
-                    MotorBike newTrike = new MotorBike();
+                    Trike newTrike = new Trike();
                     newTrike.RegistrationNumber = registrationNumber;
                     newVehicle = newTrike;
-                    // Should per specification use the specialized properties of the class MotorBike
+                    // Should per specification use the specialized properties of the class Trike
                     // Ask the user for input and set properties
                     throw new NotImplementedException();
                     break;
@@ -608,6 +617,11 @@ namespace MyOtherCompany.PragueParkingOO.UI
             }
             catch (StorageToFullForStoreableException)
             {
+                Messenger.WriteErrorMessage("The parking place has no room for the vehicel.");
+            }
+            catch(StorageSlotToFullForStoreableException)
+            {
+                // This should not happend. 
                 Messenger.WriteErrorMessage("The parking place has no room for the vehicel.");
             }
         }

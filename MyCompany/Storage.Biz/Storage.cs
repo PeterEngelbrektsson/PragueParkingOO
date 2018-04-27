@@ -50,7 +50,7 @@ namespace MyCompany.Storage.Biz
                 select new { freePlace};
             if (availableSlots.Count() < 1)
             {
-                throw new StorageSlotToFullForStoreableException();
+                throw new StorageToFullForStoreableException();
             }
             int availableSlotNumber = availableSlots.First().freePlace.SlotNumber;
 
