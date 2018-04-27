@@ -48,6 +48,7 @@
     <Compile Include="StorageItemDetail_SortBy.cs" />
     <Compile Include="StorageSlot.cs" />
     <Compile Include="StorageSlotDetail.cs" />
+    <Compile Include="StorageSlotDetail_SortBy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
