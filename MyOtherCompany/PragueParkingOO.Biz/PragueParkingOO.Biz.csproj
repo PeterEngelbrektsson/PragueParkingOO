@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParkingPlace.cs" />
+    <Compile Include="ParkingPlaceOptimizer.cs" />
     <Compile Include="Vehicles\Bike.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Vehicles\MotorBike.cs" />

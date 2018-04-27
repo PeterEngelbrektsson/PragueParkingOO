@@ -7,26 +7,32 @@ using System.Threading.Tasks;
 
 namespace MyCompany.Storage.Biz
 {
-    
+
     /// <summary>
     /// Storage handling system. Stores storable items that implements the 
     /// IStorable interface.
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
     [Serializable]
-    public class Storage<T>:IEnumerable<StorageSlotDetail>,ICloneable where T : IStoreable
+    public class Storage<T> : IEnumerable<StorageSlotDetail>, ICloneable where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;
         public int MaxSize = 4;
-
+        public int Length
+        {
+            get
+            {
+                return _storageSlots.Length;
+            }
+        }
         /// <summary>
         /// Instanciates the storage with a number of slots of default size
         /// </summary>
-        /// <param name="Size"></param>
-        public Storage(int Size)
+        /// <param name="size"></param>
+        public Storage(int size)
         {
-            _storageSlots = new StorageSlot<T>[Size];
-            for (int i = 0; i < Size; i++)
+            _storageSlots = new StorageSlot<T>[size];
+            for (int i = 0; i < size; i++)
             {
                 _storageSlots[i] = new StorageSlot<T>(i);
             }

@@ -17,7 +17,7 @@ namespace MyOtherCompany.PragueParkingOO
         /// Adding some test data
         /// </summary>
         /// <returns></returns>
-        public static void PopulateTestData(Storage<Vehicle> parkingPlace)
+        public static void PopulateTestData(ParkingPlace parkingPlace)
         {
 
             // Testdata
@@ -34,7 +34,7 @@ namespace MyOtherCompany.PragueParkingOO
             //Main file
 
             //with elements of parking 
-            Storage<Vehicle> parkingPlace = new Storage<Vehicle>(100);
+            ParkingPlace parkingPlace = new ParkingPlace(100);
 
             // Setup demo with testdata.  FIXME remove this in production code.
             PopulateTestData(parkingPlace);
