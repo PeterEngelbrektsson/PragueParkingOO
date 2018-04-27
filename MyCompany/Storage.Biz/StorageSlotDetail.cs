@@ -10,12 +10,12 @@ namespace MyCompany.Storage.Biz
     /// Details about a storage slot
     /// </summary>
     [Serializable]
-    public struct StorageSlotDetail<T>
+    public struct StorageSlotDetail
     {
         public int SlotNumber;
         public int FreeSpace;
         public int OccupiedSpace;
         public int Size;
-        public List<StorageItemDetail<T>> StorageItemDetails;
+        public List<StorageItemDetail> StorageItemDetails;
     }
 }

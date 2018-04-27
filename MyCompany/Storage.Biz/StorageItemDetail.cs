@@ -10,7 +10,7 @@ namespace MyCompany.Storage.Biz
     /// Details about an item in storage.
     /// </summary>
     [Serializable]
-    public struct StorageItemDetail<T>
+    public struct StorageItemDetail
     {
 
         public string RegistrationNumber;

@@ -12,7 +12,8 @@ namespace MyCompany.Storage.Biz
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    public class StorageSlot<T> : IEnumerable<StorageItemDetail<T>>,IEnumerable<T> where T : IStoreable
+    //public class StorageSlot<T> : IEnumerable<StorageItemDetail>,IEnumerable<T> where T : IStoreable
+    public class StorageSlot<T> : IEnumerable<T> where T : IStoreable
     {
         private List<T> _storables = new List<T>();
         public int Size = 4;
@@ -117,13 +118,13 @@ namespace MyCompany.Storage.Biz
         /// <summary>
         /// Generates a storables details report for the slot;
         /// </summary>
-        public List<StorageItemDetail<T>> GetStorageItemDetailsReport()
+        public List<StorageItemDetail> GetStorageItemDetailsReport()
         {
-            List<StorageItemDetail<T>> details = new List<StorageItemDetail<T>>();
+            List<StorageItemDetail> details = new List<StorageItemDetail>();
             
             foreach(T item in _storables)
             {
-                StorageItemDetail<T> detail = new StorageItemDetail<T>();
+                StorageItemDetail detail = new StorageItemDetail();
                 detail.Size = item.Size;
                 detail.TimeStamp = item.TimeStamp;
                 detail.RegistrationNumber = item.RegistrationNumber;
@@ -138,9 +139,9 @@ namespace MyCompany.Storage.Biz
         /// Returns the content of the parking place
         /// </summary>
         /// <returns></returns>
-        public StorageSlotDetail<T> GetSlotDetails()
+        public StorageSlotDetail GetSlotDetails()
         {
-            StorageSlotDetail<T> item = new StorageSlotDetail<T>();
+            StorageSlotDetail item = new StorageSlotDetail();
             item.FreeSpace = FreeSpace();
             item.OccupiedSpace = Occupied();
             item.SlotNumber = SlotNumber;
@@ -172,17 +173,18 @@ namespace MyCompany.Storage.Biz
             return ((IEnumerable<T>)_storables).GetEnumerator();
         }
 
-        /// <summary>
+     /*   /// <summary>
         /// Enumerates storageItemDetailsReports for all T's in slot
         /// </summary>
         /// <returns></returns>
-        IEnumerator<StorageItemDetail<T>> IEnumerable<StorageItemDetail<T>>.GetEnumerator()
+        IEnumerator<StorageItemDetail> IEnumerable<StorageItemDetail>.GetEnumerator()
         {
-            foreach(StorageItemDetail<T> item in GetStorageItemDetailsReport())
+            foreach(StorageItemDetail item in GetStorageItemDetailsReport())
             {
                 yield return item;
             }
         }
+        */
         /// <summary>
         ///  Enumerates all T in slot
         /// </summary>

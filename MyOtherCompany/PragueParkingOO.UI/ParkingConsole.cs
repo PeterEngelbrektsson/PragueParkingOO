@@ -192,7 +192,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             Console.WriteLine("Slot Used Vehicles");
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
 
-            foreach (StorageSlotDetail<Vehicle> report in parkingPlace)
+            foreach (StorageSlotDetail report in parkingPlace)
             {
                 if (report.FreeSpace == 0)
                 {

@@ -48,13 +48,13 @@ namespace Storage.BizTests
         public void ShouldGet1DetailsReport()
         {
             // Arrange
-            List<StorageSlotDetail<TestStorable>> acutal;
-            StorageItemDetail<TestStorable> expectedDetail = new StorageItemDetail<TestStorable>();
+            List<StorageSlotDetail> acutal;
+            StorageItemDetail expectedDetail = new StorageItemDetail();
             expectedDetail.RegistrationNumber = item.RegistrationNumber;
             expectedDetail.Size = item.Size;
-            List<StorageItemDetail<TestStorable>> expectedDetailList = new List<StorageItemDetail<TestStorable>>();
+            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>();
             expectedDetailList.Add(expectedDetail);
-            StorageSlotDetail<TestStorable> expected = new StorageSlotDetail<TestStorable>();
+            StorageSlotDetail expected = new StorageSlotDetail();
             expected.Size = 4;
             expected.SlotNumber = 1;    // Expected to be stored in first free position
             expected.OccupiedSpace = 4;
@@ -80,25 +80,25 @@ namespace Storage.BizTests
         public void ShouldGet2DetailsReports()
         {
             // Arrange
-            List<StorageSlotDetail<TestStorable>> acutal;
-            StorageItemDetail<TestStorable> expectedDetail = new StorageItemDetail<TestStorable>();
+            List<StorageSlotDetail> acutal;
+            StorageItemDetail expectedDetail = new StorageItemDetail();
             expectedDetail.RegistrationNumber = item.RegistrationNumber;
             expectedDetail.Size = item.Size;
-            List<StorageItemDetail<TestStorable>> expectedDetailList = new List<StorageItemDetail<TestStorable>>();
+            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>();
             expectedDetailList.Add(expectedDetail);
-            StorageSlotDetail<TestStorable> expected = new StorageSlotDetail<TestStorable>();
+            StorageSlotDetail expected = new StorageSlotDetail();
             expected.Size = 4;
             expected.SlotNumber = 1;    // Expected to be stored in first free position
             expected.OccupiedSpace = 4;
             expected.FreeSpace = 0;
             expected.StorageItemDetails = expectedDetailList;
 
-            StorageItemDetail<TestStorable> expectedDetail2 = new StorageItemDetail<TestStorable>();
+            StorageItemDetail expectedDetail2 = new StorageItemDetail();
             expectedDetail2.RegistrationNumber = item2.RegistrationNumber;
             expectedDetail2.Size = item2.Size;
-            List<StorageItemDetail<TestStorable>> expectedDetailList2 = new List<StorageItemDetail<TestStorable>>();
+            List<StorageItemDetail> expectedDetailList2 = new List<StorageItemDetail>();
             expectedDetailList.Add(expectedDetail);
-            StorageSlotDetail<TestStorable> expected2 = new StorageSlotDetail<TestStorable>();
+            StorageSlotDetail expected2 = new StorageSlotDetail();
             expected2.Size = 4;
             expected2.SlotNumber = 2;    // Expected to be stored in first free position
             expected2.OccupiedSpace = 4;
