@@ -48,14 +48,13 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace">The parking place</param>
         public static void DisplayIfCanBeOptimized(Storage<Vehicle> parkingPlace)
         {
-            /*
-            int singleMcs = Parking.NumberOfSingleParkedMcs(parkingPlace);
-            if (singleMcs > 1)
+            StorageOptimizer<Vehicle> optimizer = new StorageOptimizer<Vehicle>();
+            List<OptimizeMovementDetail> OptimizationInstructions = optimizer.GetOptimzeInstructions(parkingPlace);
+            if (OptimizationInstructions.Count() > 0)
             {
                 Console.WriteLine();
-                Messenger.WriteInformationMessage(String.Format("The parkingspace can be optimized. There are {0} single parked motorcycles.", singleMcs));
+                Messenger.WriteInformationMessage(String.Format("The parkingspace can be optimized. There are {0} vehicles that can be moved.", OptimizationInstructions.Count()));
             }
-            */
             throw new NotImplementedException();
         }
         
@@ -223,23 +222,45 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// </summary>
         /// <param name="parkingPlace"></param>
 
-        public static void Optimize(string[] parkingPlace)
+        public static void Optimize(Storage<Vehicle> parkingPlace)
         {
-            /*
-                        string[] messages;
-                        messages = Parking.Optimize(parkingPlace);
+            StorageOptimizer<Vehicle> optimizer = new StorageOptimizer<Vehicle>();
+            List<OptimizeMovementDetail> messages;
+            messages = optimizer.GetOptimzeInstructions(parkingPlace);
+            string OptimzeMessage = "";
+            foreach (var message in messages)
+            {
+                OptimzeMessage += string.Format("Move {0} with registrationNumber {1} from parking slot {2} to {3} \n", message.TypeName, message.RegistrationNumber, message.OldStorageSlotNumber, message.NewStorageSlotNumber);
+            }
+            if (messages.Count() < 1)
+            {
+                Messenger.WriteInformationMessage("The parkingplace is alreadey optimized.");
+            }
+            else { 
+                Messenger.WriteInformationMessage(OptimzeMessage);
+            }
+            bool loop = true;
+            string input = null;
+            do
+            {
+                Console.WriteLine("Please enter YES to confirm optimization 0 to bort: ");
+                input = Console.ReadLine().ToUpper();
+                int inputNumber = 0;
+                if (int.TryParse(input, out inputNumber) && inputNumber == 0)
+                {
+                    // 0 means abort
+                    input = null;
+                    loop = false;
+                }
 
-                        foreach (string message in messages)
-                        {
-                            Messenger.WriteInformationMessage(message);
-                        }
-                        if (messages.Length < 1)
-                        {
-                            Messenger.WriteInformationMessage("The parkingplace is alreadey optimized.");
-                        }
+                else
+                {
+                    // optimization confirmed
+                    loop = false;
+                    optimizer.DoOptimization(parkingPlace);
+                }
+            } while (loop);
 
-                        */
-            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -16,22 +16,22 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public OptimizeMovementDetail GetOneOptimizeInstruction(Storage<T> storage, int size)
         {
-            /* OptimizeMovementDetail instruction = new OptimizeMovementDetail(); 
+             OptimizeMovementDetail instruction = new OptimizeMovementDetail(); 
 
              var freePlaces = storage.FindFreeSlots(size);
 
-             var availableSlots =
-                 from freePlace in freePlaces
+            var availableSlots =
+                 (from freePlace in freePlaces
                  orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
                  where freePlace.FreeSpace != 0
-                 select new { freePlace };
+                 select freePlace );
 
              // Smallest free place is of size Size. 
 
              // Try to find optimization.
              // Find and do one optimization
-             var firstStorageSlotToMoveTo =  availableSlots.First();
-             var storeablesToMoveTo = ((StorageSlotDetail)firstStorageSlotToMoveTo).StorageItemDetails;
+             var firstStorageSlotToMoveTo = availableSlots.First();
+             var storeablesToMoveTo = firstStorageSlotToMoveTo.StorageItemDetails;
              if (storeablesToMoveTo.Count() == 0)
              {
                  // Empty parking slot
@@ -87,7 +87,7 @@ namespace MyCompany.Storage.Biz
 
 
              return instruction;
-             */
+             
             throw new NotImplementedException();
 
         }
