@@ -14,9 +14,10 @@ namespace MyCompany.Storage.Biz
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
     [Serializable]
-    public class Storage<T>:IEnumerable<StorageSlotDetail> where T : IStoreable
+    public class Storage<T>:IEnumerable<StorageSlotDetail>,ICloneable where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;
+        public int MaxSize = 4;
 
         /// <summary>
         /// Instanciates the storage with a number of slots of default size
@@ -182,6 +183,15 @@ namespace MyCompany.Storage.Biz
             }
             return matches;
         }
+        public List<StorageSlotDetail> FindAllSlots()
+        {
+            List<StorageSlotDetail> matches = new List<StorageSlotDetail>(); ;
+            foreach (StorageSlotDetail item in (List<StorageSlotDetail>)this.GetEnumerator())
+            {
+                matches.Add(item); // return all
+            }
+            return matches;
+        }
         /// <summary>
         /// Finds a stored storeable and returns the slot number
         /// </summary>
@@ -315,6 +325,13 @@ namespace MyCompany.Storage.Biz
         public override string ToString()
         {
             return (string.Format("Storage with {0}/{1} slots full.",_storageSlots.Length,OccupiedCount()));
+        }
+
+        public object Clone()
+        {
+            Storage<T> newStorage = new Storage<T>(_storageSlots.Length);
+            newStorage._storageSlots = (StorageSlot<T>[])_storageSlots.Clone();
+            return newStorage;
         }
     }
 }

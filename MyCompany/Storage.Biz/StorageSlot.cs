@@ -13,7 +13,7 @@ namespace MyCompany.Storage.Biz
     /// <typeparam name="T"></typeparam>
     [Serializable]
     //public class StorageSlot<T> : IEnumerable<StorageItemDetail>,IEnumerable<T> where T : IStoreable
-    public class StorageSlot<T> : IEnumerable<T> where T : IStoreable
+    public class StorageSlot<T> : IEnumerable<T>,ICloneable where T : IStoreable
     {
         private List<T> _storables = new List<T>();
         public int Size = 4;
@@ -209,6 +209,11 @@ namespace MyCompany.Storage.Biz
         public override string ToString()
         {
             return string.Format("StorageSlot with {0}/{1}",Occupied(),Size);
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

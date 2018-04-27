@@ -42,10 +42,12 @@
   <ItemGroup>
     <Compile Include="Exceptions.cs" />
     <Compile Include="IStoreable.cs" />
+    <Compile Include="OptimizeMovementDetail.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageItemDetail.cs" />
     <Compile Include="StorageItemDetail_SortBy.cs" />
+    <Compile Include="StorageOptimizer.cs" />
     <Compile Include="StorageSlot.cs" />
     <Compile Include="StorageSlotDetail.cs" />
     <Compile Include="StorageSlotDetail_SortBy.cs" />
