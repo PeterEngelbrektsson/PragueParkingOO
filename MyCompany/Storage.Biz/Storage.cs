@@ -207,16 +207,42 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public T Peek(string registrationNumber)
         {
-            throw new NotImplementedException();
+            int found = -1;
+            for (int i = 0; i < _storageSlots.Length; i++)
+            {
+                if (_storageSlots[i].Contains(registrationNumber))
+                {
+                    found = i;
+                    break;
+                }
+            }
+            T storeable = default(T);
+            if (found > -1) { 
+                storeable = _storageSlots[found].Peek(registrationNumber);
+            }
+            return storeable;
         }
         /// <summary>
-        /// Finds a free storage slot for a specific type
+        /// Finds a free storage slot for a specific size
         /// </summary>
         /// <param name="size">Size of the storeable item</param>
         /// <returns></returns>
         public int FindFreePlace(int size)
         {
-            throw new NotImplementedException();
+            int freeSlot = -1;
+            var freePlaces = FindFreeSlots(size);
+
+            if (freePlaces.Count > 0)
+            {
+                // Select first
+                // Prepared for in the future to prompt user to select one of the available places.
+                freeSlot = freePlaces.First().SlotNumber;
+            }
+            else
+            {
+                throw new StorageToFullForStoreableException();
+            }
+            return freeSlot;
         }
         /// <summary>
         /// Moves a storeable to a new storage slot
