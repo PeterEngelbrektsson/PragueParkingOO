@@ -14,7 +14,7 @@ namespace MyCompany.Storage.Biz
     /// </summary>
     /// <typeparam name="T">Class that implements IStoreable</typeparam>
     [Serializable]
-    public class Storage<T> : IEnumerable<StorageSlotDetail>, ICloneable where T : IStoreable
+    public class Storage<T> : IEnumerable, ICloneable where T : IStoreable
     {
         private StorageSlot<T>[] _storageSlots;
         public int MaxSize = 4;
@@ -112,7 +112,7 @@ namespace MyCompany.Storage.Biz
         public List<StorageSlotDetail> Occupied()
         {
             List<StorageSlotDetail> slots = new List<StorageSlotDetail>();
-            foreach (StorageSlotDetail item in (List<StorageSlotDetail>)this.GetEnumerator())
+            foreach (StorageSlotDetail item in this)
             {
                 if (item.OccupiedSpace > 0)
                 {
@@ -141,7 +141,7 @@ namespace MyCompany.Storage.Biz
         public List<StorageSlotDetail> FindFreeSlots(int size)
         {
             List<StorageSlotDetail> freeSlots = new List<StorageSlotDetail>();
-            foreach (StorageSlotDetail item in (List<StorageSlotDetail>)this.GetEnumerator())
+            foreach (StorageSlotDetail item in this)
             {
                 if (item.FreeSpace > size)
                 {
@@ -183,7 +183,7 @@ namespace MyCompany.Storage.Biz
         public List<StorageItemDetail> FindAll( )
         {
             List<StorageItemDetail> matches = new List<StorageItemDetail>(); ;
-            foreach (StorageItemDetail item in (List<StorageItemDetail>)this.GetEnumerator())
+            foreach (StorageItemDetail item in this)
             {
                 matches.Add(item); // return all
             }
@@ -192,7 +192,7 @@ namespace MyCompany.Storage.Biz
         public List<StorageSlotDetail> FindAllSlots()
         {
             List<StorageSlotDetail> matches = new List<StorageSlotDetail>(); ;
-            foreach (StorageSlotDetail item in (List<StorageSlotDetail>)this.GetEnumerator())
+            foreach (StorageSlotDetail item in this)
             {
                 matches.Add(item); // return all
             }
@@ -286,27 +286,8 @@ namespace MyCompany.Storage.Biz
             _storageSlots[newPlace].Add(storeable);
         }
 
-        /// <summary>
-        /// Private enumerator for T
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator<T> GetEnumerator()
-        {
-            foreach(StorageSlot<T> slot in _storageSlots)
-            {
-                foreach(T item in slot)
-                {
-                    yield return item;
-                }
-            }
-        }
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return (IEnumerator<StorageSlotDetail>) GetEnumerator();
-        }
-
-        IEnumerator<StorageSlotDetail> IEnumerable<StorageSlotDetail>.GetEnumerator()
         {
             foreach(StorageSlot<T> slot in _storageSlots)
             {

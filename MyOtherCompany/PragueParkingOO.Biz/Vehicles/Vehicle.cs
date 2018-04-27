@@ -40,7 +40,11 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 
         public Vehicle()
         {
-            throw new NotImplementedException();
+            
+        }
+        public Vehicle(string registrationNumber)
+        {
+            RegistrationNumber = registrationNumber;
         }
     }
     

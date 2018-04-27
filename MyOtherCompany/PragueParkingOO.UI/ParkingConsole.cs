@@ -56,7 +56,6 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Console.WriteLine();
                 Messenger.WriteInformationMessage(String.Format("The parkingspace can be optimized. There are {0} vehicles that can be moved.", OptimizationInstructions.Count()));
             }
-            throw new NotImplementedException();
         }
         
         /// <summary>
@@ -464,15 +463,15 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         registrationNumber = null;
                         loop = false;
                     }
-                    else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
-                    {
-                        Messenger.WriteErrorMessage(errorMessages);
-                    }
-                    else
-                    {
-                        //valid registration number
-                        loop = false;
-                    }
+                }
+                else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
+                {
+                    Messenger.WriteErrorMessage(errorMessages);
+                }
+                else
+                {
+                    //valid registration number
+                    loop = false;
                 }
             } while (loop);
             return registrationNumber;
