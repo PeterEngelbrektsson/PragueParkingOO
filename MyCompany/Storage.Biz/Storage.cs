@@ -25,6 +25,10 @@ namespace MyCompany.Storage.Biz
         public Storage(int Size)
         {
             _storageSlots = new StorageSlot<T>[Size];
+            for (int i = 0; i < Size; i++)
+            {
+                _storageSlots[i] = new StorageSlot<T>(i);
+            }
         }
         /// <summary>
         /// Adds a storeable to the storage place.

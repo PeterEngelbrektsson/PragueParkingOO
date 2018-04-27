@@ -129,6 +129,7 @@ namespace MyCompany.Storage.Biz
                 detail.RegistrationNumber = item.RegistrationNumber;
                 detail.Description = item.Description;
                 detail.StorageSlotNumber = this.SlotNumber;
+                detail.TypeName = item.TypeName;
                 details.Add(detail);
             }
             return details;

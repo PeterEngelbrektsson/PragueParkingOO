@@ -18,6 +18,6 @@ namespace MyCompany.Storage.Biz
         public DateTime TimeStamp;
         public string Description;
         public int StorageSlotNumber;
-
+        public string TypeName;
     }
 }
