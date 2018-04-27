@@ -15,5 +15,6 @@ namespace MyCompany.Storage.Biz
         string RegistrationNumber { get; set; }     // ID for the stored thing
         DateTime TimeStamp { get; set; }                 // Timestamp set at time the stored thing is checked in to the storage place
         string Description { get;  }                // Description to help find the stored thing
+        string TypeName { get; set; }
     }
 }

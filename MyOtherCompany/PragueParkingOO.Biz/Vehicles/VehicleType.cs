@@ -11,7 +11,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     {
         Unspecified,
         Bike,
-        Motorbike,
+        MotorBike,
         Trike,
         Car
     }

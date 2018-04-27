@@ -19,5 +19,9 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         {
             throw new NotImplementedException();
         }
+        public Car(string registrationNumber)
+        {
+            this.RegistrationNumber = registrationNumber;
+        }
     }
 }

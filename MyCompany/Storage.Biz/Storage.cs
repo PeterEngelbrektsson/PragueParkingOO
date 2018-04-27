@@ -64,7 +64,8 @@ namespace MyCompany.Storage.Biz
         /// Removes a storeable from the storeage place
         /// </summary>
         /// <param name="registrationNumber"></param>
-        public void Remove(string registrationNumber)
+        /// <returns>number of storage slot</returns>    
+        public int Remove(string registrationNumber)
         {
             int slotNumber = FindDistinctSlotNumber(registrationNumber);
             if (slotNumber < 0)
@@ -72,6 +73,7 @@ namespace MyCompany.Storage.Biz
                 throw new StoreableNotFoundException();
             }
             _storageSlots[slotNumber].Remove(registrationNumber);
+            return slotNumber;
         }
         /// <summary>
         /// Counts the number of free spaces for a specifik storeable size
@@ -279,6 +281,10 @@ namespace MyCompany.Storage.Biz
                 return storableReports[index];
             }
             // Should only be get able. No set functionality.
+        }
+        public override string ToString()
+        {
+            return (string.Format("Storage with {0}/{1} slots full.",_storageSlots.Length,OccupiedCount()));
         }
     }
 }

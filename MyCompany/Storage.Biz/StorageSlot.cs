@@ -203,5 +203,9 @@ namespace MyCompany.Storage.Biz
                 return _storables[index];
             }
         }
+        public override string ToString()
+        {
+            return string.Format("StorageSlot with {0}/{1}",Occupied(),Size);
+        }
     }
 }

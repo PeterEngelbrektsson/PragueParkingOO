@@ -247,26 +247,18 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// </summary>
         /// <param name="parkingPlace"></param>
         /// <param name="registrationNumber"></param>
-        public static void Remove(string[] parkingPlace, string registrationNumber)
+        public static void Remove(Storage<Vehicle> parkingPlace, string registrationNumber)
         {
 
             try
             {
-                KeyValuePair<int, string> result;
-                result = Parking.Remove(parkingPlace, registrationNumber);
-                int pos = result.Key;
-                string checkinTimeStamp = result.Value;
-                if (result.Value != "")
-                {
-                    Messenger.WriteInformationMessage(String.Format("The Vehicle with registration number {0} successfully removed from position {1}. Cheked in {2}", registrationNumber, pos + 1, checkinTimeStamp)); // Display of parking number should be one based
-                }
-                else
-                {
-                    Messenger.WriteInformationMessage(String.Format("The Vehicle with registration number {0} successfully removed from position {1}", registrationNumber, pos + 1)); // Display of parking number should be one based
-                }
+                Vehicle v = parkingPlace.Peek(registrationNumber);
+                DateTime timeStamp = v.TimeStamp;
+                int pos = parkingPlace.Remove(registrationNumber);
+                Messenger.WriteInformationMessage(String.Format("The Vehicle with registration number {0} successfully removed from position {1}. It was parked {2}", registrationNumber, pos + 1,timeStamp)); // Display of parking number should be one based
 
             }
-            catch (VehicleNotFoundException)
+            catch (StoreableNotFoundException)
             {
 
                 Messenger.WriteErrorMessage("The Vehicle with this number " + registrationNumber + " Not found. ");
@@ -492,7 +484,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                             type = VehicleType.Bike;
                             break;
                         case 2:
-                            type = VehicleType.Motorbike;
+                            type = VehicleType.MotorBike;
                             break;
                         case 3:
                             type = VehicleType.Trike;
@@ -563,7 +555,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     // Ask the user for input and set properties
                     throw new NotImplementedException();
                     break;
-                case VehicleType.Motorbike:
+                case VehicleType.MotorBike:
                     MotorBike newMotorBike = new MotorBike();
                     newMotorBike.RegistrationNumber = registrationNumber;
                     newVehicle = newMotorBike;
@@ -603,7 +595,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Revome Vehicle
         /// </summary>
         /// <param name="parkingPlace"></param>
-        static void RemoveVehicle(string[] parkingPlace)
+        static void RemoveVehicle(Storage<Vehicle> parkingPlace)
         {
             string registrationNumber = PromptForRegistrationNumber();
             if (registrationNumber != null)

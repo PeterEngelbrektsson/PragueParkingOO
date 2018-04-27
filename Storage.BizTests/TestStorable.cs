@@ -19,6 +19,7 @@ namespace MyCompany.Storage.BizTests
         public string RegistrationNumber { get; set; }
         public DateTime TimeStamp { get; set; }
         public int Size { get; set; }
+        public string TypeName { get; set; }
 
     }
 }
