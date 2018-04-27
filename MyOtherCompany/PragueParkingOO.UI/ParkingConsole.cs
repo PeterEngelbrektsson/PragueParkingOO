@@ -501,6 +501,30 @@ namespace MyOtherCompany.PragueParkingOO.UI
             return type;
         }
         /// <summary>
+        /// Prompts the user for a Car mark
+        /// </summary>
+        /// <returns></returns>
+        public static string PromptMarkForCar()
+        {
+            bool loop = true;
+            string mark = null;
+            do
+            {
+                Console.WriteLine("Please enter the mark of the car: ");
+                mark = Console.ReadLine().ToUpper();
+                if (string.IsNullOrEmpty(mark))
+                {
+                    // Contiune looping
+                }
+                else
+                {
+                    // a string has been entered
+                    loop = false;
+                }
+            } while (loop);
+            return mark;
+        }
+        /// <summary>
         /// Prompts the user for a motorbike mark
         /// </summary>
         /// <returns></returns>
@@ -572,6 +596,15 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     // Should per specification use the specialized properties of the class MotorBike
                     // Ask the user for input and set properties
                     throw new NotImplementedException();
+                    break;
+               case VehicleType.Car:
+                    Car newCar = new Car();
+                    newCar.RegistrationNumber = registrationNumber;
+                    newVehicle = newCar;
+                    // Should per specification use the specialized properties of the class Car
+                    // Ask the user for input and set properties
+                    string mark=PromptMarkForCar();
+                    newCar.Mark = mark;
                     break;
                     // more classes of vehicles
                     throw new NotImplementedException();
