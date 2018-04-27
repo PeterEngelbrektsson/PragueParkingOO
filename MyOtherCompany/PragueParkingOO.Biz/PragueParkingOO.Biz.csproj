@@ -49,13 +49,13 @@
     <Compile Include="Vehicles\VehicleType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\MyOtherCompany_Common.csproj">
-      <Project>{21b3b54c-cc10-47da-98f1-8dd797bde326}</Project>
-      <Name>MyOtherCompany_Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\MyCompany\Storage.Biz\Storage.Biz.csproj">
       <Project>{cda1679f-040b-4871-ab3b-42bdafad30d2}</Project>
       <Name>Storage.Biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\MyOtherCompany_Common.csproj">
+      <Project>{21b3b54c-cc10-47da-98f1-8dd797bde326}</Project>
+      <Name>MyOtherCompany_Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

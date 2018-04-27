@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyCompany\Common\MyCompany_Common.csproj">
+    <ProjectReference Include="..\..\MyCompany\Common\MyCompany_Common.csproj">
       <Project>{7a29ed04-d9c2-43ce-b4be-939e620fa1de}</Project>
       <Name>MyCompany_Common</Name>
     </ProjectReference>
