@@ -46,7 +46,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
                 this._timestamp = DateTime.Now; 
             }
         }     
-        public string Description { get; }
+        public abstract string Description { get; }
         public string TypeName { get; set; }
 
         public Vehicle()

@@ -58,5 +58,12 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             newCar.TimeStamp = this.TimeStamp;
             return newCar;
         }
+        public override string Description
+        {
+            get
+            {
+                return string.Format("Car with registration number {0} of colour {1}", RegistrationNumber, Colour);
+            }
+        }
     }
 }
