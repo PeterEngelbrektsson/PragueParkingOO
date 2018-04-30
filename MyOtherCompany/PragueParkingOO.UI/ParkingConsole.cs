@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyOtherCompany.PragueParkingOO.Biz;
-using MyOtherCompany.PragueParkingOO.Biz.Vehicles;
+﻿using MyCompany.PragueParkingOO.Biz;
 using MyCompany.Storage.Biz;
 using MyOtherCompany.Common;
-using MyCompany.PragueParkingOO.Biz;
+using MyOtherCompany.PragueParkingOO.Biz;
+using MyOtherCompany.PragueParkingOO.Biz.Vehicles;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyOtherCompany.PragueParkingOO.UI
 {
@@ -497,7 +495,24 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Vehicle v = parkingPlace.Peek(registrationNumber);
                 DateTime timeStamp = v.TimeStamp;
                 int pos = parkingPlace.Remove(registrationNumber);
-                Messenger.WriteInformationMessage(String.Format("The Vehicle with registration number {0} successfully removed from position {1}. It was parked {2}", registrationNumber, pos + 1,timeStamp)); // Display of parking number should be one based
+                string message=String.Format("The {2} with registration number {0} successfully removed from position {1}.\nIt was parked {2}.\n", registrationNumber, pos + 1,timeStamp,v.TypeName); // Display of parking number should be one based
+                if (v is Bike)
+                {
+                    message += string.Format("The brand of the bike is {0}.", (v as Bike).Brand);
+                }
+                if (v is MotorBike)
+                {
+                    message += string.Format("The mark of the motorbike is {0}.", (v as MotorBike).Mark);
+                }
+                if (v is Trike)
+                {
+                    message += string.Format("The manufacturer of the trike is {0}.", (v as Trike).Manufacturer);
+                }
+                if (v is Car)
+                {
+                    message += string.Format("The colour of the car is {0}.", (v as Car).Colour);
+                }
+                Messenger.WriteInformationMessage(message);
 
             }
             catch (StoreableNotFoundException)
@@ -732,18 +747,18 @@ namespace MyOtherCompany.PragueParkingOO.UI
             return type;
         }
         /// <summary>
-        /// Prompts the user for a Car mark
+        /// Prompts the user for a bike manufacturer
         /// </summary>
         /// <returns></returns>
-        public static string PromptMarkForCar()
+        public static string PromptFormanufacturerTrike()
         {
             bool loop = true;
-            string mark = null;
+            string manufacturer = null;
             do
             {
-                Console.WriteLine("Please enter the mark of the car: ");
-                mark = Console.ReadLine().ToUpper();
-                if (string.IsNullOrEmpty(mark))
+                Console.WriteLine("Please enter the manufacturer of the trike: ");
+                manufacturer = Console.ReadLine().ToUpper();
+                if (string.IsNullOrEmpty(manufacturer))
                 {
                     // Contiune looping
                 }
@@ -753,13 +768,61 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     loop = false;
                 }
             } while (loop);
-            return mark;
+            return manufacturer;
+        }
+        /// <summary>
+        /// Prompts the user for a bike brand
+        /// </summary>
+        /// <returns></returns>
+        public static string PromptForBrandBike()
+        {
+            bool loop = true;
+            string brand = null;
+            do
+            {
+                Console.WriteLine("Please enter the brand of the bike: ");
+                brand = Console.ReadLine().ToUpper();
+                if (string.IsNullOrEmpty(brand))
+                {
+                    // Contiune looping
+                }
+                else
+                {
+                    // a string has been entered
+                    loop = false;
+                }
+            } while (loop);
+            return brand;
+        }
+        /// <summary>
+        /// Prompts the user for a Car mark
+        /// </summary>
+        /// <returns></returns>
+        public static string PromptForColourCar()
+        {
+            bool loop = true;
+            string colour = null;
+            do
+            {
+                Console.WriteLine("Please enter the colour of the car: ");
+                colour = Console.ReadLine().ToUpper();
+                if (string.IsNullOrEmpty(colour))
+                {
+                    // Contiune looping
+                }
+                else
+                {
+                    // a string has been entered
+                    loop = false;
+                }
+            } while (loop);
+            return colour;
         }
         /// <summary>
         /// Prompts the user for a motorbike mark
         /// </summary>
         /// <returns></returns>
-        public static string PromptForMark()
+        public static string PromptForMarkMotorbike()
         {
             bool loop = true;
             string mark = null;
@@ -810,7 +873,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     newVehicle = newBike;
                     // Should per specification use the specialized properties of the class Bike
                     // Ask the user for input and set properties
-                    throw new NotImplementedException();
+                    newBike.Brand = PromptForBrandBike();
                     break;
                 case VehicleType.MotorBike:
                     MotorBike newMotorBike = new MotorBike();
@@ -818,7 +881,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     newVehicle = newMotorBike;
                     // Should per specification use the specialized properties of the class MotorBike
                     // Ask the user for input and set properties
-                    string mark=PromptForMark();
+                    string mark=PromptForMarkMotorbike();
                     newMotorBike.Mark = mark;
                     break;
 
@@ -828,7 +891,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     newVehicle = newTrike;
                     // Should per specification use the specialized properties of the class Trike
                     // Ask the user for input and set properties
-                    throw new NotImplementedException();
+                    newTrike.Manufacturer = PromptFormanufacturerTrike();
                     break;
                case VehicleType.Car:
                     Car newCar = new Car();
@@ -836,7 +899,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     newVehicle = newCar;
                     // Should per specification use the specialized properties of the class Car
                     // Ask the user for input and set properties
-                    string colour=PromptMarkForCar();
+                    string colour=PromptForColourCar();
                     newCar.Colour = colour;
                     break;
      

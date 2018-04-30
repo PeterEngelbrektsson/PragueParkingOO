@@ -21,14 +21,14 @@ namespace MyOtherCompany.PragueParkingOO
         {
 
             // Testdata
-            parkingPlace.Add(new Car("ABC123"));
-            parkingPlace.Add(new Car("ABC210"));
-            parkingPlace.Add(new Car("ABC321"));
-            parkingPlace.Add(new Car("ABC432"));
-            parkingPlace.Add(new Car("ABC543"));
-            parkingPlace.Add(new Bike("BIKE1"));
-            parkingPlace.Add(new Bike("BIKE2"));
-            parkingPlace.Add(new Bike("BIKE3"));
+            parkingPlace.Add(new Car("ABC123","BROWN"));
+            parkingPlace.Add(new Car("ABC210","YELLOW"));
+            parkingPlace.Add(new Car("ABC321","GREEN"));
+            parkingPlace.Add(new Car("ABC432","BLUE"));
+            parkingPlace.Add(new Car("ABC543","WHITE"));
+            parkingPlace.Add(new Bike("BIKE1","BMW"));
+            parkingPlace.Add(new Bike("BIKE2","TOYOTA"));
+            parkingPlace.Add(new Bike("BIKE3","NISSAN"));
             parkingPlace.Add(new Bike("BIKE4"));
             parkingPlace.Add(new Bike("BIKE5"));
             parkingPlace.Add(new Bike("BIKE6"));
@@ -45,6 +45,18 @@ namespace MyOtherCompany.PragueParkingOO
             parkingPlace.Add(new Bike("BIKE17"));
             parkingPlace.Add(new Bike("BIKE18"));
             parkingPlace.Add(new Bike("BIKE19"));
+            parkingPlace.Add(new Trike("TRIKE1","FORD"));
+            parkingPlace.Add(new Trike("TRIKE2", "SAAB"));
+            parkingPlace.Add(new Trike("TRIKE3", "VOLVO"));
+            parkingPlace.Add(new Trike("TRIKE4", "BMW"));
+            parkingPlace.Add(new Trike("TRIKE5", "TOYOTA"));
+            parkingPlace.Add(new Trike("TRIKE6", "NISSAN"));
+            parkingPlace.Add(new MotorBike("MB1", "MINI"));
+            parkingPlace.Add(new MotorBike("MB2", "MAXI"));
+            parkingPlace.Add(new MotorBike("MB3", "MEDIUM"));
+            parkingPlace.Add(new MotorBike("MB4", "SMALL"));
+
+
 
         }
         static void Main(string[] args)

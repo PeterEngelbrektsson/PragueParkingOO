@@ -13,18 +13,36 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public class Car:Vehicle
     {
-        public string Colour;
+        private string _colour;
+        public string Colour {
+        get {
+                return _colour;
+            }
+            set
+            {
+                _colour = value;
+            }
+        }
 
         public Car():base()
         {
             this.Size = 4;
             this.TypeName = "Car";
+            this.Colour= "Black"; // All cars are by default black.
         }
         public Car(string registrationNumber):base()  // Used for popluate the data But we can use it anywhere.
         {
             this.Size= 4;
             this.RegistrationNumber = registrationNumber;
             this.TypeName = "Car";
+            this.Colour = "Black"; // All cars are by default black.
+        }
+        public Car(string registrationNumber,string colour) : base()  // Used for popluate the data But we can use it anywhere.
+        {
+            this.Size = 4;
+            this.RegistrationNumber = registrationNumber;
+            this.TypeName = "Car";
+            this.Colour = colour;
         }
         public override string ToString()
         {

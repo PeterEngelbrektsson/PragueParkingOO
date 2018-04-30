@@ -13,12 +13,27 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public class MotorBike:Vehicle
     {
-        public string Mark;
+        private string _mark;
+        public string Mark {
+        get {
+                return _mark;
+            }
+            set
+            {
+                _mark = value;
+            }
+        }
 
-        public MotorBike()
+        public MotorBike():base()
         {
-          Size = 2;
+            Size = 2;
             TypeName="MotorBike";
+            this.Mark = "BMW";
+        }
+        public MotorBike(string registrationNumber, string mark):base()
+        {
+            this.RegistrationNumber = registrationNumber;
+            this.Mark = mark;
         }
         public override object Clone()
         {

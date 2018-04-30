@@ -11,18 +11,39 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     /// A bike that can be stored
     /// </summary>
     [Serializable]
-    public class Bike:Vehicle
+    public class Bike : Vehicle
     {
         public Bike()
         {
             this.Size = 1;
+            this.TypeName = "Bike";
+            this.Brand = "Ford";
         }
         public Bike(string registrationNumber)
         {
             this.Size = 1;
             this.RegistrationNumber = registrationNumber;
             this.TypeName = "Bike";
+            this.Brand = "Ford";
         }
+        public Bike(string registrationNumber,string brand)
+        {
+            this.Size = 1;
+            this.RegistrationNumber = registrationNumber;
+            this.TypeName = "Bike";
+            this.Brand = brand;
+        }
+        private string _brand;
+        public string Brand{
+            get {
+                return _brand;
+            }
+             set {
+                _brand = value;
+            }
+
+        }
+
         public override string ToString()
         {
             return string.Format("Bike {0}", RegistrationNumber);
