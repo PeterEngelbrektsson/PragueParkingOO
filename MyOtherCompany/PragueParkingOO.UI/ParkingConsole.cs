@@ -38,6 +38,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             Console.WriteLine("10. Save");
             Console.WriteLine("11. Load");
             Console.WriteLine("12. Display Occupied slots");
+            Console.WriteLine("13. Display short parking slots overview");
             Console.WriteLine("0. EXIT");
             DisplayIfCanBeOptimized(parkingPlace);
             Console.WriteLine();
@@ -158,6 +159,11 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         case 12: //Display statistics
                             DisplayOccupiedPlaces(parkingPlace);
                             break;
+
+                        case 13: //Display statistics
+                            DisplayParkingSlotsOverview(parkingPlace);
+                            break;
+
                         default: // None of the above
 
                             Console.WriteLine();
@@ -255,7 +261,60 @@ namespace MyOtherCompany.PragueParkingOO.UI
             } while (loop);
 
         }
-
+        /// <summary>
+        /// Writes a report of all storageSlotReports to the console.
+        /// </summary>
+        /// <param name="storageSlotReports">Storage slot reports to write</param>
+        public static void WriteParkingSlotOverview(List<StorageSlotDetail> storageSlotReports)
+        {
+            bool loop = true;
+            int choice = 1;
+            do
+            {
+    
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("Slot Used Vehicles");
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+                int column = 0;
+                foreach (StorageSlotDetail report in storageSlotReports)
+                {
+                    Console.Write(" {0,3} ", report.SlotNumber + 1);
+                    if (report.FreeSpace == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else if (report.OccupiedSpace > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    Console.Write(" {0,1}/{1,1}", report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
+                    Console.ForegroundColor = ConsoleColor.White;
+                    if (column >= 9)
+                    {
+                        Console.WriteLine();
+                        column = 0;
+                    }
+                    else
+                    {
+                        column++;
+                    }
+                    
+                }
+                Console.WriteLine();
+                Console.WriteLine("Enter. Return to main menu.");
+                Console.WriteLine();
+                string select = Console.ReadLine();
+                if (!int.TryParse(select, out choice))
+                {
+                    loop = false;
+                    return;
+                }
+            } while (loop);
+        }
         /// <summary>
         /// Writes a report of all passed storageSlotReports to the console.
         /// </summary>
@@ -339,6 +398,10 @@ namespace MyOtherCompany.PragueParkingOO.UI
             } while (loop);
         }
 
+        public static void DisplayParkingSlotsOverview(ParkingPlace parkingPlace)
+        {
+            WriteParkingSlotOverview(parkingPlace.FindAllSlots());
+        }
             /// <summary>
             /// Displays overview of all parked vehicles in the parking place.
             /// </summary>
