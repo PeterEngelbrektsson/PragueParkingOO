@@ -27,18 +27,18 @@ namespace MyOtherCompany.PragueParkingOO.UI
             Console.WriteLine("  Prague Parking v1.0");
             Console.WriteLine("-----------------------");
             Console.WriteLine("1. Add a vehicle");
-            Console.WriteLine("2. Display overview");
-            Console.WriteLine("3. Move a vehicle");
-            Console.WriteLine("4. Find a vehicle");
-            Console.WriteLine("5. Remove a vehicle");
-            Console.WriteLine("6. Find free place");
-            Console.WriteLine("7. Optimize parking lot");
-            Console.WriteLine("8. Display all parked vehicles");
-            Console.WriteLine("9. Display statistics");
-            Console.WriteLine("10. Save");
-            Console.WriteLine("11. Load");
-            Console.WriteLine("12. Display Occupied slots");
-            Console.WriteLine("13. Display short parking slots overview");
+            Console.WriteLine("2. Move a vehicle");
+            Console.WriteLine("3. Find a vehicle");
+            Console.WriteLine("4. Remove a vehicle");
+            Console.WriteLine("5. Find free place");
+            Console.WriteLine("6. Optimize parking lot");
+            Console.WriteLine("7. Display short parking slots overview");
+            Console.WriteLine("8. Display overview");
+            Console.WriteLine("9. Display all parked vehicles");
+            Console.WriteLine("10. Display statistics");
+            Console.WriteLine("11. Display Occupied slots");
+            Console.WriteLine("12. Save");
+            Console.WriteLine("13. Load");
             Console.WriteLine("0. EXIT");
             DisplayIfCanBeOptimized(parkingPlace);
             Console.WriteLine();
@@ -116,52 +116,54 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         case 1: // Add a Vehicle
                             ParkVehicle(parkingPlace);
                             break;
-                        case 2: // Display overview
-                            DisplayOverview(parkingPlace);
-                            break;
 
-                        case 3: // Move a vehicle
+                        case 2: // Move a vehicle
                             MoveVehicle(parkingPlace);
                             break;
 
-                        case 4: // Find a vehicle
+                        case 3: // Find a vehicle
                             FindVehicle(parkingPlace);
                             break;
 
-                        case 5: // Remove a vehicle
+                        case 4: // Remove a vehicle
                             RemoveVehicle(parkingPlace);
                             break;
 
-                        case 6: // Find free parking spot
+                        case 5: // Find free parking spot
                             FindFreeSpot(parkingPlace);
                             break;
 
-                        case 7: // Optimize parking spot
+                        case 6: // Optimize parking spot
                             Optimize(parkingPlace); // Optimize the parking place
                             break;
 
-                        case 8: // List all vehicles in parking lot
+                        case 7: //Display short overview
+                            DisplayParkingSlotsOverview(parkingPlace);
+                            break;
+
+                        case 8: // Display overview
+                            DisplayOverview(parkingPlace);
+                            break;
+
+                        case 9: // List all vehicles in parking lot
                             DisplayParkedVehicels(parkingPlace);
                             break;
-                        case 9: //Display statistics
+
+                        case 10: //Display statistics
                             DisplayStatistics(parkingPlace);
                             break;
 
-                        case 10: //Save
-                            ParkingPlaceRepository.SaveToFile(parkingPlace, ParkingPlaceFileName);
-                            Messenger.WriteInformationMessage("Database saved to file.");
-                            break;
-                        case 11: //Load
-                            parkingPlace = ParkingPlaceRepository.LoadFromFile(ParkingPlaceFileName);
-                            Messenger.WriteInformationMessage("Database loaded from file.");
-                            break;
-
-                        case 12: //Display statistics
+                        case 11: //Display occupied places
                             DisplayOccupiedPlaces(parkingPlace);
                             break;
 
-                        case 13: //Display statistics
-                            DisplayParkingSlotsOverview(parkingPlace);
+                        case 12: //Save
+                            ParkingPlaceRepository.SaveToFile(parkingPlace, ParkingPlaceFileName);
+                            Messenger.WriteInformationMessage("Database saved to file.");
+                            break;
+                        case 13: //Load
+                            parkingPlace = ParkingPlaceRepository.LoadFromFile(ParkingPlaceFileName);
+                            Messenger.WriteInformationMessage("Database loaded from file.");
                             break;
 
                         default: // None of the above
