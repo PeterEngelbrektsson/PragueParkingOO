@@ -17,7 +17,8 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 
         public MotorBike()
         {
-            Size = 2;
+          Size = 2;
+            TypeName="MotorBike";
         }
         public override object Clone()
         {

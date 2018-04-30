@@ -16,6 +16,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         public Trike()
         {
             Size = 3;
+            TypeName = "Trike";
         }
         public override object Clone()
         {
