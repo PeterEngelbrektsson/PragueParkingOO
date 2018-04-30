@@ -9,7 +9,7 @@ namespace MyCompany.Storage.Biz
     public class StorageOptimizer<T> where T:IStoreable
     {
         /// <summary>
-        /// Optimize one pakable of one specified size
+        /// Optimize one storable of one specified size
         /// </summary>
         /// <param name="storage">Parking place</param>
         /// <param name="size">Size of Vehicle to optimize</param>
@@ -20,16 +20,16 @@ namespace MyCompany.Storage.Biz
 
              var freePlaces = storage.FindFreeSlots(size);
 
+            //----------------------------------
+            // find a place to move something to
+            // sort on freespace, size and slotnr
             var availableSlots =
                  (from freePlace in freePlaces
                  orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
                  where freePlace.FreeSpace != 0
                  select freePlace );
 
-             // Smallest free place is of size Size. 
-
-             // Try to find optimization.
-             // Find and do one optimization
+             // Smallest free place of size Size. 
              var firstStorageSlotToMoveTo = availableSlots.First();
              var storeablesToMoveTo = firstStorageSlotToMoveTo.StorageItemDetails;
              if (storeablesToMoveTo.Count() == 0)
@@ -38,6 +38,9 @@ namespace MyCompany.Storage.Biz
                  // break
                  return instruction;
              }
+
+             //----------------------------
+             // Find a vehicle to double park
              var ToDoublePark = storeablesToMoveTo[0]; // There can only be one onesize parked here in this version.
 
              var storeablesToMoveFrom = storage.FindAll();
