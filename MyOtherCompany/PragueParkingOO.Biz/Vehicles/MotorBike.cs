@@ -32,8 +32,10 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         }
         public MotorBike(string registrationNumber, string mark):base()
         {
-            this.RegistrationNumber = registrationNumber;
-            this.Mark = mark;
+            Size = 2;
+            TypeName = "MotorBike";
+            RegistrationNumber = registrationNumber;
+            Mark = mark;
         }
         public override object Clone()
         {
