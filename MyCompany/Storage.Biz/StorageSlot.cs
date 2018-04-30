@@ -16,8 +16,17 @@ namespace MyCompany.Storage.Biz
     public class StorageSlot<T> : IEnumerable<T>,ICloneable where T : IStoreable
     {
         private List<T> _storables = new List<T>();
+        private int _slotNumber;
         public int Size = 4;
-        public int SlotNumber { get; private set; }
+        public int SlotNumber { get
+            {
+                return _slotNumber;
+            }
+             private set
+            {
+                _slotNumber = value;
+            }
+        }
 
 
         public StorageSlot(int slotNumber)
