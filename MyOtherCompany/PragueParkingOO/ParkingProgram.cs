@@ -65,7 +65,32 @@ namespace MyOtherCompany.PragueParkingOO
 
             //Create the parking place with elements of parking 
             //ParkingPlace parkingPlace = new ParkingPlace(100,4); // 100 slots with a size of 4
-            ParkingPlace parkingPlace = new ParkingPlace(100); // 100 slots with different sizes from 1 to 6
+            //ParkingPlace parkingPlace = new ParkingPlace(100); // 100 slots with different sizes from 1 to 6
+            /*
+             * int size = 100;
+            Dictionary<int, int> SlotSizeCounts = new Dictionary<int, int>
+            {
+                { 1, size / 8 },
+                { 2, size / 8 },
+                { 3, size / 4 },
+                { 4, size / 4 },
+                { 5, size / 8 },
+                { 6, size-((size / 8)*3+(size/4)*2)}    // The rest of the parking places
+            };
+            ParkingPlace parkingPlace = new ParkingPlace(SlotSizeCounts); // 100 slots with different sizes from 1 to 6
+            */
+            Dictionary<int, int> SlotSizeCounts = new Dictionary<int, int>
+            {
+             // size,  Count 
+                { 1,    12},
+                { 2,    12 },
+                { 3,    25 },
+                { 4,    25 },
+                { 5,    12 },
+                { 6,    12 },
+                { 7,    2 }    
+            };
+            ParkingPlace parkingPlace = new ParkingPlace(SlotSizeCounts); // 100 slots with different sizes from 1 to 7
 
             // Setup demo with testdata.  FIXME remove this in production code.
             PopulateTestData(parkingPlace);
