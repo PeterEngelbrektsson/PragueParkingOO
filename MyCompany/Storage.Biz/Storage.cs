@@ -85,6 +85,12 @@ namespace MyCompany.Storage.Biz
         /// <returns>Slot number the storeable has been parked in</returns>
         public int Add(T item)
         {
+
+            // Check if the registration number exists
+            if (FindDistinctSlotNumber(item.RegistrationNumber) > -1)
+            {
+                throw new RegistrationNumberAlreadyExistsException();
+            }
             // find a slot with free place.
             // first find all free slots.
             var freeSpaces = FindFreeSlots(item.Size);
