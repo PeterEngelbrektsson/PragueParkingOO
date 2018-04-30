@@ -56,7 +56,7 @@ namespace Storage.BizTests
             expectedDetailList.Add(expectedDetail);
             StorageSlotDetail expected = new StorageSlotDetail();
             expected.Size = 4;
-            expected.SlotNumber = 1;    // Expected to be stored in first free position
+            expected.SlotNumber = 0;    // Expected to be stored in first free position
             expected.OccupiedSpace = 4;
             expected.FreeSpace = 0;
             expected.StorageItemDetails = expectedDetailList;
@@ -88,7 +88,7 @@ namespace Storage.BizTests
             expectedDetailList.Add(expectedDetail);
             StorageSlotDetail expected = new StorageSlotDetail();
             expected.Size = 4;
-            expected.SlotNumber = 1;    // Expected to be stored in first free position
+            expected.SlotNumber = 0;    // Expected to be stored in first free position
             expected.OccupiedSpace = 4;
             expected.FreeSpace = 0;
             expected.StorageItemDetails = expectedDetailList;
@@ -97,16 +97,17 @@ namespace Storage.BizTests
             expectedDetail2.RegistrationNumber = item2.RegistrationNumber;
             expectedDetail2.Size = item2.Size;
             List<StorageItemDetail> expectedDetailList2 = new List<StorageItemDetail>();
-            expectedDetailList.Add(expectedDetail);
+            expectedDetailList2.Add(expectedDetail2);
             StorageSlotDetail expected2 = new StorageSlotDetail();
             expected2.Size = 4;
-            expected2.SlotNumber = 2;    // Expected to be stored in first free position
+            expected2.SlotNumber = 1;    // Expected to be stored in first free position
             expected2.OccupiedSpace = 4;
             expected2.FreeSpace = 0;
-            expected2.StorageItemDetails = expectedDetailList;
+            expected2.StorageItemDetails = expectedDetailList2;
 
             // Act
             sut.Add(item);
+            sut.Add(item2);
             acutal = sut.Occupied();
 
             // Assert

@@ -5,7 +5,7 @@ using MyCompany.Storage.Biz;
 namespace MyCompany.Storage.BizTests
 {
     [TestFixture]
-    public class storageAddPeekTests
+    public class StorageAddPeekTests
     {
      
 

@@ -50,7 +50,7 @@ namespace Storage.BizTests
             // Act
             sut.Add(item);
             sut.Add(item2);
-            acutal = sut.FindFreePlace(4);
+            acutal = sut.FreeSpacesCount(4);
 
             // Assert
             Assert.That(acutal.Equals(8));
@@ -66,7 +66,7 @@ namespace Storage.BizTests
             sut.Add(item);
             sut.Add(item2);
             sut.Add(item3);
-            acutal = sut.FindFreePlace(4);
+            acutal = sut.FreeSpacesCount(4);
 
             // Assert
             Assert.That(acutal.Equals(7));
@@ -82,10 +82,10 @@ namespace Storage.BizTests
             sut.Add(item2);
             sut.Add(item3);
             sut.Add(item4);
-            acutal = sut.FindFreePlace(4);
+            acutal = sut.FreeSpacesCount(4);
 
             // Assert
-            Assert.That(acutal.Equals(7));
+            Assert.That(acutal.Equals(6));
 
         }
     }
