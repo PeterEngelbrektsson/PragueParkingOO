@@ -32,17 +32,9 @@ namespace MyCompany.Storage.Biz
              // Smallest free place of size Size. 
              var firstStorageSlotToMoveTo = availableSlots.First();
              var storeablesToMoveTo = firstStorageSlotToMoveTo.StorageItemDetails;
-             if (storeablesToMoveTo.Count() == 0)
-             {
-                 // Empty parking slot
-                 // break
-                 return instruction;
-             }
-
+            
              //----------------------------
-             // Find a vehicle to double park
-             var ToDoublePark = storeablesToMoveTo[0]; // There can only be one onesize parked here in this version.
-
+             // Find a vehicle to double park or move to empty parking slot
              var storeablesToMoveFrom = storage.FindAll();
              var storageSlotsToMoveFrom = storage.FindAllSlots();
              // query sort on descening parking slot number
@@ -67,21 +59,22 @@ namespace MyCompany.Storage.Biz
                  return instruction;
              }
              var lastofSizeN = found.First();
-             if (lastofSizeN.SlotNumner.CompareTo(ToDoublePark.StorageSlotNumber) == 0)
-             {
-                 // First and last n size are the same object
-                 // No optimization can be done
-                 // break recursion
-                 return instruction;
-             }
+            if (lastofSizeN.SlotNumner.CompareTo(firstStorageSlotToMoveTo.SlotNumber) == 0)
+            {
+                // First and last n size are the same object
+                // No optimization can be done
+                // break recursion
+                return instruction;
 
+            }
+            
             // Create a movement instruction
             instruction = new OptimizeMovementDetail
             {
                 RegistrationNumber = lastofSizeN.RegistrationNumner,
                 TimeStamp = lastofSizeN.TimeStamp,
                 TypeName = lastofSizeN.TypeName,
-                NewStorageSlotNumber = ToDoublePark.StorageSlotNumber,
+                NewStorageSlotNumber = firstStorageSlotToMoveTo.SlotNumber,
                 OldStorageSlotNumber = lastofSizeN.SlotNumner,
                 Description = lastofSizeN.Description
             };
