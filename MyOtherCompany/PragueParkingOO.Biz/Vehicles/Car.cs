@@ -15,13 +15,29 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     {
         public string Colour;
 
-        public Car()
+        public Car():base()
         {
-            throw new NotImplementedException();
+            this.Size = 4;
         }
-        public Car(string registrationNumber)
+        public Car(string registrationNumber):base()
         {
+            this.Size= 4;
             this.RegistrationNumber = registrationNumber;
+            this.TypeName = "Car";
+        }
+        public override string ToString()
+        {
+            return string.Format("Car {0}",RegistrationNumber);
+        }
+        public override object Clone()
+        {
+            Car newCar = new Car();
+            newCar.Size = this.Size;
+            newCar.RegistrationNumber = this.RegistrationNumber;
+            newCar.TypeName = this.TypeName;
+            newCar.Colour = this.Colour;
+            newCar.TimeStamp = this.TimeStamp;
+            return newCar;
         }
     }
 }

@@ -20,6 +20,16 @@ namespace MyCompany.Storage.BizTests
         public DateTime TimeStamp { get; set; }
         public int Size { get; set; }
         public string TypeName { get; set; }
-
+        public object Clone()
+        {
+            TestStorable newTestStorable = new TestStorable
+            {
+                Size = this.Size,
+                RegistrationNumber = this.RegistrationNumber,
+                TypeName = this.TypeName,
+                TimeStamp = this.TimeStamp
+            };
+            return newTestStorable;
+        }
     }
 }

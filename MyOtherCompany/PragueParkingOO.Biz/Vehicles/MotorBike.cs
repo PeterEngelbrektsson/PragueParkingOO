@@ -17,7 +17,18 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 
         public MotorBike()
         {
-            throw new NotImplementedException();
+            Size = 2;
+        }
+        public override object Clone()
+        {
+            MotorBike newMotorBike = new MotorBike
+            {
+                Size = this.Size,
+                RegistrationNumber = this.RegistrationNumber,
+                TypeName = this.TypeName,
+                TimeStamp = this.TimeStamp
+            };
+            return newMotorBike;
         }
     }
 }

@@ -72,18 +72,20 @@ namespace MyCompany.Storage.Biz
                  return instruction;
              }
 
-             // Create a movement instruction
-             instruction = new OptimizeMovementDetail();
-             instruction.RegistrationNumber = lastofSizeN.RegistrationNumner;
-             instruction.TimeStamp = lastofSizeN.TimeStamp;
-             instruction.TypeName = lastofSizeN.TypeName;
-             instruction.NewStorageSlotNumber = ToDoublePark.StorageSlotNumber;
-             instruction.OldStorageSlotNumber = lastofSizeN.SlotNumner;
-             instruction.Description = lastofSizeN.Description;
+            // Create a movement instruction
+            instruction = new OptimizeMovementDetail
+            {
+                RegistrationNumber = lastofSizeN.RegistrationNumner,
+                TimeStamp = lastofSizeN.TimeStamp,
+                TypeName = lastofSizeN.TypeName,
+                NewStorageSlotNumber = ToDoublePark.StorageSlotNumber,
+                OldStorageSlotNumber = lastofSizeN.SlotNumner,
+                Description = lastofSizeN.Description
+            };
 
 
-             // Do the move in the test parking place
-             storage.Move(instruction.RegistrationNumber, instruction.NewStorageSlotNumber);
+            // Do the move in the test parking place
+            storage.Move(instruction.RegistrationNumber, instruction.NewStorageSlotNumber);
 
 
              return instruction;

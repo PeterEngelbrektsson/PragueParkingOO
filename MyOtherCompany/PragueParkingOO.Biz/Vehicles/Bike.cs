@@ -15,7 +15,28 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     {
         public Bike()
         {
-            throw new NotImplementedException();
+            this.Size = 1;
+        }
+        public Bike(string registrationNumber)
+        {
+            this.Size = 1;
+            this.RegistrationNumber = registrationNumber;
+            this.TypeName = "Bike";
+        }
+        public override string ToString()
+        {
+            return string.Format("Bike {0}", RegistrationNumber);
+        }
+        public override object Clone()
+        {
+            Bike newBike = new Bike
+            {
+                Size = this.Size,
+                RegistrationNumber = this.RegistrationNumber,
+                TypeName = this.TypeName,
+                TimeStamp = this.TimeStamp
+            };
+            return newBike;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace MyCompany.Storage.Biz
         {
             SlotNumber = slotNumber;
         }
+        public StorageSlot(int slotNumber,int size)
+        {
+            SlotNumber = slotNumber;
+            Size = size;
+        }
         /// <summary>
         /// Adds a storeable to the storage slot.
         /// Throws exeption if registrationnumber already exists
@@ -39,13 +44,129 @@ namespace MyCompany.Storage.Biz
             {
                 throw new StorageSlotToFullForStoreableException();
             }
-            if (item.TimeStamp == null)
+            if (item.TimeStamp.Equals(default(DateTime)))
             {
                 item.TimeStamp = DateTime.Now; // Set timestamp if null. 
                 //If not null it has already been checked in and is only moved around inside the storage
             }
             _storables.Add(item);
         }
+
+        /// <summary>
+        /// Finds a stored storeables  slot number
+        /// </summary>
+        /// <param name="registrationNumber"></param>
+        /// <returns></returns>
+        public bool Contains(string registrationNumber)
+        {
+            bool found = false;
+            foreach (T t in this)
+            {
+                if (t.RegistrationNumber.Equals(registrationNumber))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+
+        /// <summary>
+        /// Counts the number of free spaces for a specifik storable size
+        /// </summary>
+        /// <param name="size">Size of item to store</param>
+        /// <returns></returns>
+        public int FreeSpaces(int size)
+        {
+            if (size < 0)
+            {
+                throw new ArgumentException();
+            }
+            int freeSpaces = FreeSpace() / size;    // The number of storabels of a specific size that fits in the slot
+            return freeSpaces;
+        }
+ 
+        /// <summary>
+        /// Counts the number of free spaces 
+        /// </summary>
+        /// <returns></returns>
+        public int FreeSpace()
+        {
+            return Size - Occupied();
+        }
+
+        /// <summary>
+        /// Returns the content of the parking place
+        /// </summary>
+        /// <returns></returns>
+        public StorageSlotDetail GetSlotDetails()
+        {
+            StorageSlotDetail item = new StorageSlotDetail
+            {
+                FreeSpace = FreeSpace(),
+                OccupiedSpace = Occupied(),
+                SlotNumber = SlotNumber,
+                Size = Size,
+                StorageItemDetails = GetStorageItemDetailsReport()
+            };
+            return item;
+        }
+
+        /// <summary>
+        /// Generates a storables details report for the slot;
+        /// </summary>
+        public List<StorageItemDetail> GetStorageItemDetailsReport()
+        {
+            List<StorageItemDetail> details = new List<StorageItemDetail>();
+
+            foreach (T item in _storables)
+            {
+                StorageItemDetail detail = new StorageItemDetail();
+                detail.Size = item.Size;
+                detail.TimeStamp = item.TimeStamp;
+                detail.RegistrationNumber = item.RegistrationNumber;
+                detail.Description = item.Description;
+                detail.StorageSlotNumber = this.SlotNumber;
+                detail.TypeName = item.TypeName;
+                details.Add(detail);
+            }
+            return details;
+        }
+
+ 
+        /// <summary>
+        /// Returns the amount of occupied space in the slot
+        /// </summary>
+        /// <returns></returns>
+        public int Occupied()
+        {
+            int OccupiedSpace = 0;
+            foreach (T t in this)
+            {
+                OccupiedSpace += t.Size;
+            }
+            return OccupiedSpace;
+        }
+
+        /// <summary>
+        /// Retrieves an item from storage without removing it
+        /// </summary>
+        /// <param name="registrationNumber"></param>
+        /// <returns></returns>
+        public T Peek(string registrationNumber)
+        {
+            T result = default(T);
+            foreach (T item in _storables)
+            {
+                if (item.RegistrationNumber.Equals(registrationNumber))
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// Removes a storeable from the storage slot
         /// </summary>
@@ -61,130 +182,13 @@ namespace MyCompany.Storage.Biz
             _storables.Remove(item);
 
         }
-        /// <summary>
-        /// Counts the number of free spaces for a specifik storable size
-        /// </summary>
-        /// <param name="size">Size of item to store</param>
-        /// <returns></returns>
-        public int FreeSpaces(int size)
-        {
-            if (size < 0)
-            {
-                throw new ArgumentException();
-            }
-            int freeSpaces = FreeSpace() / size;    // The number of storabels of a specific size that fits in the slot
-            return freeSpaces;
-        }
-        /// <summary>
-        /// Counts the number of free spaces 
-        /// </summary>
-        /// <returns></returns>
-        public int FreeSpace()
-        {
-            return Size - Occupied();
-        }
-        /// <summary>
-        /// Retrieves an item from storage without removing it
-        /// </summary>
-        /// <param name="registrationNumber"></param>
-        /// <returns></returns>
-        public T Peek(string registrationNumber)
-        {
-            T result= default(T);
-            foreach(T item in _storables)
-            {
-                if (item.RegistrationNumber.Equals(registrationNumber))
-                {
-                    result = item;
-                    break;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the amount of occupied space in the slot
-        /// </summary>
-        /// <returns></returns>
-        public int Occupied()
-        {
-            int OccupiedSpace = 0;
-            foreach (T t in this)
-            {
-                OccupiedSpace += t.Size;
-            }
-            return OccupiedSpace;
-        }
-        /// <summary>
-        /// Generates a storables details report for the slot;
-        /// </summary>
-        public List<StorageItemDetail> GetStorageItemDetailsReport()
-        {
-            List<StorageItemDetail> details = new List<StorageItemDetail>();
-            
-            foreach(T item in _storables)
-            {
-                StorageItemDetail detail = new StorageItemDetail();
-                detail.Size = item.Size;
-                detail.TimeStamp = item.TimeStamp;
-                detail.RegistrationNumber = item.RegistrationNumber;
-                detail.Description = item.Description;
-                detail.StorageSlotNumber = this.SlotNumber;
-                detail.TypeName = item.TypeName;
-                details.Add(detail);
-            }
-            return details;
-        }
-        /// <summary>
-        /// Returns the content of the parking place
-        /// </summary>
-        /// <returns></returns>
-        public StorageSlotDetail GetSlotDetails()
-        {
-            StorageSlotDetail item = new StorageSlotDetail();
-            item.FreeSpace = FreeSpace();
-            item.OccupiedSpace = Occupied();
-            item.SlotNumber = SlotNumber;
-            item.StorageItemDetails = GetStorageItemDetailsReport();
-            return item;
-        }
-        /// <summary>
-        /// Finds a stored storeables  slot number
-        /// </summary>
-        /// <param name="registrationNumber"></param>
-        /// <returns></returns>
-        public bool Contains(string registrationNumber)
-        {
-            bool found = false;
-            foreach(T t in this)
-            {
-                if (t.RegistrationNumber.Equals(registrationNumber))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            return found;
-        }
-
-    
+ 
+   
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable<T>)_storables).GetEnumerator();
         }
 
-     /*   /// <summary>
-        /// Enumerates storageItemDetailsReports for all T's in slot
-        /// </summary>
-        /// <returns></returns>
-        IEnumerator<StorageItemDetail> IEnumerable<StorageItemDetail>.GetEnumerator()
-        {
-            foreach(StorageItemDetail item in GetStorageItemDetailsReport())
-            {
-                yield return item;
-            }
-        }
-        */
         /// <summary>
         ///  Enumerates all T in slot
         /// </summary>
@@ -213,7 +217,15 @@ namespace MyCompany.Storage.Biz
 
         public object Clone()
         {
-            throw new NotImplementedException();
-        }
+
+            StorageSlot<T> newSlot = new StorageSlot<T>(SlotNumber);
+            foreach(T storeable in _storables)
+            {
+                newSlot.Add((T)storeable.Clone());
+            }
+            newSlot.Size = Size;
+            return newSlot;
+
     }
+}
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ParkingPlace.cs" />
     <Compile Include="ParkingPlaceOptimizer.cs" />
+    <Compile Include="ParkingPlaceRepository.cs" />
     <Compile Include="Vehicles\Bike.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Vehicles\MotorBike.cs" />

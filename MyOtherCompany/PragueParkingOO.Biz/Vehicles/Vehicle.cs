@@ -11,9 +11,9 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     /// A Vehcle that can be stored.
     /// </summary>
     [Serializable]
-    public class Vehicle : IStoreable
+    public abstract class Vehicle : IStoreable
     {
-        public int Size { get;}           // Size of vehicle
+        public int Size { get; set; }           // Size of vehicle
         private string _registraionNumber;
         public string RegistrationNumber {
             get
@@ -46,6 +46,8 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         {
             RegistrationNumber = registrationNumber;
         }
+
+        public abstract object Clone();
     }
     
 }

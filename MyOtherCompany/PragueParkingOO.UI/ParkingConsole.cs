@@ -22,6 +22,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         public static void WriteMenu(ParkingPlace parkingPlace)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             Console.WriteLine("  Prague Parking v1.0");
             Console.WriteLine("-----------------------");
@@ -36,6 +37,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             Console.WriteLine("9. Display statistics");
             Console.WriteLine("10. Save");
             Console.WriteLine("11. Load");
+            Console.WriteLine("12. Display Occupied slots");
             Console.WriteLine("0. EXIT");
             DisplayIfCanBeOptimized(parkingPlace);
             Console.WriteLine();
@@ -69,12 +71,16 @@ namespace MyOtherCompany.PragueParkingOO.UI
             int freeParkingPlacesMotorBike = parkingPlace.FreeSpacesCount(new MotorBike().Size);
             int freeParkingPlacesTrike = parkingPlace.FreeSpacesCount(new Trike().Size);
             int OccupiedParkingPlaces = parkingPlace.OccupiedCount();
+            int PartiallyOccupiedParkingPlaces = parkingPlace.PartiallyOccupiedCount();
             Console.WriteLine();
-            Messenger.WriteInformationMessage(String.Format("The number of free parking places for cars {0}.", freeParkingPlacesCar));
-            Messenger.WriteInformationMessage(String.Format("The number of free parking places for motorcycles {0}.", freeParkingPlacesMotorBike));
-            Messenger.WriteInformationMessage(String.Format("The number of free parking places for trikes {0}.", freeParkingPlacesTrike));
-            Messenger.WriteInformationMessage(String.Format("The number of free parking places for bikes{0}.", freeParkingPlacesBike));
-            Messenger.WriteInformationMessage(String.Format("The number of occupied parking places {0}.", OccupiedParkingPlaces));
+            string report="";
+            report += String.Format("The number of free parking places for cars {0}. \n", freeParkingPlacesCar);
+            report += String.Format("The number of free parking places for motorcycles {0}. \n", freeParkingPlacesMotorBike);
+            report += String.Format("The number of free parking places for trikes {0}.\n", freeParkingPlacesTrike);
+            report += String.Format("The number of free parking places for bikes {0}.\n", freeParkingPlacesBike);
+            report += String.Format("The number of occupied parking places {0}.\n", OccupiedParkingPlaces);
+            report += String.Format("The number of partially occupied parking places {0}.", PartiallyOccupiedParkingPlaces);
+            Messenger.WriteInformationMessage(report);
         }
         /// <summary>
         /// Display the menu bar.
@@ -128,27 +134,30 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         case 6: // Find free parking spot
                             FindFreeSpot(parkingPlace);
                             break;
-                            /*
+
                         case 7: // Optimize parking spot
                             Optimize(parkingPlace); // Optimize the parking place
                             break;
-                            */
+
                         case 8: // List all vehicles in parking lot
                             DisplayParkedVehicels(parkingPlace);
                             break;
                         case 9: //Display statistics
                             DisplayStatistics(parkingPlace);
                             break;
-                            /*
+
                         case 10: //Save
-                            Parking.SaveToFile(parkingPlace, ParkingPlaceFileName);
+                            ParkingPlaceRepository.SaveToFile(parkingPlace, ParkingPlaceFileName);
                             Messenger.WriteInformationMessage("Database saved to file.");
                             break;
                         case 11: //Load
-                            parkingPlace = Parking.LoadFromFile(ParkingPlaceFileName);
+                            parkingPlace = ParkingPlaceRepository.LoadFromFile(ParkingPlaceFileName);
                             Messenger.WriteInformationMessage("Database loaded from file.");
                             break;
-                            */
+
+                        case 12: //Display statistics
+                            DisplayOccupiedPlaces(parkingPlace);
+                            break;
                         default: // None of the above
 
                             Console.WriteLine();
@@ -165,57 +174,190 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         public static void DisplayParkedVehicels(ParkingPlace parkingPlace)
         {
-
             var parkedVehicles = parkingPlace.FindAll();
-            if (parkedVehicles != null && parkedVehicles.Count > 0)
-            {
-                foreach (var vehicle in parkedVehicles)
-                {
-                    Console.WriteLine("{0} {1} ", vehicle.RegistrationNumber, vehicle.TimeStamp); 
-                }
-            }
-            else
+
+            if (parkedVehicles == null || parkedVehicles.Count() < 1)
             {
                 Messenger.WriteInformationMessage("The parkingplace is empty.");
+                return;
             }
-        }
 
-        
-        /// <summary>
-        /// Displays overview of all parked vehicles in the parking place.
-        /// </summary>
-        /// <param name="parkingPlace"></param>
-        public static void DisplayOverview(ParkingPlace parkingPlace)
-        {
-            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine("Slot Used Vehicles");
-            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
-
-            foreach (StorageSlotDetail report in parkingPlace)
+            bool loop = true;
+            int choice = 1;
+            do
             {
-                if (report.FreeSpace == 0)
+                switch (choice)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    case 1:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByStorageSlotAscendingOrder());
+                        break;
+                    case 2:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByStorageSlotDescendingOrder());
+                        break;
+                    case 3:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByRegistrationNumberAscendingOrder());
+                        break;
+                    case 4:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByRegistrationNumberDescendingOrder());
+                        break;
+                    case 5:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByTypeNameAscendingOrder());
+                        break;
+                    case 6:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByTypeNameDescendingOrder());
+                        break;
+                    case 7:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByTimeStampAscendingOrder());
+                        break;
+                    case 8:
+                        parkedVehicles.Sort(new StorageItemDetail_SortByTimeStampDescendingOrder());
+                        break;
+                    case 9:
+                        parkedVehicles.Sort(new StorageItemDetail_SortBySizeAscendingOrder());
+                        break;
+                    case 10:
+                        parkedVehicles.Sort(new StorageItemDetail_SortBySizeDescendingOrder());
+                        break;
+                    default:
+                        loop = false;
+                        break;
                 }
-                else if (report.FreeSpace> 0)
+                Console.WriteLine("-----------------------------------------------------------------------------------");
+                Console.WriteLine("Slot Regnr       Type         Checked in          Size");
+                Console.WriteLine("-----------------------------------------------------------------------------------");
+                foreach (StorageItemDetail vehicleDetail in parkedVehicles)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
-                Console.Write(" {0,3} {1,1}/{2,1}", report.SlotNumber, report.OccupiedSpace, report.Size);
-                Console.ForegroundColor = ConsoleColor.White;
-                foreach (var itemDetail in report.StorageItemDetails)
-                {
-                    Console.Write(" {0,10} ", itemDetail.RegistrationNumber);
+                    Console.WriteLine("{0,3} {1,10} {2,12} {3,16} {4,2}", vehicleDetail.StorageSlotNumber + 1, vehicleDetail.RegistrationNumber, vehicleDetail.TypeName,vehicleDetail.TimeStamp, vehicleDetail.Size); // Display should be 1 based
                 }
                 Console.WriteLine();
-            }
-                        
+                Console.WriteLine("1. Sort the list in ascending order on parking slot numner.");
+                Console.WriteLine("2. Sort the list in descending order on parking slot  numner.");
+                Console.WriteLine("3. Sort the list in ascending order on registration numner.");
+                Console.WriteLine("4. Sort the list in descending order on registration numner.");
+                Console.WriteLine("5. Sort the list in ascending order on vehicle type numner.");
+                Console.WriteLine("6. Sort the list in descending order on vehicle type numner.");
+                Console.WriteLine("7. Sort the list in ascending order on timestamp.");
+                Console.WriteLine("8. Sort the list in descending order on timestamp.");
+                Console.WriteLine("9. Sort the list in ascending order on vehicle size.");
+                Console.WriteLine("10. Sort the list in descending order on vehicle size.");
+                Console.WriteLine("Enter. Return to main menu.");
+                string select = Console.ReadLine();
+                if (!int.TryParse(select, out choice))
+                {
+                    loop = false;
+                    return;
+                }
+                if (choice < 1 | choice > 10)
+                {
+                    // User has aborted
+                    loop = false;
+                }
+            } while (loop);
+
         }
 
+        /// <summary>
+        /// Writes a report of all passed storageSlotReports to the console.
+        /// </summary>
+        /// <param name="storageSlotReports">Storage slot reports to write</param>
+        public static void WriteParkingSlotContent(List<StorageSlotDetail> storageSlotReports)
+        {
+            bool loop = true;
+            int choice = 1;
+            do
+            {
+                switch (choice)
+                {
+                    case 1:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByStorageSlotNumberAscendingOrder());
+                        break;
+                    case 2:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByStorageSlotNumberDescendingOrder());
+                        break;
+                    case 3:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByFreeSpaceAscendingOrder());
+                        break;
+                    case 4:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByFreeSpaceDescendingOrder());
+                        break;
+                    case 5:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByOccupiedSpaceAscendingOrder());
+                        break;
+                    case 6:
+                        storageSlotReports.Sort(new StorageSlotDetail_SortByOccupiedSpaceDescendingOrder());
+                        break;
+                    default:
+                        loop = false;
+                        break;
+                }
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine("Slot Used Vehicles");
+                Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+
+                foreach (StorageSlotDetail report in storageSlotReports)
+                {
+                    if (report.FreeSpace == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else if (report.OccupiedSpace > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    Console.Write(" {0,3} {1,1}/{2,1}", report.SlotNumber+1, report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
+                    Console.ForegroundColor = ConsoleColor.White;
+                    foreach (var itemDetail in report.StorageItemDetails)
+                    {
+                        Console.Write(" [{0,12} {1,10}] ", itemDetail.TypeName, itemDetail.RegistrationNumber);
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+                Console.WriteLine("1. Sort the list in ascending order on parking slot numner.");
+                Console.WriteLine("2. Sort the list in descending order on parking slot  numner.");
+                Console.WriteLine("3. Sort the list in ascending order on free space numner.");
+                Console.WriteLine("4. Sort the list in descending order on free space numner.");
+                Console.WriteLine("5. Sort the list in ascending order on occupied space numner.");
+                Console.WriteLine("6. Sort the list in descending order on occupied space numner.");
+                Console.WriteLine("Enter. Return to main menu.");
+                Console.WriteLine();
+                string select = Console.ReadLine();
+                if (!int.TryParse(select, out choice))
+                {
+                    loop = false;
+                    return;
+                }
+                if (choice < 1 | choice > 10)
+                {
+                    // User has aborted
+                    loop = false;
+                }
+            } while (loop);
+        }
+
+            /// <summary>
+            /// Displays overview of all parked vehicles in the parking place.
+            /// </summary>
+            /// <param name="parkingPlace"></param>
+            public static void DisplayOverview(ParkingPlace parkingPlace)
+        {
+
+            WriteParkingSlotContent(parkingPlace.FindAllSlots());
+       
+                        
+        }
+        /// <summary>
+        /// Displays all free places in the parkingplace
+        /// </summary>
+        /// <param name="parkingPlace"></param>
+        public static void DisplayOccupiedPlaces(ParkingPlace parkingPlace)
+        {
+            WriteParkingSlotContent(parkingPlace.Occupied());
+        }
         /// <summary>
         /// Optimizes the parking place. Moves single parked motorcycles together in the same slots.
         /// Displays a list of movements to be performed by the employees.
@@ -225,42 +367,52 @@ namespace MyOtherCompany.PragueParkingOO.UI
         public static void Optimize(ParkingPlace parkingPlace)
         {
             ParkingPlaceOptimizer optimizer = new ParkingPlaceOptimizer();
-            List<OptimizeMovementDetail> messages;
-            messages = optimizer.GetOptimzeInstructions(parkingPlace);
+            List<OptimizeMovementDetail> OptimizeInstructions;
+            OptimizeInstructions = optimizer.GetOptimzeInstructions(parkingPlace);
             string OptimzeMessage = "";
-            foreach (var message in messages)
+            foreach (var message in OptimizeInstructions)
             {
-                OptimzeMessage += string.Format("Move {0} with registrationNumber {1} from parking slot {2} to {3} \n", message.TypeName, message.RegistrationNumber, message.OldStorageSlotNumber, message.NewStorageSlotNumber);
+                OptimzeMessage += string.Format("Move {0} with registrationNumber {1} from parking slot {2} to {3} \n", message.TypeName, message.RegistrationNumber, message.OldStorageSlotNumber+1, message.NewStorageSlotNumber+1);
             }
-            if (messages.Count() < 1)
+            if (OptimizeInstructions.Count() < 1)
             {
                 Messenger.WriteInformationMessage("The parkingplace is alreadey optimized.");
             }
-            else { 
-                Messenger.WriteInformationMessage(OptimzeMessage);
-            }
-            bool loop = true;
-            string input = null;
-            do
+            else
             {
-                Console.WriteLine("Please enter YES to confirm optimization 0 to bort: ");
-                input = Console.ReadLine().ToUpper();
-                int inputNumber = 0;
-                if (int.TryParse(input, out inputNumber) && inputNumber == 0)
-                {
-                    // 0 means abort
-                    input = null;
-                    loop = false;
-                }
+                Messenger.WriteInformationMessage(OptimzeMessage);
 
-                else
+                bool loop = true;
+                string input = null;
+                do
                 {
-                    // optimization confirmed
-                    loop = false;
-                    optimizer.DoOptimization(parkingPlace);
-                }
-            } while (loop);
+                    Console.WriteLine("Please enter YES to confirm optimization 0 to bort: ");
+                    input = Console.ReadLine().ToUpper();
+                    int inputNumber = 0;
+                    if (int.TryParse(input, out inputNumber))
+                    {
+                        if (inputNumber == 0)
+                        {
+                            // 0 means abort
+                            input = null;
+                            loop = false;
+                        }
 
+
+                    }
+                    else if (input.Equals("YES"))
+                    {
+                        // optimization confirmed
+                        loop = false;
+                        optimizer.DoOptimization(parkingPlace);
+                        Messenger.WriteInformationMessage("The database has been updated with the optimize instructions.");
+                    }
+                    else
+                    {
+                        Messenger.WriteErrorMessage("Type YES or 0 to abort.");
+                    }
+                } while (loop);
+            }
         }
 
         /// <summary>
@@ -293,8 +445,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         public static void FindFreeSpot(ParkingPlace parkingPlace)
         {
-            
-            
+ 
             VehicleType vehicleType = PromptForVehicelType();
             if (vehicleType == VehicleType.Unspecified)
             {
@@ -302,7 +453,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 return;
             }
             int position;
-            int size=0;
+            int size=0;  // Today the size could at the moment be derived from enum Vehicletype
+                         // but in the future the size might not be the same as the enum number
             switch (vehicleType)
             {
                 case VehicleType.Bike:
@@ -319,8 +471,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     break;
             }
 
-
-            position = parkingPlace.FindFreePlace(size); // Find a free position for car or mc, depending on user choice
+            position = parkingPlace.FindFreePlace(size); // Find a free position for a vehicle, depending on user choice
+                                                         // The size determines whitch parking slot is most suitable.
             if (position < 0)
             {
                 Messenger.WriteErrorMessage("The parking place is full.");
@@ -495,32 +647,14 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 {
                     Messenger.WriteErrorMessage("Enter a valid number.");
                 }
-                else if (typeNumber == 0)
-                {
-                    loop = false;
-                    type = VehicleType.Unspecified;
-                }
                 else if (typeNumber < 0 || typeNumber > 4)
                 {
                     Messenger.WriteErrorMessage("Enter a number from the list.");
                 }
                 else
                 {
-                    switch (typeNumber)
-                    {
-                        case 1:
-                            type = VehicleType.Bike;
-                            break;
-                        case 2:
-                            type = VehicleType.MotorBike;
-                            break;
-                        case 3:
-                            type = VehicleType.Trike;
-                            break;
-                        case 4:
-                            type = VehicleType.Car;
-                            break;
-                    }
+                    // includes 0 for abort that sets type to unspecified
+                    type = (VehicleType)typeNumber;
                     loop = false;
                 }
 
@@ -636,8 +770,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     string colour=PromptMarkForCar();
                     newCar.Colour = colour;
                     break;
-                    // more classes of vehicles
-                    throw new NotImplementedException();
+     
             }
             try
             {

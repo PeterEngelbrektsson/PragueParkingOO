@@ -36,6 +36,7 @@ namespace MyCompany.PragueParkingOO.Biz
             return optimizer.GetOptimzeInstructionsModifying(parkingPlace.Storage);
             
         }
+  
         /// <summary>
         /// Optimizes the parking place.
         /// Calls a function that does the actual optimization.
