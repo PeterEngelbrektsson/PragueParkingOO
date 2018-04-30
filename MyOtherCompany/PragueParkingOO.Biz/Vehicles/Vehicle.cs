@@ -15,6 +15,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     {
         public int Size { get; set; }           // Size of vehicle
         private string _registraionNumber;
+        private DateTime _timestamp;
         public string RegistrationNumber {
             get
             {
@@ -34,7 +35,17 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
                 }
             }
         }
-        public DateTime TimeStamp { get; set; }          // Timestamp set at time the vehicle check in to the parking place
+        public DateTime Timestamp
+        {   get
+            {
+                return _timestamp;
+            }                                
+            set
+            {
+                this._timestamp = DateTime.Now;                    
+            }
+        }
+       // public DateTime TimeStamp { get; set; }          // Timestamp set at time the vehicle check in to the parking place
         public string Description { get; }
         public string TypeName { get; set; }
 
