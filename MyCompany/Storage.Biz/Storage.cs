@@ -19,7 +19,7 @@ namespace MyCompany.Storage.Biz
         const int defaultSlotSize = 4;
         const int defaultSlotCount = 100;
         private StorageSlot<T>[] _storageSlots;
-        public int MaxSize = 4;
+        public int MaxSizeOfStoredItems = 4;
         public int Length
         {
             get

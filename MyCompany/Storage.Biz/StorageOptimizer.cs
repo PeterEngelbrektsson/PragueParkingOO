@@ -121,7 +121,7 @@ namespace MyCompany.Storage.Biz
                     // break loop
                     break;
                 }
-                if (availableSlots.First().FreeSpace== storage.MaxSize)
+                if (availableSlots.First().FreeSpace== storage.MaxSizeOfStoredItems)
                 {
                     // Size= size of car, the largest parkable allowed
                     // The parking slot is optimized
