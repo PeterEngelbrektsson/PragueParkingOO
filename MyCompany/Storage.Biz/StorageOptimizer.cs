@@ -106,7 +106,6 @@ namespace MyCompany.Storage.Biz
         public List<OptimizeMovementDetail> GetOptimzeInstructionsModifying(Storage<T> storage)
         {
             List<OptimizeMovementDetail> instructions = new List<OptimizeMovementDetail>();
-//            Dictionary<ParkingSlot, int> freePlaces;
             bool loop = true;
             do
             {
@@ -135,7 +134,7 @@ namespace MyCompany.Storage.Biz
                 // Get one optimize instruction
                 OptimizeMovementDetail myInstruction = GetOneOptimizeInstruction(storage, availableSlots.First().FreeSpace);
 
-                // No omptize instructions. break loop
+                // No optimize instructions. break loop
                 if (string.IsNullOrEmpty(myInstruction.RegistrationNumber))
                 {
                     loop = false;
