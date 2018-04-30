@@ -57,6 +57,11 @@ namespace MyOtherCompany.PragueParkingOO
             parkingPlace.Add(new MotorBike("MB4", "SMALL"));
 
 
+            parkingPlace.Move("BIKE1", 37);
+            parkingPlace.Move("TRIKE3", 60);
+            parkingPlace.Move("ABC432", 95);
+
+
 
         }
         static void Main(string[] args)

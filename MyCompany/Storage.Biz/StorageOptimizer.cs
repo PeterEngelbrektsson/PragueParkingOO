@@ -98,6 +98,7 @@ namespace MyCompany.Storage.Biz
         /// <returns>Instruction how to optimze the parking place.</returns>
         public List<OptimizeMovementDetail> GetOptimzeInstructionsModifying(Storage<T> storage)
         {
+            int size = 1;
             List<OptimizeMovementDetail> instructions = new List<OptimizeMovementDetail>();
             bool loop = true;
             do
@@ -107,7 +108,7 @@ namespace MyCompany.Storage.Biz
                 var availableSlots =
                 from freePlace in freePlaces
                 orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
-                where freePlace.FreeSpace != 0
+                where freePlace.FreeSpace != 0 & freePlace.FreeSpace == size
                 select new { freePlace.FreeSpace, freePlace.SlotNumber};
 
                 if (availableSlots.Count() <= 0)
@@ -116,21 +117,19 @@ namespace MyCompany.Storage.Biz
                     // break loop
                     break;
                 }
-                if (availableSlots.First().FreeSpace== storage.MaxSizeOfStoredItems)
-                {
-                    // Size= size of car, the largest parkable allowed
-                    // The parking slot is optimized
-                    // break loop
-                    break;
-                }
+ 
 
                 // Get one optimize instruction
-                OptimizeMovementDetail myInstruction = GetOneOptimizeInstruction(storage, availableSlots.First().FreeSpace);
+                OptimizeMovementDetail myInstruction = GetOneOptimizeInstruction(storage,size);
 
                 // No optimize instructions. break loop
                 if (string.IsNullOrEmpty(myInstruction.RegistrationNumber))
                 {
-                    loop = false;
+                    size++;
+                    if (size > storage.MaxSizeOfStoredItems)
+                    {
+                        loop = false;
+                    }
                 }
                 else
                 {
