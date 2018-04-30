@@ -18,8 +18,9 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         public Car():base()
         {
             this.Size = 4;
+            this.TypeName = "Car";
         }
-        public Car(string registrationNumber):base()
+        public Car(string registrationNumber):base()  // Used for popluate the data But we can use it anywhere.
         {
             this.Size= 4;
             this.RegistrationNumber = registrationNumber;
