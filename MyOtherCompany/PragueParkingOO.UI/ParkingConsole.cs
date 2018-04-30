@@ -400,6 +400,10 @@ namespace MyOtherCompany.PragueParkingOO.UI
             } while (loop);
         }
 
+        /// <summary>
+        /// Display an short overivew of the parking slots
+        /// </summary>
+        /// <param name="parkingPlace"></param>
         public static void DisplayParkingSlotsOverview(ParkingPlace parkingPlace)
         {
             WriteParkingSlotOverview(parkingPlace.FindAllSlots());
