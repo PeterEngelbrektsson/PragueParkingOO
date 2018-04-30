@@ -293,7 +293,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                     }
-                    Console.Write(" {0,1}/{1,1}", report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
+                    Console.Write(" {0,1}/{1,1} ", report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
                     Console.ForegroundColor = ConsoleColor.White;
                     if (column >= 9)
                     {
