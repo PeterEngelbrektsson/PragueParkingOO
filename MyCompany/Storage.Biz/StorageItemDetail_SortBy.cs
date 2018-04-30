@@ -16,7 +16,7 @@ namespace MyCompany.Storage.Biz
             {
                 if (x.StorageSlotNumber < y.StorageSlotNumber) return -1;
                 else if (x.StorageSlotNumber > y.StorageSlotNumber) return 1;
-                else return 0;
+                else return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
             }
         }
     /// <summary>
@@ -28,7 +28,7 @@ namespace MyCompany.Storage.Biz
         {
             if (x.StorageSlotNumber > y.StorageSlotNumber) return -1;
             else if (x.StorageSlotNumber < y.StorageSlotNumber) return 1;
-            else return 0;
+            else return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
         }
     }
     /// <summary>
@@ -38,7 +38,15 @@ namespace MyCompany.Storage.Biz
     {
         public int Compare(StorageItemDetail x, StorageItemDetail y)
         {
-            return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            if (x.RegistrationNumber.CompareTo(y.RegistrationNumber) != 0)
+            {
+                return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            }
+            else
+            {
+                return x.StorageSlotNumber.CompareTo(y.StorageSlotNumber);
+            }
+            
         }
     }
     /// <summary>
@@ -48,7 +56,14 @@ namespace MyCompany.Storage.Biz
     {
         public int Compare(StorageItemDetail x, StorageItemDetail y)
         {
-            return -x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            if (x.RegistrationNumber.CompareTo(y.RegistrationNumber) != 0)
+            {
+                return -x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            }
+            else
+            {
+                return x.StorageSlotNumber.CompareTo(y.StorageSlotNumber);
+            }
         }
     }
     /// <summary>
@@ -60,7 +75,7 @@ namespace MyCompany.Storage.Biz
         {
             if (x.TimeStamp < y.TimeStamp) return -1;
             else if (x.TimeStamp > y.TimeStamp) return 1;
-            else return 0;
+            else return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
         }
     }
     /// <summary>
@@ -72,7 +87,7 @@ namespace MyCompany.Storage.Biz
         {
             if (x.TimeStamp > y.TimeStamp) return -1;
             else if (x.TimeStamp < y.TimeStamp) return 1;
-            else return 0;
+            else return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
         }
     }
     /// <summary>
@@ -84,7 +99,7 @@ namespace MyCompany.Storage.Biz
         {
             if (x.Size < y.Size) return -1;
             else if (x.Size > y.Size) return 1;
-            else return 0;
+            else return x.RegistrationNumber.CompareTo(y.RegistrationNumber); ;
         }
     }
     /// <summary>
@@ -96,7 +111,7 @@ namespace MyCompany.Storage.Biz
         {
             if (x.Size > y.Size) return -1;
             else if (x.Size < y.Size) return 1;
-            else return 0;
+            else return x.RegistrationNumber.CompareTo(y.RegistrationNumber); ;
         }
     }
     /// <summary>
@@ -106,7 +121,15 @@ namespace MyCompany.Storage.Biz
     {
         public int Compare(StorageItemDetail x, StorageItemDetail y)
         {
-            return x.TypeName.CompareTo(y.TypeName);
+            if (x.TypeName.CompareTo(y.TypeName) != 0)
+            {
+                return x.TypeName.CompareTo(y.TypeName);
+            }
+            else
+
+            {
+                return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            }
         }
     }
     /// <summary>
@@ -116,7 +139,15 @@ namespace MyCompany.Storage.Biz
     {
         public int Compare(StorageItemDetail x, StorageItemDetail y)
         {
-            return -x.TypeName.CompareTo(y.TypeName);
+            if (x.TypeName.CompareTo(y.TypeName) != 0)
+            {
+                return -x.TypeName.CompareTo(y.TypeName);
+            }
+            else
+
+            {
+                return x.RegistrationNumber.CompareTo(y.RegistrationNumber);
+            }
         }
     }
 }
