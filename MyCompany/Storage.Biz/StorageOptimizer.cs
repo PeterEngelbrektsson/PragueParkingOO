@@ -108,7 +108,7 @@ namespace MyCompany.Storage.Biz
                 var availableSlots =
                 from freePlace in freePlaces
                 orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
-                where freePlace.FreeSpace != 0 & freePlace.FreeSpace == size
+                where freePlace.FreeSpace != 0 & freePlace.FreeSpace >= size
                 select new { freePlace.FreeSpace, freePlace.SlotNumber};
 
                 if (availableSlots.Count() <= 0)

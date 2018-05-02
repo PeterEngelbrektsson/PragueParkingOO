@@ -107,7 +107,8 @@ namespace Storage.BizTests
 
             storage.Add(item9);     // slot 3
             storage.Add(item10);
-            storage.Add(item3);
+
+            storage.Add(item3);     // slot 4
 
             storage.Move(item5.RegistrationNumber, 9);
 
@@ -127,6 +128,58 @@ namespace Storage.BizTests
             Assert.That(actual[0].RegistrationNumber, Is.EqualTo(expected.RegistrationNumber));
             Assert.That(actual[0].TypeName, Is.EqualTo(expected.TypeName));
         }
-   
+        [Test]
+        public void ShouldGetTwoBikeMovementInstructions()
+        {
+            // Arrange
+            storage.Add(item);      // slot 0
+
+            storage.Add(item2);     // slot 1
+
+            storage.Add(item5);     // slot 2
+            storage.Add(item6);
+            storage.Add(item7);
+            storage.Add(item8);
+
+            storage.Add(item9);     // slot 3
+            storage.Add(item10);
+
+            storage.Add(item3);     // slot 4
+
+
+            storage.Move(item5.RegistrationNumber, 9);
+            storage.Move(item10.RegistrationNumber, 8);
+
+            OptimizeMovementDetail expected = new OptimizeMovementDetail();
+            expected.RegistrationNumber = item5.RegistrationNumber;
+            expected.TypeName = item5.TypeName;
+            expected.OldStorageSlotNumber = 9;
+            expected.NewStorageSlotNumber = 2;
+
+
+            OptimizeMovementDetail expected2 = new OptimizeMovementDetail();
+            expected2.RegistrationNumber = item10.RegistrationNumber;
+            expected2.TypeName = item10.TypeName;
+            expected2.OldStorageSlotNumber = 8;
+            expected2.NewStorageSlotNumber = 3;
+
+            // Act
+            var actual = sut.GetOptimzeInstructions(storage);
+
+            // Assert
+            Assert.That(actual.Count, Is.EqualTo(2));
+
+            Assert.That(actual[0].OldStorageSlotNumber, Is.EqualTo(expected.OldStorageSlotNumber));     // Last bike should be moved first
+            Assert.That(actual[0].NewStorageSlotNumber, Is.EqualTo(expected.NewStorageSlotNumber));
+            Assert.That(actual[0].RegistrationNumber, Is.EqualTo(expected.RegistrationNumber));
+            Assert.That(actual[0].TypeName, Is.EqualTo(expected.TypeName));
+
+            Assert.That(actual[1].OldStorageSlotNumber, Is.EqualTo(expected2.OldStorageSlotNumber));    // next last bike should moved second
+            Assert.That(actual[1].NewStorageSlotNumber, Is.EqualTo(expected2.NewStorageSlotNumber));
+            Assert.That(actual[1].RegistrationNumber, Is.EqualTo(expected2.RegistrationNumber));
+            Assert.That(actual[1].TypeName, Is.EqualTo(expected2.TypeName));
+
+        }
+
     }
 }
