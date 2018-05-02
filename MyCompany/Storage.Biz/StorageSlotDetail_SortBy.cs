@@ -9,9 +9,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on storage slot number in ascending order.
     /// </summary>
-    public class StorageSlotDetail_SortByStorageSlotNumberAscendingOrder : IComparer<StorageSlotDetail> 
+    public class StorageSlotDetail_SortByStorageSlotNumberAscendingOrder : Comparer<StorageSlotDetail> 
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.SlotNumber < y.SlotNumber) return -1;
             else if (x.SlotNumber > y.SlotNumber) return 1;
@@ -21,9 +21,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on storage slot number in descending order.
     /// </summary>
-    public class StorageSlotDetail_SortByStorageSlotNumberDescendingOrder: IComparer<StorageSlotDetail>
+    public class StorageSlotDetail_SortByStorageSlotNumberDescendingOrder: Comparer<StorageSlotDetail>
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.SlotNumber > y.SlotNumber) return -1;
             else if (x.SlotNumber < y.SlotNumber) return 1;
@@ -33,9 +33,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on occupied space in ascending order.
     /// </summary>
-    public class StorageSlotDetail_SortByOccupiedSpaceAscendingOrder : IComparer<StorageSlotDetail> 
+    public class StorageSlotDetail_SortByOccupiedSpaceAscendingOrder : Comparer<StorageSlotDetail> 
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.OccupiedSpace < y.OccupiedSpace) return -1;
             else if (x.OccupiedSpace > y.OccupiedSpace) return 1;
@@ -45,9 +45,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on occupied space in ascending order.
     /// </summary>
-    public class StorageSlotDetail_SortByOccupiedSpaceDescendingOrder : IComparer<StorageSlotDetail> 
+    public class StorageSlotDetail_SortByOccupiedSpaceDescendingOrder : Comparer<StorageSlotDetail> 
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.OccupiedSpace > y.OccupiedSpace) return -1;
             else if (x.OccupiedSpace < y.OccupiedSpace) return 1;
@@ -58,9 +58,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on free space in ascending order.
     /// </summary>
-    public class StorageSlotDetail_SortByFreeSpaceAscendingOrder : IComparer<StorageSlotDetail> 
+    public class StorageSlotDetail_SortByFreeSpaceAscendingOrder : Comparer<StorageSlotDetail> 
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.FreeSpace> y.FreeSpace) return -1;
             else if (x.FreeSpace < y.FreeSpace) return 1;
@@ -70,9 +70,9 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on free space in ascending order.
     /// </summary>
-    public class StorageSlotDetail_SortByFreeSpaceDescendingOrder : IComparer<StorageSlotDetail> 
+    public class StorageSlotDetail_SortByFreeSpaceDescendingOrder : Comparer<StorageSlotDetail> 
     {
-        public int Compare(StorageSlotDetail x, StorageSlotDetail y)
+        public override int Compare(StorageSlotDetail x, StorageSlotDetail y)
         {
             if (x.FreeSpace < y.FreeSpace) return -1;
             else if (x.FreeSpace > y.FreeSpace) return 1;

@@ -14,8 +14,8 @@ namespace MyOtherCompany.Common
         /// <summary>
         /// Validates a registration number.
         /// </summary>
-        /// <param name="registrationNumber"></param>
-        /// <param name="errorMessages"></param>
+        /// <param name="registrationNumber">The registrationnumber to validate</param>
+        /// <param name="errorMessages">out parmeter with an array of errormessages if any</param>
         /// <returns>bool valid, out errorMessages</returns>
         public static bool ValidRegistrationNumber(string registrationNumber, out string[] errorMessages)
         {
