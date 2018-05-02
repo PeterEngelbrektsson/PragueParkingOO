@@ -29,16 +29,16 @@ namespace MyOtherCompany.PragueParkingOO
             parkingPlace.Add(new Bike("BIKE1","BMW"));
             parkingPlace.Add(new Bike("BIKE2","TOYOTA"));
             parkingPlace.Add(new Bike("BIKE3","NISSAN"));
-            parkingPlace.Add(new Bike("BIKE4"));
+            parkingPlace.Add(new Bike("BIKE4","Cresent"));
             parkingPlace.Add(new Bike("BIKE5"));
             parkingPlace.Add(new Bike("BIKE6"));
             parkingPlace.Add(new Bike("BIKE7"));
-            parkingPlace.Add(new Bike("BIKE8"));
+            parkingPlace.Add(new Bike("BIKE8","Monark"));
             parkingPlace.Add(new Bike("BIKE9"));
             parkingPlace.Add(new Bike("BIKE10"));
-            parkingPlace.Add(new Bike("BIKE11"));
+            parkingPlace.Add(new Bike("BIKE11","Monark"));
             parkingPlace.Add(new Bike("BIKE12"));
-            parkingPlace.Add(new Bike("BIKE13"));
+            parkingPlace.Add(new Bike("BIKE13","Cresent"));
             parkingPlace.Add(new Bike("BIKE14"));
             parkingPlace.Add(new Bike("BIKE15"));
             parkingPlace.Add(new Bike("BIKE16"));
@@ -60,6 +60,7 @@ namespace MyOtherCompany.PragueParkingOO
             parkingPlace.Move("BIKE1", 37);
             parkingPlace.Move("TRIKE3", 60);
             parkingPlace.Move("ABC432", 95);
+            parkingPlace.Move("BIKE6", 70);
 
 
 
