@@ -193,12 +193,18 @@ namespace MyCompany.Storage.Biz
         {
             int freeSlot = -1;
             var freePlaces = FindFreeSlots(size);
+            
+            // sort in best order
+            var availableSlots =
+                (from freePlace in freePlaces
+                 orderby freePlace.FreeSpace ascending, freePlace.Size ascending, freePlace.SlotNumber ascending
+                 where freePlace.FreeSpace != 0
+                 select freePlace);
 
-            if (freePlaces.Count > 0)
+            if (availableSlots.Count() > 0)
             {
-                // Select first
-                // Prepared for in the future to prompt user to select one of the available places.
-                freeSlot = freePlaces.First().SlotNumber;
+                // Select first best
+                freeSlot = availableSlots.First().SlotNumber;
             }
             else
             {

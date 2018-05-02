@@ -102,7 +102,6 @@ namespace MyOtherCompany.PragueParkingOO
             PopulateTestData(parkingPlace);
 
             ParkingConsole.DisplayMenu(parkingPlace);
-            Console.ReadLine();
         }
     }
 }
