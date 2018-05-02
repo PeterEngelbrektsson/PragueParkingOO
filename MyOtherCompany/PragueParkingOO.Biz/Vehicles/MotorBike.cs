@@ -48,12 +48,9 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             };
             return newMotorBike;
         }
-        public override string Description
+        public override string ToString()
         {
-            get
-            {
-                return string.Format("Motorbike with registration number {0} of mark {1}", RegistrationNumber, Mark);
-            }
+            return string.Format("Motorbike with registration number {0} of mark {1}", RegistrationNumber, Mark);
         }
     }
 }

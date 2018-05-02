@@ -48,12 +48,9 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             };
             return newTrike;
         }
-        public override string Description
+        public override string ToString()
         {
-            get
-            {
-                return string.Format("Trike with registration number {0} of Manufacturer {1}", RegistrationNumber, Manufacturer);
-            }
+            return string.Format("Trike with registration number {0} of Manufacturer {1}", RegistrationNumber, Manufacturer);
         }
     }
 }

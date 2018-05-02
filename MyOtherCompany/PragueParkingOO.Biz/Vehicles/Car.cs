@@ -46,24 +46,19 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         }
         public override string ToString()
         {
-            return string.Format("Car {0}",RegistrationNumber);
+            return string.Format("Car with registration number {0} of colour {1}", RegistrationNumber, Colour);
         }
         public override object Clone()
         {
-            Car newCar = new Car();
-            newCar.Size = this.Size;
-            newCar.RegistrationNumber = this.RegistrationNumber;
-            newCar.TypeName = this.TypeName;
-            newCar.Colour = this.Colour;
-            newCar.TimeStamp = this.TimeStamp;
-            return newCar;
-        }
-        public override string Description
-        {
-            get
+            Car newCar = new Car
             {
-                return string.Format("Car with registration number {0} of colour {1}", RegistrationNumber, Colour);
-            }
+                Size = this.Size,
+                RegistrationNumber = this.RegistrationNumber,
+                TypeName = this.TypeName,
+                Colour = this.Colour,
+                TimeStamp = this.TimeStamp
+            };
+            return newCar;
         }
     }
 }

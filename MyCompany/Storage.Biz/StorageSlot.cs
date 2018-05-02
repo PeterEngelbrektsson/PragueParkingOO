@@ -130,13 +130,14 @@ namespace MyCompany.Storage.Biz
 
             foreach (T item in _storables)
             {
-                StorageItemDetail detail = new StorageItemDetail();
-                detail.Size = item.Size;
-                detail.TimeStamp = item.TimeStamp;
-                detail.RegistrationNumber = item.RegistrationNumber;
-                detail.Description = item.Description;
-                detail.StorageSlotNumber = this.SlotNumber;
-                detail.TypeName = item.TypeName;
+                StorageItemDetail detail = new StorageItemDetail
+                {
+                    Size = item.Size,
+                    TimeStamp = item.TimeStamp,
+                    RegistrationNumber = item.RegistrationNumber,
+                    StorageSlotNumber = this.SlotNumber,
+                    TypeName = item.TypeName
+                };
                 details.Add(detail);
             }
             return details;

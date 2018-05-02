@@ -111,11 +111,13 @@ namespace Storage.BizTests
 
             storage.Move(item5.RegistrationNumber, 9);
 
-            OptimizeMovementDetail expected = new OptimizeMovementDetail();
-            expected.RegistrationNumber = item5.RegistrationNumber;
-            expected.TypeName = item5.TypeName;
-            expected.OldStorageSlotNumber = 9;
-            expected.NewStorageSlotNumber=2;
+            OptimizeMovementDetail expected = new OptimizeMovementDetail
+            {
+                RegistrationNumber = item5.RegistrationNumber,
+                TypeName = item5.TypeName,
+                OldStorageSlotNumber = 9,
+                NewStorageSlotNumber = 2
+            };
 
             // Act
             var actual = sut.GetOneOptimizeInstruction(storage,1);
@@ -141,11 +143,13 @@ namespace Storage.BizTests
 
             storage.Move(item5.RegistrationNumber, 9);
 
-            OptimizeMovementDetail expected = new OptimizeMovementDetail();
-            expected.RegistrationNumber = item5.RegistrationNumber;
-            expected.TypeName = item5.TypeName;
-            expected.OldStorageSlotNumber = 9;
-            expected.NewStorageSlotNumber = 0;
+            OptimizeMovementDetail expected = new OptimizeMovementDetail
+            {
+                RegistrationNumber = item5.RegistrationNumber,
+                TypeName = item5.TypeName,
+                OldStorageSlotNumber = 9,
+                NewStorageSlotNumber = 0
+            };
 
             // Act
             var actual = sut.GetOneOptimizeInstruction(storage, 1);

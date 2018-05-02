@@ -49,17 +49,23 @@ namespace Storage.BizTests
         {
             // Arrange
             List<StorageSlotDetail> acutal;
-            StorageItemDetail expectedDetail = new StorageItemDetail();
-            expectedDetail.RegistrationNumber = item.RegistrationNumber;
-            expectedDetail.Size = item.Size;
-            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>();
-            expectedDetailList.Add(expectedDetail);
-            StorageSlotDetail expected = new StorageSlotDetail();
-            expected.Size = 4;
-            expected.SlotNumber = 0;    // Expected to be stored in first free position
-            expected.OccupiedSpace = 4;
-            expected.FreeSpace = 0;
-            expected.StorageItemDetails = expectedDetailList;
+            StorageItemDetail expectedDetail = new StorageItemDetail
+            {
+                RegistrationNumber = item.RegistrationNumber,
+                Size = item.Size
+            };
+            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>
+            {
+                expectedDetail
+            };
+            StorageSlotDetail expected = new StorageSlotDetail
+            {
+                Size = 4,
+                SlotNumber = 0,    // Expected to be stored in first free position
+                OccupiedSpace = 4,
+                FreeSpace = 0,
+                StorageItemDetails = expectedDetailList
+            };
 
             // Act
             sut.Add(item);
@@ -81,29 +87,41 @@ namespace Storage.BizTests
         {
             // Arrange
             List<StorageSlotDetail> acutal;
-            StorageItemDetail expectedDetail = new StorageItemDetail();
-            expectedDetail.RegistrationNumber = item.RegistrationNumber;
-            expectedDetail.Size = item.Size;
-            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>();
-            expectedDetailList.Add(expectedDetail);
-            StorageSlotDetail expected = new StorageSlotDetail();
-            expected.Size = 4;
-            expected.SlotNumber = 0;    // Expected to be stored in first free position
-            expected.OccupiedSpace = 4;
-            expected.FreeSpace = 0;
-            expected.StorageItemDetails = expectedDetailList;
+            StorageItemDetail expectedDetail = new StorageItemDetail
+            {
+                RegistrationNumber = item.RegistrationNumber,
+                Size = item.Size
+            };
+            List<StorageItemDetail> expectedDetailList = new List<StorageItemDetail>
+            {
+                expectedDetail
+            };
+            StorageSlotDetail expected = new StorageSlotDetail
+            {
+                Size = 4,
+                SlotNumber = 0,    // Expected to be stored in first free position
+                OccupiedSpace = 4,
+                FreeSpace = 0,
+                StorageItemDetails = expectedDetailList
+            };
 
-            StorageItemDetail expectedDetail2 = new StorageItemDetail();
-            expectedDetail2.RegistrationNumber = item2.RegistrationNumber;
-            expectedDetail2.Size = item2.Size;
-            List<StorageItemDetail> expectedDetailList2 = new List<StorageItemDetail>();
-            expectedDetailList2.Add(expectedDetail2);
-            StorageSlotDetail expected2 = new StorageSlotDetail();
-            expected2.Size = 4;
-            expected2.SlotNumber = 1;    // Expected to be stored in first free position
-            expected2.OccupiedSpace = 4;
-            expected2.FreeSpace = 0;
-            expected2.StorageItemDetails = expectedDetailList2;
+            StorageItemDetail expectedDetail2 = new StorageItemDetail
+            {
+                RegistrationNumber = item2.RegistrationNumber,
+                Size = item2.Size
+            };
+            List<StorageItemDetail> expectedDetailList2 = new List<StorageItemDetail>
+            {
+                expectedDetail2
+            };
+            StorageSlotDetail expected2 = new StorageSlotDetail
+            {
+                Size = 4,
+                SlotNumber = 1,    // Expected to be stored in first free position
+                OccupiedSpace = 4,
+                FreeSpace = 0,
+                StorageItemDetails = expectedDetailList2
+            };
 
             // Act
             sut.Add(item);

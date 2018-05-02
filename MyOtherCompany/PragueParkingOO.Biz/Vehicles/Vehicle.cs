@@ -23,14 +23,13 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             }
              set
             {
-                string[] errorMessages;
-                if (VehicleValidator.ValidRegistrationNumber(value,out errorMessages))
+                if (VehicleValidator.ValidRegistrationNumber(value, out string[] errorMessages))
                 {
                     _registraionNumber = value;
                 }
                 else
                 {
-                    string errorMessage= string.Join("\n",errorMessages);
+                    string errorMessage = string.Join("\n", errorMessages);
                     throw new RegistrationNumberInvalid(errorMessage);
                 }
             }
@@ -46,7 +45,6 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
                 this._timestamp = DateTime.Now; 
             }
         }     
-        public abstract string Description { get; }
         public string TypeName { get; set; }
 
         public Vehicle()

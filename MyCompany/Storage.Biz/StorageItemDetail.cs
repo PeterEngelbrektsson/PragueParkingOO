@@ -16,7 +16,6 @@ namespace MyCompany.Storage.Biz
         public string RegistrationNumber;
         public int Size;
         public DateTime TimeStamp;
-        public string Description;
         public int StorageSlotNumber;
         public string TypeName;
     }

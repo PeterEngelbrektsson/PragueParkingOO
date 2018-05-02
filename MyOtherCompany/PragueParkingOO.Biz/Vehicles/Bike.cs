@@ -46,7 +46,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
 
         public override string ToString()
         {
-            return string.Format("Bike {0}", RegistrationNumber);
+            return string.Format("Bike {0} of brand {1}", RegistrationNumber,Brand);
         }
         public override object Clone()
         {
@@ -58,13 +58,6 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
                 TimeStamp = this.TimeStamp
             };
             return newBike;
-        }
-        public override string Description
-        {
-            get
-            {
-                return string.Format("Bike with registration number {0} of brand {1}",RegistrationNumber,Brand);
-            }
         }
     }
 }

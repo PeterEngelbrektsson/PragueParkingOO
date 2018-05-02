@@ -42,11 +42,10 @@ namespace MyCompany.Storage.Biz
              var result = from slot in storageSlotsToMoveFrom
                           join storeable in storeablesToMoveFrom
                              on slot.SlotNumber equals storeable.StorageSlotNumber
-                          select new { SlotNumner = slot.SlotNumber, FreeSpace = slot.FreeSpace,
+                          select new { SlotNumner = slot.SlotNumber, slot.FreeSpace,
                               SizeOfStoreable = storeable.Size, SizeOfSlot = slot.Size,
                               RegistrationNumner = storeable.RegistrationNumber,
-                              TimeStamp = storeable.TimeStamp, TypeName=storeable.TypeName,
-                              Description =storeable.Description};
+                               storeable.TimeStamp,storeable.TypeName};
 
               var found= from slotStorable in result
               orderby slotStorable.FreeSpace descending, slotStorable.SizeOfStoreable descending, slotStorable.SlotNumner descending
@@ -76,7 +75,6 @@ namespace MyCompany.Storage.Biz
                 TypeName = lastofSizeN.TypeName,
                 NewStorageSlotNumber = firstStorageSlotToMoveTo.SlotNumber,
                 OldStorageSlotNumber = lastofSizeN.SlotNumner,
-                Description = lastofSizeN.Description
             };
 
 

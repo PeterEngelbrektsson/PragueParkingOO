@@ -455,8 +455,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 {
                     Console.WriteLine("Please enter YES to confirm optimization 0 to bort: ");
                     input = Console.ReadLine().ToUpper();
-                    int inputNumber = 0;
-                    if (int.TryParse(input, out inputNumber))
+                    if (int.TryParse(input, out int inputNumber))
                     {
                         if (inputNumber == 0)
                         {
@@ -680,13 +679,11 @@ namespace MyOtherCompany.PragueParkingOO.UI
         {
             bool loop = true;
             string registrationNumber = null;
-            string[] errorMessages;
             do
             {
                 Console.WriteLine("Please enter the registration number of the vehicle or 0 to abort: ");
                 registrationNumber = Console.ReadLine().ToUpper();
-                int inputNumber = 0;
-                if (int.TryParse(registrationNumber, out inputNumber))
+                if (int.TryParse(registrationNumber, out int inputNumber))
                 {
                     if (inputNumber == 0)
                     {
@@ -694,7 +691,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                         loop = false;
                     }
                 }
-                else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out errorMessages))
+                else if (!VehicleValidator.ValidRegistrationNumber(registrationNumber, out string[] errorMessages))
                 {
                     Messenger.WriteErrorMessage(errorMessages);
                 }
@@ -720,8 +717,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Console.WriteLine("4. Car");
 
                 string input = Console.ReadLine().ToUpper();
-                int typeNumber;
-                if (!int.TryParse(input, out typeNumber))
+                if (!int.TryParse(input, out int typeNumber))
                 {
                     Messenger.WriteErrorMessage("Enter a valid number.");
                 }
@@ -862,16 +858,20 @@ namespace MyOtherCompany.PragueParkingOO.UI
             switch (vehicleType)
             {
                 case VehicleType.Bike:
-                    Bike newBike = new Bike();
-                    newBike.RegistrationNumber = registrationNumber;
+                    Bike newBike = new Bike
+                    {
+                        RegistrationNumber = registrationNumber
+                    };
                     newVehicle = newBike;
                     // Should per specification use the specialized properties of the class Bike
                     // Ask the user for input and set properties
                     newBike.Brand = PromptForBrandBike();
                     break;
                 case VehicleType.MotorBike:
-                    MotorBike newMotorBike = new MotorBike();
-                    newMotorBike.RegistrationNumber = registrationNumber;
+                    MotorBike newMotorBike = new MotorBike
+                    {
+                        RegistrationNumber = registrationNumber
+                    };
                     newVehicle = newMotorBike;
                     // Should per specification use the specialized properties of the class MotorBike
                     // Ask the user for input and set properties
@@ -880,16 +880,20 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     break;
 
                 case VehicleType.Trike:
-                    Trike newTrike = new Trike();
-                    newTrike.RegistrationNumber = registrationNumber;
+                    Trike newTrike = new Trike
+                    {
+                        RegistrationNumber = registrationNumber
+                    };
                     newVehicle = newTrike;
                     // Should per specification use the specialized properties of the class Trike
                     // Ask the user for input and set properties
                     newTrike.Manufacturer = PromptFormanufacturerTrike();
                     break;
                case VehicleType.Car:
-                    Car newCar = new Car();
-                    newCar.RegistrationNumber = registrationNumber;
+                    Car newCar = new Car
+                    {
+                        RegistrationNumber = registrationNumber
+                    };
                     newVehicle = newCar;
                     // Should per specification use the specialized properties of the class Car
                     // Ask the user for input and set properties
