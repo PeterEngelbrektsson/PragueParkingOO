@@ -577,22 +577,16 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 // User aborted
                 return;
             }
-            int position = parkingPlace.FindDistinctSlotNumber(registrationNumber); // Position where vehicle is located (if any)
-
-            if (position != -1)
-            {
-                // The exact match found
-                Messenger.WriteInformationMessage(String.Format("Your vehicle is parked at spot number {0}.", position + 1)); // Parking spots numbered 1 - 100 !
-            }
-            else
-            {
-                // No exact match found
-                var searchResult = parkingPlace.Find(registrationNumber);
+            // No exact match found
+            var searchResult = parkingPlace.Find(registrationNumber);
                 if (searchResult.Count > 0)
                 {
+                    Console.WriteLine("-------------------------------------------------");
+                    Console.WriteLine("Slot    RegNo         Type    Checked in");
+                    Console.WriteLine("-------------------------------------------------");
                     foreach (var detail in searchResult)
                     {
-                        Console.WriteLine("{0,3} {1,10}", detail.StorageSlotNumber+ 1, detail.RegistrationNumber);
+                        Console.WriteLine("{0,3} {1,10} {2,12} {3,16}", detail.StorageSlotNumber+ 1, detail.RegistrationNumber,detail.TypeName,detail.TimeStamp);
                     }
                 }
                 else
@@ -600,7 +594,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     Messenger.WriteErrorMessage("I am sorry to say you vehicle does not exist in our parking lot.");
                     Messenger.WriteErrorMessage("Perhaps someone has taken it for a joyride. Our apologies.");
                 }
-            }
+
         }
         /// <summary>
         /// Moving Vehicle one place to another place.
