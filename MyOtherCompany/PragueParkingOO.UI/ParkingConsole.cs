@@ -905,6 +905,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             try
             {
                 int position = parkingPlace.Add(newVehicle); // Park at suitable position (if any)
+                                                             // Throws exceptions.
                 Messenger.WriteInformationMessage(String.Format("Your vehicle has been parked at place number {0}.", position + 1));
             }
             catch (RegistrationNumberAlreadyExistsException)

@@ -13,7 +13,18 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public abstract class Vehicle : IStoreable
     {
-        public int Size { get; set; }           // Size of vehicle
+        private int _size;     // Size of vehicle
+        public int Size
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                _size = value;
+            }
+        }        
         private string _registraionNumber;
         private DateTime _timestamp;
         public string RegistrationNumber {
