@@ -14,6 +14,6 @@ namespace MyCompany.Storage.Biz
         int Size { get; }                           // Size of stored thing
         string RegistrationNumber { get; set; }     // ID for the stored thing
         DateTime TimeStamp { get; set; }            // Timestamp set at time the stored thing is checked in to the storage place
-        string TypeName { get; set; }
+        string TypeName { get; set; }               // User friendly name of the storable
     }
 }
