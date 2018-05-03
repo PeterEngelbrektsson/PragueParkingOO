@@ -189,7 +189,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             }
 
             bool loop = true;
-            int choice = 1;
+            int choice = 1;    // default sorting order to display before giving options to resort
             do
             {
                 switch (choice)
@@ -268,7 +268,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         public static void WriteParkingSlotOverview(List<StorageSlotDetail> storageSlotReports)
         {
             bool loop = true;
-            int choice = 1;
+            int choice = 1;     // default sorting order to display before giving options to resort
             do
             {
     
@@ -322,7 +322,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         public static void WriteParkingSlotContent(List<StorageSlotDetail> storageSlotReports)
         {
             bool loop = true;
-            int choice = 1;
+            int choice = 1;     // default sorting order to display before giving options to resort
             do
             {
                 switch (choice)
