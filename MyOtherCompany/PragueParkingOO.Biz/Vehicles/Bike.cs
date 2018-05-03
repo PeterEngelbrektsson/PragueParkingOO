@@ -21,8 +21,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         }
         public Bike(string registrationNumber):base(registrationNumber,1,"Bike")
         {
-            
-            this.Brand = "Ford";
+             this.Brand = "Ford";
         }
         public Bike(string registrationNumber,string brand):base(registrationNumber,1,"Bike")
         {
