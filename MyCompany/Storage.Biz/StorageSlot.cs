@@ -12,7 +12,6 @@ namespace MyCompany.Storage.Biz
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [Serializable]
-    //public class StorageSlot<T> : IEnumerable<StorageItemDetail>,IEnumerable<T> where T : IStoreable
     public class StorageSlot<T> : IEnumerable<T>,ICloneable where T : IStoreable
     {
         private List<T> _storables = new List<T>();
