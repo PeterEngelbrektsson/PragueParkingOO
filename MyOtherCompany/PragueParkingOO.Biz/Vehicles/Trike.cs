@@ -30,11 +30,8 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
                 _manufacturer = value;
             }
         }
-        public Trike(string registrationnumber, string manufactuer) : base()
+        public Trike(string registrationnumber, string manufactuer) : base(registrationnumber,3,"Trike")
         {
-            this.Size = 3;
-            this.TypeName = "Trike";
-            this.RegistrationNumber = registrationnumber;
             this.Manufacturer = manufactuer;
         }
         public override object Clone()

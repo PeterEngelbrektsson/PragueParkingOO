@@ -19,19 +19,13 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             this.TypeName = "Bike";
             this.Brand = "Ford";
         }
-        public Bike(string registrationNumber):base()
+        public Bike(string registrationNumber):base(registrationNumber,1,"Bike")
         {
             
-            this.RegistrationNumber = registrationNumber;
-            this.Size = 1;
-            this.TypeName = "Bike";
             this.Brand = "Ford";
         }
-        public Bike(string registrationNumber,string brand)
+        public Bike(string registrationNumber,string brand):base(registrationNumber,1,"Bike")
         {
-            this.Size = 1;
-            this.RegistrationNumber = registrationNumber;
-            this.TypeName = "Bike";
             this.Brand = brand;
         }
         private string _brand;

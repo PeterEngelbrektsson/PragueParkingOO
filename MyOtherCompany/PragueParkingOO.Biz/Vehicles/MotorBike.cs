@@ -28,13 +28,10 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         {
             Size = 2;
             TypeName="MotorBike";
-            this.Mark = "BMW";
+            Mark = "BMW";
         }
-        public MotorBike(string registrationNumber, string mark):base()
+        public MotorBike(string registrationNumber, string mark):base(registrationNumber,2,"MotorBike")
         {
-            Size = 2;
-            TypeName = "MotorBike";
-            RegistrationNumber = registrationNumber;
             Mark = mark;
         }
         public override object Clone()

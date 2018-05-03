@@ -66,7 +66,17 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         {
             RegistrationNumber = registrationNumber;
         }
-
+        public Vehicle(string registrationNumber,int size)
+        {
+            RegistrationNumber = registrationNumber;
+            Size = size;
+        }
+        public Vehicle(string registrationNumber, int size, string typeName)
+        {
+            RegistrationNumber = registrationNumber;
+            Size = size;
+            TypeName = typeName;
+        }
         public abstract object Clone();
     }
     

@@ -30,18 +30,12 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             this.TypeName = "Car";
             this.Colour= "Black"; // All cars are by default black.
         }
-        public Car(string registrationNumber):base()  // Used for popluate the data But we can use it anywhere.
+        public Car(string registrationNumber):base(registrationNumber,4,"Car")  
         {
-            this.Size= 4;
-            this.RegistrationNumber = registrationNumber;
-            this.TypeName = "Car";
             this.Colour = "Black"; // All cars are by default black.
         }
-        public Car(string registrationNumber,string colour) : base()  // Used for popluate the data But we can use it anywhere.
+        public Car(string registrationNumber,string colour) : base(registrationNumber,4,"Car")  
         {
-            this.Size = 4;
-            this.RegistrationNumber = registrationNumber;
-            this.TypeName = "Car";
             this.Colour = colour;
         }
         public override string ToString()
