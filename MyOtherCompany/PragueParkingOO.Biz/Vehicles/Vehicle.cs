@@ -49,7 +49,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             }
             set
             {
-                this._timestamp = DateTime.Now; 
+                _timestamp = value; 
             }
         }
         
