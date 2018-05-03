@@ -22,7 +22,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine("  Prague Parking v2.0");
+            Console.WriteLine("  Prague Parking v2.0 Object oriented");
             Console.WriteLine("-----------------------");
             Console.WriteLine("1. Add a vehicle");
             Console.WriteLine("2. Move a vehicle");
