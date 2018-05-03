@@ -60,6 +60,7 @@
     <Compile Include="StorageOccupiedTests.cs" />
     <Compile Include="StorageOptimizerGetInstructionsTests.cs" />
     <Compile Include="StorageOptimizerGetOneOptimInstrTests.cs" />
+    <Compile Include="StorageSlotTests.cs" />
     <Compile Include="TestStorable.cs" />
   </ItemGroup>
   <ItemGroup>

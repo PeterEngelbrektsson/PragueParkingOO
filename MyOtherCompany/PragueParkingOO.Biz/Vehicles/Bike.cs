@@ -13,16 +13,17 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public class Bike : Vehicle
     {
-        public Bike()
+        public Bike():base()
         {
             this.Size = 1;
             this.TypeName = "Bike";
             this.Brand = "Ford";
         }
-        public Bike(string registrationNumber)
+        public Bike(string registrationNumber):base()
         {
-            this.Size = 1;
+            
             this.RegistrationNumber = registrationNumber;
+            this.Size = 1;
             this.TypeName = "Bike";
             this.Brand = "Ford";
         }
