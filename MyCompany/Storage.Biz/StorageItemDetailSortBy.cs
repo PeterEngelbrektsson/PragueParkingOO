@@ -7,11 +7,12 @@ using MyCompany.Storage.Biz;
 
 namespace MyCompany.Storage.Biz
 {
-        /// <summary>
-        /// Sort on storage slot number in ascending order.
-        /// </summary>
-        public class StorageItemDetail_SortByStorageSlotAscendingOrder: Comparer<StorageItemDetail> 
-        {
+    /// <summary>
+    /// Sort on storage slot number in ascending order.
+    /// </summary>
+    //public class StorageItemDetail_SortByStorageSlotAscendingOrder: Comparer<StorageItemDetail>  // Old name to long and with underscore.
+    public class StorageItemDetailSortByStorageSlotAsc : Comparer<StorageItemDetail>
+    {
             public override int Compare(StorageItemDetail x, StorageItemDetail y)
             {
                 if (x.StorageSlotNumber < y.StorageSlotNumber) return -1;
@@ -22,7 +23,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on storage slot number in descending order.
     /// </summary>
-    public class StorageItemDetail_SortByStorageSlotDescendingOrder : Comparer<StorageItemDetail>
+    public class StorageItemDetailSortByStorageSlotDesc : Comparer<StorageItemDetail>
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -34,7 +35,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on registratiomnumber  in ascending order.
     /// </summary>
-    public class StorageItemDetail_SortByRegistrationNumberAscendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByRegNrAsc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -52,7 +53,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on registratiomnumber in descending order.
     /// </summary>
-    public class StorageItemDetail_SortByRegistrationNumberDescendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByRegNrDesc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -69,7 +70,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on timestamp in ascending order.
     /// </summary>
-    public class StorageItemDetail_SortByTimeStampAscendingOrder: Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByTimeStampAsc: Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -81,7 +82,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on timestampin descending order.
     /// </summary>
-    public class StorageItemDetail_SortByTimeStampDescendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByTimeStampDesc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -93,7 +94,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on Size in ascending order.
     /// </summary>
-    public class StorageItemDetail_SortBySizeAscendingOrder: Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortBySizeAsc: Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -105,7 +106,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on Size in descending order.
     /// </summary>
-    public class StorageItemDetail_SortBySizeDescendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortBySizeDesc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -117,7 +118,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on type name in ascending order.
     /// </summary>
-    public class StorageItemDetail_SortByTypeNameAscendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByTypeNameAsc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {
@@ -135,7 +136,7 @@ namespace MyCompany.Storage.Biz
     /// <summary>
     /// Sort on type name in descending order.
     /// </summary>
-    public class StorageItemDetail_SortByTypeNameDescendingOrder : Comparer<StorageItemDetail> 
+    public class StorageItemDetailSortByTypeNameDesc : Comparer<StorageItemDetail> 
     {
         public override int Compare(StorageItemDetail x, StorageItemDetail y)
         {

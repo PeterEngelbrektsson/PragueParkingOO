@@ -195,34 +195,34 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 switch (choice)
                 {
                     case 1:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByStorageSlotAscendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByStorageSlotAsc());
                         break;
                     case 2:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByStorageSlotDescendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByStorageSlotDesc());
                         break;
                     case 3:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByRegistrationNumberAscendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByRegNrAsc());
                         break;
                     case 4:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByRegistrationNumberDescendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByRegNrDesc());
                         break;
                     case 5:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByTypeNameAscendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByTypeNameAsc());
                         break;
                     case 6:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByTypeNameDescendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByTypeNameDesc());
                         break;
                     case 7:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByTimeStampAscendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByTimeStampAsc());
                         break;
                     case 8:
-                        parkedVehicles.Sort(new StorageItemDetail_SortByTimeStampDescendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortByTimeStampDesc());
                         break;
                     case 9:
-                        parkedVehicles.Sort(new StorageItemDetail_SortBySizeAscendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortBySizeAsc());
                         break;
                     case 10:
-                        parkedVehicles.Sort(new StorageItemDetail_SortBySizeDescendingOrder());
+                        parkedVehicles.Sort(new StorageItemDetailSortBySizeDesc());
                         break;
                     default:
                         loop = false;
@@ -328,22 +328,22 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 switch (choice)
                 {
                     case 1:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByStorageSlotNumberAscendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByStorageSlotNrAsc());
                         break;
                     case 2:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByStorageSlotNumberDescendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByStorageSlotNrDesc());
                         break;
                     case 3:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByFreeSpaceAscendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByFreeSpaceAsc());
                         break;
                     case 4:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByFreeSpaceDescendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByFreeSpaceDesc());
                         break;
                     case 5:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByOccupiedSpaceAscendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByOccupiedSpaceAsc());
                         break;
                     case 6:
-                        storageSlotReports.Sort(new StorageSlotDetail_SortByOccupiedSpaceDescendingOrder());
+                        storageSlotReports.Sort(new StorageSlotDetailSortByOccupiedSpaceDesc());
                         break;
                     default:
                         loop = false;
