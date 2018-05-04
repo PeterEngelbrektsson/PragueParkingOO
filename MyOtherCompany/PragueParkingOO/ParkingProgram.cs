@@ -104,9 +104,9 @@ namespace MyOtherCompany.PragueParkingOO
 
             // Get filename from appsettings
             string fileName = ConfigurationManager.AppSettings.Get("ParkingPlaceFileName");
-            var myConsole = new ParkingConsole(fileName);
+            var myConsole = new ParkingConsole(fileName, parkingPlace);
 
-            myConsole.DisplayMenu(parkingPlace);
+            myConsole.DisplayMenu();
         }
     }
 }

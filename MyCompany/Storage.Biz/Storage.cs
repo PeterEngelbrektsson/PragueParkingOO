@@ -18,13 +18,13 @@ namespace MyCompany.Storage.Biz
     {
         const int defaultSlotSize = 4;
         const int defaultSlotCount = 100;
-        private StorageSlot<T>[] _storageSlots;
+        private StorageSlot<T>[] storageSlots;
         public int MaxSizeOfStoredItems = 4;
         public int Length
         {
             get
             {
-                return _storageSlots.Length;
+                return storageSlots.Length;
             }
         }
         /// <summary>
@@ -40,13 +40,13 @@ namespace MyCompany.Storage.Biz
                 count += slotSet.Value;
             }
             // Create slots array
-            _storageSlots = new StorageSlot<T>[count];
+            storageSlots = new StorageSlot<T>[count];
             int i = 0;
             foreach(var slotSet in SizeCountOfSlots)
             {
                 for(int j = 0; j < slotSet.Value; j++)
                 {
-                    _storageSlots[i] = new StorageSlot<T>(i, slotSet.Key);
+                    storageSlots[i] = new StorageSlot<T>(i, slotSet.Key);
                     i++;
                 }
                
@@ -58,10 +58,10 @@ namespace MyCompany.Storage.Biz
         /// <param name="size"></param>
         public Storage(int size)
         {  
-            _storageSlots = new StorageSlot<T>[size];
+            storageSlots = new StorageSlot<T>[size];
             for (int i = 0; i < size; i++)
             {
-                _storageSlots[i] = new StorageSlot<T>(i,defaultSlotSize);
+                storageSlots[i] = new StorageSlot<T>(i,defaultSlotSize);
             }
          
         }
@@ -70,10 +70,10 @@ namespace MyCompany.Storage.Biz
         /// </summary>
         public Storage()
         {
-            _storageSlots = new StorageSlot<T>[defaultSlotCount];
+            storageSlots = new StorageSlot<T>[defaultSlotCount];
             for (int i = 0; i < defaultSlotCount; i++)
             {
-                _storageSlots[i] = new StorageSlot<T>(i, defaultSlotSize);
+                storageSlots[i] = new StorageSlot<T>(i, defaultSlotSize);
             }
 
         }
@@ -113,7 +113,7 @@ namespace MyCompany.Storage.Biz
             }
 
             // store item in slot
-            _storageSlots[availableSlotNumber].Add(item);
+            storageSlots[availableSlotNumber].Add(item);
 
             return availableSlotNumber;
         }
@@ -144,7 +144,7 @@ namespace MyCompany.Storage.Biz
         public List<StorageItemDetail> FindAll( )
         {
             List<StorageItemDetail> matches = new List<StorageItemDetail>(); ;
-            foreach (StorageSlot<T> slot in _storageSlots)
+            foreach (StorageSlot<T> slot in storageSlots)
             {
                 matches.AddRange(slot.GetStorageItemDetailsReport()); // return all
             }
@@ -173,9 +173,9 @@ namespace MyCompany.Storage.Biz
         public int FindDistinctSlotNumber(string registrationNumber)
         {
             int found = -1;
-            for(int i=0; i<_storageSlots.Length;i++)
+            for(int i=0; i<storageSlots.Length;i++)
             {
-                if (_storageSlots[i].Contains(registrationNumber))
+                if (storageSlots[i].Contains(registrationNumber))
                 {
                     found = i;
                     break;
@@ -257,7 +257,7 @@ namespace MyCompany.Storage.Biz
         /// <param name="newPlace"></param>
         public void Move(string registrationNumber, int newPlace)
         {
-            if(newPlace<0 || newPlace > _storageSlots.Length)
+            if(newPlace<0 || newPlace > storageSlots.Length)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -268,12 +268,12 @@ namespace MyCompany.Storage.Biz
                 throw new StoreableNotFoundException();
             }
             T storeable = Peek(registrationNumber);
-            if (_storageSlots[newPlace].FreeSpaces(storeable.Size) < 1)
+            if (storageSlots[newPlace].FreeSpaces(storeable.Size) < 1)
             {
                 throw new StorageSlotToFullForStoreableException();
             }
-            _storageSlots[slot].Remove(registrationNumber);
-            _storageSlots[newPlace].Add(storeable);
+            storageSlots[slot].Remove(registrationNumber);
+            storageSlots[newPlace].Add(storeable);
         }
 
         /// <summary>
@@ -300,11 +300,11 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public StorageSlotDetail Occupied(int slotNumber)
         {
-            if (slotNumber < 0 || slotNumber > _storageSlots.Length)
+            if (slotNumber < 0 || slotNumber > storageSlots.Length)
             {
                 throw new ArgumentException();
             }
-            return _storageSlots[slotNumber].GetSlotDetails();
+            return storageSlots[slotNumber].GetSlotDetails();
         }
 
         /// <summary>
@@ -353,9 +353,9 @@ namespace MyCompany.Storage.Biz
         public T Peek(string registrationNumber)
         {
             int found = -1;
-            for (int i = 0; i < _storageSlots.Length; i++)
+            for (int i = 0; i < storageSlots.Length; i++)
             {
-                if (_storageSlots[i].Contains(registrationNumber))
+                if (storageSlots[i].Contains(registrationNumber))
                 {
                     found = i;
                     break;
@@ -364,7 +364,7 @@ namespace MyCompany.Storage.Biz
             T storeable = default(T);
             if (found > -1)
             {
-                storeable = _storageSlots[found].Peek(registrationNumber);
+                storeable = storageSlots[found].Peek(registrationNumber);
             }
             else
             {
@@ -385,14 +385,14 @@ namespace MyCompany.Storage.Biz
             {
                 throw new StoreableNotFoundException();
             }
-            _storageSlots[slotNumber].Remove(registrationNumber);
+            storageSlots[slotNumber].Remove(registrationNumber);
             return slotNumber;
         }
 
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            foreach(StorageSlot<T> slot in _storageSlots)
+            foreach(StorageSlot<T> slot in storageSlots)
             {
                 StorageSlotDetail item = slot.GetSlotDetails();
                 yield return item;
@@ -414,15 +414,15 @@ namespace MyCompany.Storage.Biz
         }
         public override string ToString()
         {
-            return (string.Format("Storage with {0}/{1} slots full.", OccupiedCount(),_storageSlots.Length));
+            return (string.Format("Storage with {0}/{1} slots full.", OccupiedCount(),storageSlots.Length));
         }
 
         public object Clone()
         {
-            Storage<T> newStorage = new Storage<T>(_storageSlots.Length);
-            for(int i=0;i<_storageSlots.Length;i++)
+            Storage<T> newStorage = new Storage<T>(storageSlots.Length);
+            for(int i=0;i<storageSlots.Length;i++)
             {
-                newStorage._storageSlots[i] = (StorageSlot<T>)_storageSlots[i].Clone();
+                newStorage.storageSlots[i] = (StorageSlot<T>)storageSlots[i].Clone();
             }
             
             return newStorage;

@@ -13,14 +13,14 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public class Car:Vehicle
     {
-        private string _colour;
+        private string colour;
         public string Colour {
         get {
-                return _colour;
+                return colour;
             }
             set
             {
-                _colour = value;
+                colour = value;
             }
         }
 

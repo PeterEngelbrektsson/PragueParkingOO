@@ -14,16 +14,16 @@ namespace MyCompany.Storage.Biz
     [Serializable]
     public class StorageSlot<T> : IEnumerable<T>,ICloneable where T : IStoreable
     {
-        private List<T> _storables = new List<T>();
-        private int _slotNumber;
+        private List<T> storables = new List<T>();
+        private int slotNumber;
         public int Size = 4;
         public int SlotNumber { get
             {
-                return _slotNumber;
+                return slotNumber;
             }
              private set
             {
-                _slotNumber = value;
+                slotNumber = value;
             }
         }
 
@@ -57,7 +57,7 @@ namespace MyCompany.Storage.Biz
                 item.TimeStamp = DateTime.Now; // Set timestamp if null. 
                 //If not null it has already been checked in and is only moved around inside the storage
             }
-            _storables.Add(item);
+            storables.Add(item);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace MyCompany.Storage.Biz
         {
             List<StorageItemDetail> details = new List<StorageItemDetail>();
 
-            foreach (T item in _storables)
+            foreach (T item in storables)
             {
                 StorageItemDetail detail = new StorageItemDetail
                 {
@@ -165,7 +165,7 @@ namespace MyCompany.Storage.Biz
         public T Peek(string registrationNumber)
         {
             T result = default(T);
-            foreach (T item in _storables)
+            foreach (T item in storables)
             {
                 if (item.RegistrationNumber.Equals(registrationNumber))
                 {
@@ -188,14 +188,14 @@ namespace MyCompany.Storage.Biz
             }
 
             T item = Peek(registrationNumber);
-            _storables.Remove(item);
+            storables.Remove(item);
 
         }
  
    
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<T>)_storables).GetEnumerator();
+            return ((IEnumerable<T>)storables).GetEnumerator();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace MyCompany.Storage.Biz
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable<T>)_storables).GetEnumerator();
+            return ((IEnumerable<T>)storables).GetEnumerator();
         }
 
 
@@ -212,11 +212,11 @@ namespace MyCompany.Storage.Biz
         {
             get
             {
-                if(index<0 || index > _storables.Count)
+                if(index<0 || index > storables.Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
-                return _storables[index];
+                return storables[index];
             }
         }
         public override string ToString()
@@ -228,7 +228,7 @@ namespace MyCompany.Storage.Biz
         {
 
             StorageSlot<T> newSlot = new StorageSlot<T>(SlotNumber);
-            foreach(T storeable in _storables)
+            foreach(T storeable in storables)
             {
                 newSlot.Add((T)storeable.Clone());
             }

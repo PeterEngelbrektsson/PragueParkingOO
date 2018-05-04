@@ -17,7 +17,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
     public class ParkingPlace : IEnumerable<StorageSlotDetail>, ICloneable
     {
 
-        public Storage<Vehicle> Storage;
+        private Storage<Vehicle> storage;
         public ParkingPlace(int parkingPlaceSize, int slotSize)
         {
             Dictionary<int, int> SlotSizeCounts = new Dictionary<int, int>
@@ -25,7 +25,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
                 { slotSize, parkingPlaceSize }
             };
 
-            Storage = new Storage<Vehicle>(SlotSizeCounts);
+            storage = new Storage<Vehicle>(SlotSizeCounts);
         }
         /// <summary>
         /// Instanciates the storage with a number of slots of default size
@@ -43,7 +43,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
                 { 6, size-((size / 8)*3+(size/4)*2)}    // The rest of the parking places
             };
 
-            Storage = new Storage<Vehicle>(SlotSizeCounts);
+            storage = new Storage<Vehicle>(SlotSizeCounts);
         }
         /// <summary>
         /// Creates the parkingplace with a custom number of slots of different sizes.
@@ -51,7 +51,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <param name="SlotSizeCounts"></param>
         public ParkingPlace(Dictionary<int, int> SlotSizeCounts)
         {
-            Storage = new Storage<Vehicle>(SlotSizeCounts);
+            storage = new Storage<Vehicle>(SlotSizeCounts);
         }
         /// <summary>
         /// Adds a vehicel to the storage place.
@@ -61,7 +61,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns>Slot number the storeable has been parked in</returns>
         public int Add(Vehicle item)
         {
-            return Storage.Add(item);
+            return storage.Add(item);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageItemDetail> Find(string SearchString)
         {
-            return Storage.Find(SearchString);
+            return storage.Find(SearchString);
         }
         /// <summary>
         /// Returns all vehicles stored in the storage place 
@@ -78,7 +78,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageItemDetail> FindAll()
         {
-            return Storage.FindAll();
+            return storage.FindAll();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageSlotDetail> FindAllSlots()
         {
-            return Storage.FindAllSlots();
+            return storage.FindAllSlots();
         }
  
         /// <summary>
@@ -97,7 +97,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public int FindDistinctSlotNumber(string registrationNumber)
         {
-            return Storage.FindDistinctSlotNumber(registrationNumber);
+            return storage.FindDistinctSlotNumber(registrationNumber);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public int FindFreePlace(int size)
         {
-            return Storage.FindFreePlace(size);
+            return storage.FindFreePlace(size);
         }
  
         /// <summary>
@@ -116,7 +116,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageSlotDetail> FindFreeSlots(int size)
         {
-            return Storage.FindFreeSlots(size);
+            return storage.FindFreeSlots(size);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageSlotDetail> FindFreeSlots()
         {
-            return Storage.FindFreeSlots(1);
+            return storage.FindFreeSlots(1);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public int FreeSpacesCount(int size)
         {
-            return Storage.FreeSpacesCount(size);
+            return storage.FreeSpacesCount(size);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <param name="newPlace"></param>
         public void Move(string registrationNumber, int newPlace)
         {
-            Storage.Move(registrationNumber, newPlace);
+            storage.Move(registrationNumber, newPlace);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageSlotDetail> Occupied()
         {
-            return Storage.Occupied();
+            return storage.Occupied();
         }
  
         /// <summary>
@@ -163,7 +163,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public StorageSlotDetail Occupied(int slotNumber)
         {
-            return Storage.Occupied(slotNumber);
+            return storage.Occupied(slotNumber);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public int OccupiedCount()
         {
-            return Storage.OccupiedCount();
+            return storage.OccupiedCount();
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public int PartiallyOccupiedCount()
         {
-            return Storage.PartiallyOccupiedCount();
+            return storage.PartiallyOccupiedCount();
         }
  
         /// <summary>
@@ -190,7 +190,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public List<StorageSlotDetail> PartiallyOccupied()
         {
-            return Storage.PartiallyOccupied();
+            return storage.PartiallyOccupied();
         }
  
         /// <summary>
@@ -200,7 +200,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns></returns>
         public Vehicle Peek(string registrationNumber)
         {
-            return Storage.Peek(registrationNumber);
+            return storage.Peek(registrationNumber);
         }
   
         /// <summary>
@@ -210,12 +210,12 @@ namespace MyOtherCompany.PragueParkingOO.Biz
         /// <returns>number of storage slot</returns>    
         public int Remove(string registrationNumber)
         {
-            return Storage.Remove(registrationNumber);
+            return storage.Remove(registrationNumber);
         }
 
         public IEnumerator<StorageSlotDetail> GetEnumerator()
         {
-            foreach (StorageSlotDetail slot in Storage.FindAllSlots())
+            foreach (StorageSlotDetail slot in storage.FindAllSlots())
             {
                 yield return slot;
             }
@@ -223,7 +223,7 @@ namespace MyOtherCompany.PragueParkingOO.Biz
 
         IEnumerator<StorageSlotDetail> IEnumerable<StorageSlotDetail>.GetEnumerator()
         {
-            foreach (StorageSlotDetail slot in Storage.FindAllSlots())
+            foreach (StorageSlotDetail slot in storage.FindAllSlots())
             {
                 yield return slot;
             }
@@ -246,18 +246,75 @@ namespace MyOtherCompany.PragueParkingOO.Biz
 
         public override string ToString()
         {
-            return (string.Format("Vehicle parking with {0}/{1} slots full.", OccupiedCount(), Storage.Length));
+            return (string.Format("Vehicle parking with {0}/{1} slots full.", OccupiedCount(), storage.Length));
         }
 
         public object Clone()
         {
-            Storage<Vehicle> newStorage = (Storage<Vehicle>)Storage.Clone();
+            Storage<Vehicle> newStorage = (Storage<Vehicle>)storage.Clone();
             return newStorage;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable<StorageSlotDetail>)Storage).GetEnumerator();
+            return ((IEnumerable<StorageSlotDetail>)storage).GetEnumerator();
+        }
+        /// <summary>
+        /// Optimize one pakable of one specified size
+        /// </summary>
+        /// <param name="parkingPlace">Parking place</param>
+        /// <param name="size">Size of Vehicle to optimize</param>
+        /// <returns></returns>
+        public OptimizeMovementDetail GetOneOptimizeInstruction(ParkingPlace parkingPlace, int size)
+        {
+            StorageOptimizer<Vehicle> optimizer = new StorageOptimizer<Vehicle>();
+            return optimizer.GetOneOptimizeInstruction(parkingPlace.storage, size);
+
+        }
+
+
+        /// <summary>
+        /// Optimizes the parking place.
+        /// Calls a function that does the actual optimization.
+        /// The optimization is done on a copy of the parking place.
+        /// The instructions to optimize is returned.
+        /// </summary>
+        /// <param name="storage"></param>
+        /// <returns>Instruction how to optimze the parking place.</returns>
+        public List<OptimizeMovementDetail> GetOptimzeInstructions()
+        {
+            StorageOptimizer<Vehicle> optimizer = new StorageOptimizer<Vehicle>();
+            return optimizer.GetOptimzeInstructions(storage);
+        }
+        /// <summary>
+        /// Do an optimization of the parking place.
+        /// </summary>
+        /// <param name="storage"></param>
+        public void DoOptimization()
+        {
+            // Call the optimize function that modifies the parking place.
+            StorageOptimizer<Vehicle> optimizer = new StorageOptimizer<Vehicle>();
+            optimizer.GetOptimzeInstructionsModifying(storage);
+        }
+
+        /// <summary>
+        /// Saves the parking placce to file
+        /// </summary>
+        /// <param name="storage"></param>
+        /// <param name="fileName"></param>
+        public void SaveToFile(string fileName)
+        {
+            StorageRepository<Vehicle>.SaveToFile(storage, fileName);
+        }
+        /// <summary>
+        /// Loads the parkin place from file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public void LoadFromFile(string fileName)
+        {
+            Storage<Vehicle> newStorage= (Storage<Vehicle>)StorageRepository<Vehicle>.LoadFromFile(fileName);
+            storage = newStorage;
         }
     }
 }

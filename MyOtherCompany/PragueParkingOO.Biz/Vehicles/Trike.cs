@@ -18,16 +18,16 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
             Size = 3;
             TypeName = "Trike";
         }
-        private string _manufacturer;
+        private string manufacturer;
         public string Manufacturer
         {
             get
             {
-                return _manufacturer;
+                return manufacturer;
             }
             set
             {
-                _manufacturer = value;
+                manufacturer = value;
             }
         }
         public Trike(string registrationnumber, string manufactuer) : base(registrationnumber,3,"Trike")

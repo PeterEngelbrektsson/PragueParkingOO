@@ -13,14 +13,14 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public class MotorBike:Vehicle
     {
-        private string _mark;
+        private string mark;
         public string Mark {
         get {
-                return _mark;
+                return mark;
             }
             set
             {
-                _mark = value;
+                mark = value;
             }
         }
 

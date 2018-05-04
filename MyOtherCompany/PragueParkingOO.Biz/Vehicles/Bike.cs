@@ -27,13 +27,13 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
         {
             this.Brand = brand;
         }
-        private string _brand;
+        private string brand;
         public string Brand{
             get {
-                return _brand;
+                return brand;
             }
              set {
-                _brand = value;
+                brand = value;
             }
 
         }

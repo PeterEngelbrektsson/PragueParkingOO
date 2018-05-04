@@ -13,26 +13,26 @@ namespace MyOtherCompany.PragueParkingOO.Biz.Vehicles
     [Serializable]
     public abstract class Vehicle : IStoreable
     {
-        private int _size;          // Size of vehicle
+        private int size;          // Size of vehicle
         private string _typeName;   // User friendly name of vehicle type
-        private string _registrationNumber;
+        private string registrationNumber;
         private DateTime _timestamp;
 
         public int Size
         {
-            get { return _size; }
-            set { _size = value; }
+            get { return size; }
+            set { size = value; }
         }        
         public string RegistrationNumber {
             get
             {
-                return _registrationNumber;
+                return registrationNumber;
             }
              set
             {
                 if (VehicleValidator.ValidRegistrationNumber(value, out string[] errorMessages))
                 {
-                    _registrationNumber = value;
+                    registrationNumber = value;
                 }
                 else
                 {
