@@ -12,7 +12,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
     public static class ParkingConsole
     {
         public const int NumberOfParkinPlaces = 100;
-        public const string ParkingPlaceFileName = "ParkinPlace2_0.bin";
+        public const string ParkingPlaceFileName = "ParkingPlace2_0.bin";
 
         /// <summary>
         /// Writes the main menu 
@@ -22,8 +22,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
-            Console.WriteLine("  Prague Parking v2.0 Object oriented");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("  Prague Parking v2.0 Object oriented");     // Version updated
+            Console.WriteLine("---------------------------------------");
             Console.WriteLine("1. Add a vehicle");
             Console.WriteLine("2. Move a vehicle");
             Console.WriteLine("3. Find a vehicle");
