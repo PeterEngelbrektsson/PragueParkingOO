@@ -7,6 +7,7 @@ using MyOtherCompany.PragueParkingOO.UI;
 using MyOtherCompany.PragueParkingOO.Biz;
 using MyOtherCompany.PragueParkingOO.Biz.Vehicles;
 using MyCompany.Storage.Biz;
+using System.Configuration;
 
 namespace MyOtherCompany.PragueParkingOO
 {
@@ -101,7 +102,11 @@ namespace MyOtherCompany.PragueParkingOO
             // Setup demo with testdata.  FIXME remove this in production code.
             PopulateTestData(parkingPlace);
 
-            ParkingConsole.DisplayMenu(parkingPlace);
+            // Get filename from appsettings
+            string fileName = ConfigurationManager.AppSettings.Get("ParkingPlaceFileName");
+            var myConsole = new ParkingConsole(fileName);
+
+            myConsole.DisplayMenu(parkingPlace);
         }
     }
 }

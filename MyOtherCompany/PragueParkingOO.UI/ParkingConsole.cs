@@ -9,16 +9,20 @@ using System.Linq;
 
 namespace MyOtherCompany.PragueParkingOO.UI
 {
-    public static class ParkingConsole
+    public class ParkingConsole
     {
         public const int NumberOfParkinPlaces = 100;
-        public const string ParkingPlaceFileName = "ParkingPlace2_0.bin";
+        public string ParkingPlaceFileName = "ParkingPlace2_0.bin";
 
+        public ParkingConsole(string FileName)
+        {
+            ParkingPlaceFileName = FileName;
+        }
         /// <summary>
         /// Writes the main menu 
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void WriteMenu(ParkingPlace parkingPlace)
+        public void WriteMenu(ParkingPlace parkingPlace)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
@@ -48,7 +52,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Display a message if the park can be optimized.
         /// </summary>
         /// <param name="parkingPlace">The parking place</param>
-        public static void DisplayIfCanBeOptimized(ParkingPlace parkingPlace)
+        public void DisplayIfCanBeOptimized(ParkingPlace parkingPlace)
         {
             ParkingPlaceOptimizer optimizer = new ParkingPlaceOptimizer();
             List<OptimizeMovementDetail> OptimizationInstructions = optimizer.GetOptimzeInstructions(parkingPlace);
@@ -63,7 +67,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Displays statistics about the parking place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayStatistics(ParkingPlace parkingPlace)
+        public void DisplayStatistics(ParkingPlace parkingPlace)
         {
             int freeParkingPlacesCar = parkingPlace.FreeSpacesCount(new Car().Size);
             int freeParkingPlacesBike = parkingPlace.FreeSpacesCount(new Bike().Size);
@@ -85,7 +89,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Display the menu bar.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayMenu(ParkingPlace parkingPlace)
+        public void DisplayMenu(ParkingPlace parkingPlace)
         {
             // Console.Clear(); -- Do we want to clear screen between repeat displays of the menu or not ? 
             bool keepLoop = true;
@@ -178,7 +182,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Displays a list of all parked vehicles in the parking place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayParkedVehicels(ParkingPlace parkingPlace)
+        public void DisplayParkedVehicels(ParkingPlace parkingPlace)
         {
             var parkedVehicles = parkingPlace.FindAll();
 
@@ -265,7 +269,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Writes a report of all storageSlotReports to the console.
         /// </summary>
         /// <param name="storageSlotReports">Storage slot reports to write</param>
-        public static void WriteParkingSlotOverview(IEnumerable<StorageSlotDetail> storageSlotReports)
+        public void WriteParkingSlotOverview(IEnumerable<StorageSlotDetail> storageSlotReports)
         {
     
                 Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
@@ -309,7 +313,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Writes a report of all passed storageSlotReports to the console.
         /// </summary>
         /// <param name="storageSlotReports">Storage slot reports to write</param>
-        public static void WriteParkingSlotContent(List<StorageSlotDetail> storageSlotReports)
+        public void WriteParkingSlotContent(List<StorageSlotDetail> storageSlotReports)
         {
             bool loop = true;
             int choice = 1;     // default sorting order to display before giving options to resort
@@ -392,7 +396,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Display an short overivew of the parking slots
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayParkingSlotsOverview(ParkingPlace parkingPlace)
+        public void DisplayParkingSlotsOverview(ParkingPlace parkingPlace)
         {
             WriteParkingSlotOverview(parkingPlace.FindAllSlots());
         }
@@ -400,7 +404,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             /// Displays overview of all parked vehicles in the parking place.
             /// </summary>
             /// <param name="parkingPlace"></param>
-            public static void DisplayOverview(ParkingPlace parkingPlace)
+            public void DisplayOverview(ParkingPlace parkingPlace)
         {
 
             WriteParkingSlotContent(parkingPlace.FindAllSlots());
@@ -411,7 +415,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Displays all free places in the parkingplace
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void DisplayOccupiedPlaces(ParkingPlace parkingPlace)
+        public void DisplayOccupiedPlaces(ParkingPlace parkingPlace)
         {
             WriteParkingSlotContent(parkingPlace.Occupied());
         }
@@ -421,7 +425,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// </summary>
         /// <param name="parkingPlace"></param>
 
-        public static void Optimize(ParkingPlace parkingPlace)
+        public void Optimize(ParkingPlace parkingPlace)
         {
             ParkingPlaceOptimizer optimizer = new ParkingPlaceOptimizer();
             List<OptimizeMovementDetail> OptimizeInstructions;
@@ -476,7 +480,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// </summary>
         /// <param name="parkingPlace"></param>
         /// <param name="registrationNumber"></param>
-        public static void Remove(ParkingPlace parkingPlace, string registrationNumber)
+        public void Remove(ParkingPlace parkingPlace, string registrationNumber)
         {
 
             try
@@ -516,7 +520,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Finding free parking place. 
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void FindFreeSpot(ParkingPlace parkingPlace)
+        public void FindFreeSpot(ParkingPlace parkingPlace)
         {
  
             VehicleType vehicleType = PromptForVehicelType();
@@ -557,7 +561,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Finding Vehicle
         /// </summary>
         /// <param name="parkingPlace"></param>
-        static void FindVehicle(ParkingPlace parkingPlace)
+        void FindVehicle(ParkingPlace parkingPlace)
         {
             // Console.WriteLine("Please enter the registration number of the vehicle : ");
             string registrationNumber = PromptForRegistrationNumber();
@@ -589,7 +593,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Moving Vehicle one place to another place.
         /// </summary>
         /// <param name="parkingPlace"></param>
-        public static void MoveVehicle(ParkingPlace parkingPlace)
+        public void MoveVehicle(ParkingPlace parkingPlace)
         {
             Console.Write("Enter the registration number: ");
             string registrationNumber = Console.ReadLine().ToUpper();
@@ -665,7 +669,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Prompts the user for a valid registration number or exit code 0
         /// </summary>
         /// <returns></returns>
-        public static string PromptForRegistrationNumber()
+        public string PromptForRegistrationNumber()
         {
             bool loop = true;
             string registrationNumber = null;
@@ -693,7 +697,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
             } while (loop);
             return registrationNumber;
         }
-        public static VehicleType PromptForVehicelType()
+        public VehicleType PromptForVehicelType()
         {
             bool loop = true;
             VehicleType type= VehicleType.Unspecified;
@@ -730,7 +734,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Prompts the user for a bike manufacturer
         /// </summary>
         /// <returns></returns>
-        public static string PromptFormanufacturerTrike()
+        public string PromptFormanufacturerTrike()
         {
             bool loop = true;
             string manufacturer = null;
@@ -754,7 +758,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Prompts the user for a bike brand
         /// </summary>
         /// <returns></returns>
-        public static string PromptForBrandBike()
+        public string PromptForBrandBike()
         {
             bool loop = true;
             string brand = null;
@@ -778,7 +782,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Prompts the user for a Car mark
         /// </summary>
         /// <returns></returns>
-        public static string PromptForColourCar()
+        public string PromptForColourCar()
         {
             bool loop = true;
             string colour = null;
@@ -802,7 +806,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Prompts the user for a motorbike mark
         /// </summary>
         /// <returns></returns>
-        public static string PromptForMarkMotorbike()
+        public string PromptForMarkMotorbike()
         {
             bool loop = true;
             string mark = null;
@@ -828,7 +832,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         /// <param name="registrationNumber"></param>
         /// <param name="vehicleType"></param>
-        public static void ParkVehicle(ParkingPlace parkingPlace)
+        public void ParkVehicle(ParkingPlace parkingPlace)
         {
             VehicleType vehicleType = PromptForVehicelType();
             if (vehicleType == VehicleType.Unspecified)
@@ -917,7 +921,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Revome Vehicle
         /// </summary>
         /// <param name="parkingPlace"></param>
-        static void RemoveVehicle(ParkingPlace parkingPlace)
+        void RemoveVehicle(ParkingPlace parkingPlace)
         {
             string registrationNumber = PromptForRegistrationNumber();
             if (registrationNumber != null)
