@@ -265,12 +265,8 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// Writes a report of all storageSlotReports to the console.
         /// </summary>
         /// <param name="storageSlotReports">Storage slot reports to write</param>
-        public static void WriteParkingSlotOverview(List<StorageSlotDetail> storageSlotReports)
+        public static void WriteParkingSlotOverview(IEnumerable<StorageSlotDetail> storageSlotReports)
         {
-            bool loop = true;
-            int choice = 1;     // default sorting order to display before giving options to resort
-            do
-            {
     
                 Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
                 Console.WriteLine("Slot Used Vehicles");
@@ -308,12 +304,6 @@ namespace MyOtherCompany.PragueParkingOO.UI
                 Console.WriteLine("Enter. Return to main menu.");
                 Console.WriteLine();
                 string select = Console.ReadLine();
-                if (!int.TryParse(select, out choice))
-                {
-                    loop = false;
-                    return;
-                }
-            } while (loop);
         }
         /// <summary>
         /// Writes a report of all passed storageSlotReports to the console.
