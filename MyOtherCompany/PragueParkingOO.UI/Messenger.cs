@@ -19,7 +19,7 @@ namespace MyOtherCompany.PragueParkingOO
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine(text);
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
         }
         /// <summary>
         /// Write error message.
@@ -35,7 +35,7 @@ namespace MyOtherCompany.PragueParkingOO
         /// <param name="text"></param>
         public static void WriteInformationMessage(string text)
         {
-            WriteMessage(text, ConsoleColor.Green);
+            WriteMessage(text, ConsoleColor.DarkGreen);
         }
         /// <summary>
         /// Write error message.

@@ -17,6 +17,9 @@ namespace MyOtherCompany.PragueParkingOO.UI
         public ParkingConsole(string FileName)
         {
             ParkingPlaceFileName = FileName;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.Clear();
         }
         /// <summary>
         /// Writes the main menu 
@@ -24,7 +27,7 @@ namespace MyOtherCompany.PragueParkingOO.UI
         /// <param name="parkingPlace"></param>
         public void WriteMenu(ParkingPlace parkingPlace)
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine();
             Console.WriteLine("  Prague Parking v2.0 Object oriented");     // Version updated
             Console.WriteLine("---------------------------------------");
@@ -285,15 +288,15 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     }
                     else if (report.OccupiedSpace > 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                     }
                     Console.Write(" {0,1}/{1,1} ", report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
-                    Console.ForegroundColor = ConsoleColor.White;
-                    if (column >= 9)
+                    Console.ForegroundColor = ConsoleColor.Black;
+                if (column >= 9)
                     {
                         Console.WriteLine();
                         column = 0;
@@ -355,14 +358,14 @@ namespace MyOtherCompany.PragueParkingOO.UI
                     }
                     else if (report.OccupiedSpace > 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                     }
                     Console.Write(" {0,3} {1,1}/{2,1}", report.SlotNumber+1, report.OccupiedSpace, report.Size); // slotnumber convertion from 0 to 1 based
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     foreach (var itemDetail in report.StorageItemDetails)
                     {
                         Console.Write(" [{0,12} {1,10}] ", itemDetail.TypeName, itemDetail.RegistrationNumber);
